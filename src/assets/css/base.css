@@ -1,0 +1,13 @@
+@layer base {
+  html {
+    @apply bg-gray-100 font-sans h-full overflow-y-scroll;
+  }
+
+  body {
+    @apply h-full;
+  }
+
+  #app {
+    @apply min-h-screen flex flex-col;
+  }
+}
