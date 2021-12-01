@@ -56,7 +56,8 @@ export default function dynamicRoutes(components, stories, app, router) {
       const parentRoute = {
         name: parent,
         path: `/${routePath}`,
-        component: component.default,
+        component: () => import(`../components/ui/${parent}/${parent}.vue`),
+        // component: component.default,
         meta: { parent: true },
         props: dynamicPropsFn,
         redirect,
@@ -65,13 +66,13 @@ export default function dynamicRoutes(components, stories, app, router) {
 
       router.addRoute(parentRoute);
 
-      app.component(parent, component.default);
-      // app.component(
-      //   parent,
-      //   defineAsyncComponent(() =>
-      //     import(`../components/ui/${parent}/${parent}.vue`),
-      //   ),
-      // );
+      // app.component(parent, component.default);
+      app.component(
+        parent,
+        defineAsyncComponent(() =>
+          import(`../components/ui/${parent}/${parent}.vue`),
+        ),
+      );
     }
   });
 }

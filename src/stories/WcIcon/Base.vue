@@ -1,5 +1,9 @@
 <script setup lang="ts">
-  import { defineProps } from 'vue';
+  import { useStore } from 'vuex';
+  import controls from './controls';
+
+  const store = useStore();
+  store.dispatch('controls/setControls', controls);
 
   const args = {
     name: 'templateOutline',

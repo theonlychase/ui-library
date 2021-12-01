@@ -9,7 +9,7 @@
     </div>
     <div class="max-w-7xl px-4 sm:px-6 md:px-8">
       <div class="py-4">
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }">
           <component :is="Component" />
         </router-view>
       </div>

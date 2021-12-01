@@ -1,18 +1,35 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { useRouter, useRoute } from 'vue-router';
+  import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
   const router = useRouter();
   const route = useRoute();
+  import { computed, defineAsyncComponent, watch } from 'vue';
+  import { useStore } from 'vuex';
+  const store = useStore();
+  const components = {
+    WcSelect: defineAsyncComponent(
+      () => import('@/components/ui/WcSelect/WcSelect.vue'),
+    ),
+    // WcInput: defineAsyncComponent(
+    //   () => import('@/components/ui/WcInput/WcInput.vue'),
+    // ),
+  };
 
-  let selected = ref('medium');
+  watch(
+    () => route.path,
+    async (val) => {
+      await store.dispatch('controls/setControls', null);
+      await router.replace({ query: {} });
+    },
+  );
 
-  const updateQuery = ({ target }) => {
-    selected.value = target.value;
+  const controlsState = computed(() => store.state.controls.controls);
 
+  const updateQuery = (val) => {
+    controlsState.value.size.props.value = val;
     router.push({
       name: route.name,
       query: {
-        size: selected.value,
+        size: val,
       },
     });
   };
@@ -20,21 +37,16 @@
 
 <template>
   <div class="min-h-[500px] bg-white mt-auto shadow">
-    <div>
-      <label for="location" class="block text-sm font-medium text-gray-700"
-        >Location</label
-      >
-      {{ selected }}
-      <select
-        id="location"
-        name="location"
-        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-        @input="updateQuery"
-      >
-        <option>small</option>
-        <option selected>medium</option>
-        <option>large</option>
-      </select>
-    </div>
+    {{ controlsState }}
+    <template v-if="controlsState">
+      <template v-for="comp in components">
+        <component
+          :is="comp"
+          :value="controlsState.size.props.value"
+          :options="controlsState.size.props.options"
+          @update:value="updateQuery"
+        />
+      </template>
+    </template>
   </div>
 </template>

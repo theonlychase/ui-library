@@ -1,6 +1,4 @@
-<script setup lang="ts">
-  import { defineProps } from 'vue';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>TEST</div>

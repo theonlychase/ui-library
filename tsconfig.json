@@ -17,6 +17,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "types": ["vite/client"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": [

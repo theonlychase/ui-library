@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { defineProps, ref } from 'vue';
+  import { ref } from 'vue';
 
   const props = defineProps({
     children: {
@@ -52,9 +52,9 @@
   <div v-if="isOpen" id="sub-menu-1" class="space-y-1">
     <router-link
       v-for="child in children"
-      v-slot="{ isActive }"
+      v-slot="{ isActive, route }"
       :key="child.name"
-      :to="child.path"
+      :to="{ name: child.name, query: { ...$route.query } }"
     >
       <button
         type="button"

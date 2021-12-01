@@ -6,6 +6,15 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Dashboard',
     path: '/',
   },
+  {
+    path: '/404',
+    name: 'NotFound',
+    component: () => import('@/pages/Dashboard.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+  },
 ];
 
 export default routes;
