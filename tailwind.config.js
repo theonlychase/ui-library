@@ -6,7 +6,12 @@ module.exports = {
   },
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      transitionDuration: {
+        0: '0ms',
+        50: '50ms',
+      },
+    },
   },
   variants: {
     extend: {},

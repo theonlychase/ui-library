@@ -20,7 +20,7 @@
 </script>
 
 <template>
-  <router-link :to="path">
+  <router-link :to="{ name }">
     <button
       type="button"
       :class="
@@ -52,9 +52,9 @@
   <div v-if="isOpen" id="sub-menu-1" class="space-y-1">
     <router-link
       v-for="child in children"
-      v-slot="{ isActive, route }"
+      v-slot="{ isActive }"
       :key="child.name"
-      :to="{ name: child.name, query: { ...$route.query } }"
+      :to="`${path}/${child.path}`"
     >
       <button
         type="button"

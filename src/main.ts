@@ -14,7 +14,7 @@ const router = createRouter({
   routes,
 });
 
-dynamicRoutes(components, stories, app, router);
+dynamicRoutes(components, stories, app, router, store);
 
 const navItems = router.getRoutes();
 app.provide('nav-items', navItems);

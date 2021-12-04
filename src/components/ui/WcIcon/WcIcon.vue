@@ -28,6 +28,12 @@
     },
   });
 
+  const computedAttrs = computed(() => {
+    return props.name.toLocaleLowerCase().includes('stroke')
+      ? { stroke: props.color }
+      : { fill: props.color };
+  });
+
   const computedClasses = computed(() => ({
     [`WcIcon--${props.size}`]: props.size,
   }));
@@ -42,8 +48,8 @@
     :viewBox="viewBox"
     class="WcIcon select-none"
     :class="computedClasses"
-    :fill="color"
     role="presentation"
+    v-bind="computedAttrs"
     v-html="computedSvg"
   />
 </template>

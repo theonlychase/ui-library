@@ -23,7 +23,7 @@ function getComponentPath(path) {
 //   customElements.define(element, customElement);
 // }
 
-export default function dynamicRoutes(components, stories, app, router) {
+export default function dynamicRoutes(components, stories, app, router, store) {
   Object.entries(components).forEach(([path, component]) => {
     const { componentName: parent, routePath } = getComponentPath(path);
 
@@ -44,14 +44,15 @@ export default function dynamicRoutes(components, stories, app, router) {
             component: () =>
               import(`../stories/${parent}/${componentName}.vue`),
             meta: { parent },
+            beforeEnter(to, from) {
+              store.dispatch('controls/setControls', null);
+            },
             props: dynamicPropsFn,
           });
         }
       });
 
-      const redirect = children.length
-        ? `/${routePath}/${children[0].path}`
-        : '/';
+      const redirect = children.length ? { name: children[0].name } : parent;
 
       const parentRoute = {
         name: parent,

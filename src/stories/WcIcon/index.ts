@@ -1,9 +1,9 @@
-import Base from './Base.vue';
-import Sizes from './Sizes.vue';
+import IconBase from './IconBase.vue';
+import IconSizes from './IconSizes.vue';
 
 export default {
   components: {
-    Base,
-    Sizes,
+    IconBase,
+    IconSizes,
   },
 };

@@ -14,7 +14,10 @@
 </script>
 
 <template>
-  <select @input="({ target }) => $emit('update:value', target.value)">
+  <select
+    :value="value"
+    @input="({ target }) => $emit('update:value', target.value)"
+  >
     <template v-if="options.length">
       <option v-for="option in options" :key="option">{{ option }}</option>
     </template>

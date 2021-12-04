@@ -1,35 +1,44 @@
 <script setup lang="ts">
-  import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router';
+  import { useRouter, useRoute } from 'vue-router';
+  import { useStore } from 'vuex';
+  import { computed, defineAsyncComponent, watch } from 'vue';
+
   const router = useRouter();
   const route = useRoute();
-  import { computed, defineAsyncComponent, watch } from 'vue';
-  import { useStore } from 'vuex';
   const store = useStore();
+
   const components = {
     WcSelect: defineAsyncComponent(
       () => import('@/components/ui/WcSelect/WcSelect.vue'),
     ),
-    // WcInput: defineAsyncComponent(
-    //   () => import('@/components/ui/WcInput/WcInput.vue'),
-    // ),
+    WcInput: defineAsyncComponent(
+      () => import('@/components/ui/WcInput/WcInput.vue'),
+    ),
   };
-
-  watch(
-    () => route.path,
-    async (val) => {
-      await store.dispatch('controls/setControls', null);
-      await router.replace({ query: {} });
-    },
-  );
 
   const controlsState = computed(() => store.state.controls.controls);
 
-  const updateQuery = (val) => {
-    controlsState.value.size.props.value = val;
+  watch(
+    () => controlsState.value,
+    (val) => {
+      if (val) {
+        Object.entries(route.query).forEach(([key, value]) => {
+          controlsState.value[`${key}`].props.value = value;
+        });
+      }
+    },
+    { immediate: true },
+  );
+
+  const updateQuery = ({ val, name }) => {
+    controlsState.value[`${name}`].props.value = val;
+    store.dispatch('controls/setControls', controlsState.value);
+
     router.push({
       name: route.name,
       query: {
-        size: val,
+        ...route.query,
+        [`${name}`]: val,
       },
     });
   };
@@ -37,16 +46,17 @@
 
 <template>
   <div class="min-h-[500px] bg-white mt-auto shadow">
-    {{ controlsState }}
     <template v-if="controlsState">
-      <template v-for="comp in components">
+      <template v-for="control in controlsState" :key="control.name">
         <component
-          :is="comp"
-          :value="controlsState.size.props.value"
-          :options="controlsState.size.props.options"
-          @update:value="updateQuery"
+          :is="
+            control.type === 'select' ? components.WcSelect : components.WcInput
+          "
+          v-bind="control.props"
+          @update:value="(val) => updateQuery({ val, name: control.name })"
         />
       </template>
     </template>
+    <div v-else>NO CONTROLS FOR THIS STORY</div>
   </div>
 </template>
