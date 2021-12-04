@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, inject } from 'vue';
 
   const props = defineProps({
     children: {
@@ -15,6 +15,8 @@
       default: '',
     },
   });
+
+  const closeSidebar = inject('closeSidebar');
 
   const isOpen = ref(false);
 </script>
@@ -64,6 +66,7 @@
             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
         "
         class="group w-full flex items-center pl-10 pr-2 py-2 text-sm font-medium rounded-md"
+        @click="closeSidebar"
       >
         {{ child.name }}
       </button>

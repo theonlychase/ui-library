@@ -1,9 +1,15 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, provide } from 'vue';
   import NavigationMenu from '@/components/layout/NavigationMenu';
 
   const sidebarOpen = ref(false);
   const sidebarTransition = ref(false);
+
+  const closeSidebar = () => {
+    sidebarTransition.value = false;
+  };
+
+  provide('closeSidebar', closeSidebar);
 </script>
 
 <template>
@@ -60,7 +66,7 @@
             >
               <span class="sr-only">Close sidebar</span>
 
-              <wc-icon name="closeOutline" size="small" stroke="white" />
+              <wc-icon name="closeOutlineStroke" size="small" stroke="white" />
             </button>
           </div>
         </transition>
@@ -94,7 +100,7 @@
         <span class="sr-only">Open sidebar</span>
 
         <wc-icon
-          name="menuAlt2"
+          name="menuAlt2Stroke"
           size="small"
           stroke="currentColor"
           aria-hidden="true"

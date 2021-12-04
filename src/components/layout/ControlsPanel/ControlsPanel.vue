@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useRouter, useRoute } from 'vue-router';
   import { useStore } from 'vuex';
-  import { computed, defineAsyncComponent, watch } from 'vue';
+  import { computed, defineAsyncComponent, watch, ref } from 'vue';
 
   const router = useRouter();
   const route = useRoute();
@@ -17,6 +17,14 @@
   };
 
   const controlsState = computed(() => store.state.controls.controls);
+  const tabs = [
+    { id: 'controls', title: 'Controls' },
+    { id: 'documentation', title: 'Documentation' },
+  ];
+  const activeTab = ref('controls');
+  const tabContentSlot = computed(() => {
+    return `tab-content-${activeTab.value}`;
+  });
 
   watch(
     () => controlsState.value,
@@ -45,18 +53,24 @@
 </script>
 
 <template>
-  <div class="min-h-[500px] bg-white mt-auto shadow">
-    <template v-if="controlsState">
-      <template v-for="control in controlsState" :key="control.name">
-        <component
-          :is="
-            control.type === 'select' ? components.WcSelect : components.WcInput
-          "
-          v-bind="control.props"
-          @update:value="(val) => updateQuery({ val, name: control.name })"
-        />
+  <div class="min-h-[300px] bg-white mt-auto shadow">
+    <wc-tabs v-model:active="activeTab" :tabs="tabs">
+      <template #[tabContentSlot]="{ tab }">
+        <template v-if="controlsState && tab === 'controls'">
+          <template v-for="control in controlsState" :key="control.name">
+            <component
+              :is="
+                control.type === 'select'
+                  ? components.WcSelect
+                  : components.WcInput
+              "
+              v-bind="control.props"
+              @update:value="(val) => updateQuery({ val, name: control.name })"
+            />
+          </template>
+        </template>
+        <template v-if="tab === 'documentation'"> DOCS </template>
       </template>
-    </template>
-    <div v-else>NO CONTROLS FOR THIS STORY</div>
+    </wc-tabs>
   </div>
 </template>

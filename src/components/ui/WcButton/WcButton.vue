@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { computed } from 'vue';
-
   const props = defineProps({
     block: {
       type: Boolean,
@@ -64,7 +62,6 @@
       'WcButton--anchor': props.href,
       'WcButton--block': props.block,
       'WcButton--rounded': props.rounded,
-      'WcButton--dimmed': props.dimmed,
       [`WcButton--${props.variation}`]: props.variation,
       [`WcButton--${props.size}`]: props.size,
     }"

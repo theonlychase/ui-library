@@ -1,0 +1,107 @@
+<script setup lang="ts">
+  import { computed, ref } from 'vue';
+  interface Tab {
+    id: string;
+    title: string;
+  }
+
+  const props = defineProps({
+    active: {
+      type: String,
+      default: null,
+    },
+    grow: {
+      type: Boolean,
+      default: false,
+    },
+    size: {
+      type: String,
+      default: 'medium',
+      validator: (size) => {
+        return size.match(/(small|medium)/);
+      },
+    },
+    tabs: {
+      type: Array,
+      required: true,
+      validator: (tabs: Array<Tab>) => {
+        return tabs.every((tab: Tab) => {
+          return Boolean(tab.id && tab.title);
+        });
+      },
+    },
+    vertical: {
+      type: Boolean,
+      default: false,
+    },
+  });
+  const emit = defineEmits(['update:active']);
+
+  const tabContent = computed(() => {
+    return props.tabs.find((tab) => tab.id === props.active);
+  });
+
+  const tabContentSlotName = computed(() => {
+    return `tab-content-${props.active}`;
+  });
+</script>
+
+<template>
+  <div
+    class="WcTabs flex-auto w-full"
+    :class="{ 'WcTabs-grow': props.grow, 'WcTabs-vertical': props.vertical }"
+  >
+    <div class="WcTabs-header flex relative mb-6">
+      <div
+        v-for="tab in tabs"
+        :key="tab.id"
+        class="WcTabs-tab text-gray-600 text-sm capitalize py-4 cursor-pointer flex justify-center items-center"
+        :class="{
+          'WcTabs-tab--active': active === tab.id,
+          [`WcTabs-tab--${size}`]: size,
+        }"
+        tabindex="0"
+        role="tab"
+        @click="$emit('update:active', tab.id)"
+      >
+        <slot :name="`tab-head-${tab.id}`">
+          {{ tab.title }}
+        </slot>
+      </div>
+    </div>
+    <div class="WcTabs-content">
+      <slot :name="tabContentSlotName" :tab="active" :content="tabContent" />
+    </div>
+  </div>
+</template>
+
+<style>
+  .WcTabs-tab {
+    box-shadow: inset 0 -1px 0 #e5e7eb;
+    &.WcTabs-tab--active {
+      @apply text-blue-700;
+      box-shadow: inset 0 -3px 0 #1d4ed8;
+    }
+    &.WcTabs-tab--medium {
+      @apply px-6;
+    }
+    &.WcTabs-tab--small {
+      @apply px-2;
+    }
+  }
+  .WcTabs-vertical {
+    @apply flex;
+    & .WcTabs-header {
+      @apply flex-col mb-0;
+      flex: 1 0 auto;
+    }
+    & .WcTabs-content {
+      flex: 0 1 100%;
+    }
+  }
+  .WcTabs-grow {
+    & .WcTabs-tab {
+      @apply w-full;
+    }
+  }
+</style>

@@ -7,4 +7,12 @@ export default {
       options: ['xSmall', 'small', 'medium', 'large'],
     },
   },
+  variation: {
+    name: 'variation',
+    type: 'select',
+    props: {
+      value: 'primary',
+      options: ['primary', 'secondary', 'text'],
+    },
+  },
 };
