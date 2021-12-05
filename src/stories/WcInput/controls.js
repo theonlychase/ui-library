@@ -56,6 +56,7 @@ export default {
       value: 'solid',
       options: ['labelInset', 'labelOverlap', 'pill', 'solid', 'underline'],
     },
-    description: 'Placeholder text when no value',
+    description:
+      'Variations of Input Styling. labelInset, labelOverlap, pill, solid, and underline',
   },
 };
