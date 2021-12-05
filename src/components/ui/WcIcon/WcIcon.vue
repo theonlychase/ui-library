@@ -28,14 +28,26 @@
     },
   });
 
-  const computedAttrs = computed(() => {
-    return props.name.toLocaleLowerCase().includes('stroke')
-      ? { stroke: props.color }
-      : { fill: props.color };
+  const strokeFill = computed(() => {
+    return props.name.toLocaleLowerCase().includes('stroke');
+  });
+
+  const computedColor = computed(() => ({
+    '--icon-color': `var(--color--${props.color})`,
+  }));
+
+  const computedHoverColor = computed(() => {
+    return props.hoverColor
+      ? { '--icon-color--hover': `var(--color--${props.hoverColor})` }
+      : '';
   });
 
   const computedClasses = computed(() => ({
     [`WcIcon--${props.size}`]: props.size,
+    'WcIcon--fill': !strokeFill.value,
+    'WcIcon--fill--hover': !strokeFill.value && props.hoverColor,
+    'WcIcon--stroke': strokeFill.value,
+    'WcIcon--stroke--hover': strokeFill.value && props.hoverColor,
   }));
   const computedSvg = computed(
     () => `<title>${props.name}</title>${icons[props.name]}`,
@@ -48,13 +60,33 @@
     :viewBox="viewBox"
     class="WcIcon select-none"
     :class="computedClasses"
+    :style="[computedColor, computedHoverColor]"
     role="presentation"
-    v-bind="computedAttrs"
     v-html="computedSvg"
   />
 </template>
 
 <style scoped>
+  .WcIcon--fill {
+    fill: var(--icon-color);
+  }
+
+  .WcIcon--fill--hover {
+    &:hover {
+      fill: var(--icon-color--hover);
+    }
+  }
+
+  .WcIcon--stroke {
+    stroke: var(--icon-color);
+  }
+
+  .WcIcon--stroke--hover {
+    &:hover {
+      stroke: var(--icon-color--hover);
+    }
+  }
+
   .WcIcon--xxSmall {
     @apply w-4 h-4;
   }

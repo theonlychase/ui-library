@@ -8,10 +8,6 @@
       type: Boolean,
       default: false,
     },
-    dimmed: {
-      type: Boolean,
-      default: false,
-    },
     href: {
       type: String,
       default: null,
@@ -19,10 +15,6 @@
     linkTitle: {
       type: String,
       default: null,
-    },
-    nuxt: {
-      type: Boolean,
-      default: false,
     },
     rounded: {
       type: Boolean,
@@ -54,17 +46,18 @@
 
 <template>
   <component
-    :is="props.href ? 'a' : 'button'"
-    :href="props.href"
+    :is="href ? 'a' : 'button'"
+    :href="href"
     class="WcButton"
     :class="{
-      'WcButton--disabled': props.disabled,
-      'WcButton--anchor': props.href,
-      'WcButton--block': props.block,
-      'WcButton--rounded': props.rounded,
-      [`WcButton--${props.variation}`]: props.variation,
-      [`WcButton--${props.size}`]: props.size,
+      'WcButton--disabled': disabled,
+      'WcButton--anchor': href,
+      'WcButton--block': block,
+      'WcButton--rounded': rounded,
+      [`WcButton--${variation}`]: variation,
+      [`WcButton--${size}`]: size,
     }"
+    :title="linkTitle"
   >
     <span v-if="$slots['icon-left']" class="mr-2">
       <slot name="icon-left" />
@@ -88,7 +81,7 @@
   }
 
   .WcButton--disabled {
-    @apply bg-blue-700 pointer-events-none opacity-40;
+    @apply bg-blue-500 pointer-events-none opacity-40;
 
     &.WcButton--text,
     &.WcButton--secondary {
@@ -112,15 +105,15 @@
   }
 
   .WcButton--primary {
-    @apply bg-blue-700 border-blue-700 hover:border-blue-800 hover:bg-blue-800 focus:border-blue-700 focus:bg-blue-700 text-white;
+    @apply bg-blue-500 border-blue-500 hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600 text-white;
   }
 
   .WcButton--secondary {
-    @apply bg-white text-blue-700 border-blue-700 hover:bg-blue-50 focus:border-gray-600 focus:bg-gray-50 focus:text-gray-700;
+    @apply bg-white text-blue-500 border-blue-500 hover:bg-blue-50 focus:border-gray-600 focus:bg-gray-50 focus:text-gray-700;
   }
 
   .WcButton--text {
-    @apply bg-transparent text-blue-700 border-transparent hover:bg-blue-100 focus:text-gray-700;
+    @apply bg-transparent text-blue-500 border-transparent hover:bg-blue-100 focus:text-gray-700;
   }
 
   .WcButton--rounded {

@@ -66,7 +66,7 @@
             >
               <span class="sr-only">Close sidebar</span>
 
-              <wc-icon name="closeOutlineStroke" size="small" stroke="white" />
+              <wc-icon name="closeOutlineStroke" size="small" color="white" />
             </button>
           </div>
         </transition>
@@ -102,7 +102,7 @@
         <wc-icon
           name="menuAlt2Stroke"
           size="small"
-          stroke="currentColor"
+          color="currentColor"
           aria-hidden="true"
         />
       </button>

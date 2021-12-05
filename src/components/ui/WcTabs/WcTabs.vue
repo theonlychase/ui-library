@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, ref } from 'vue';
+  import { computed } from 'vue';
   interface Tab {
     id: string;
     title: string;
@@ -11,6 +11,10 @@
       default: null,
     },
     grow: {
+      type: Boolean,
+      default: false,
+    },
+    overflowContent: {
       type: Boolean,
       default: false,
     },
@@ -40,10 +44,6 @@
   const tabContent = computed(() => {
     return props.tabs.find((tab) => tab.id === props.active);
   });
-
-  const tabContentSlotName = computed(() => {
-    return `tab-content-${props.active}`;
-  });
 </script>
 
 <template>
@@ -69,18 +69,18 @@
         </slot>
       </div>
     </div>
-    <div class="WcTabs-content">
-      <slot :name="tabContentSlotName" :tab="active" :content="tabContent" />
+    <div class="WcTabs-content" :class="overflowContent && 'overflow-x-auto'">
+      <slot :name="active" :tab="active" :content="tabContent" />
     </div>
   </div>
 </template>
 
 <style>
   .WcTabs-tab {
-    box-shadow: inset 0 -1px 0 #e5e7eb;
+    box-shadow: inset 0 -1px 0 #4b5563;
     &.WcTabs-tab--active {
       @apply text-blue-700;
-      box-shadow: inset 0 -3px 0 #1d4ed8;
+      box-shadow: inset 0 -3px 0 #0ea5e9;
     }
     &.WcTabs-tab--medium {
       @apply px-6;

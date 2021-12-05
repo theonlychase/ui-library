@@ -1,17 +1,11 @@
 <script setup lang="ts">
   import { useStore } from 'vuex';
   import controls from './controls.js';
+  import { setDefaultControls } from '@/utils/helpers.js';
 
-  const store = useStore();
-  store.dispatch('controls/setControls', controls);
-
-  const defaultProps = {};
-
-  Object.entries(controls).forEach(([key, value]) => {
-    defaultProps[`${key}`] = value.props.value;
-  });
+  const defaultProps = setDefaultControls(controls, useStore);
 </script>
 
 <template>
-  <wc-icon v-bind="{ ...defaultProps }" />
+  <wc-icon v-bind="defaultProps" />
 </template>

@@ -1,7 +1,12 @@
 import { defineAsyncComponent, defineCustomElement } from 'vue';
 
 function dynamicPropsFn(route) {
-  return { ...route.query };
+  const queries = {};
+  Object.entries(route.query).forEach(([key, value]) => {
+    queries[`${key}`] =
+      value === 'true' ? true : value === 'false' ? false : value;
+  });
+  return { ...queries };
 }
 
 function getComponentPath(path) {

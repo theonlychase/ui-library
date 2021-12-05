@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import { ref, inject } from 'vue';
+  import { inject, ref, watch } from 'vue';
+  import { useRouter, useRoute } from 'vue-router';
+  const route = useRoute();
 
   const props = defineProps({
     children: {
@@ -17,8 +19,17 @@
   });
 
   const closeSidebar = inject('closeSidebar');
-
   const isOpen = ref(false);
+
+  watch(
+    () => route.path,
+    (val) => {
+      if (val.includes(props.path)) {
+        isOpen.value = true;
+      }
+    },
+    { flush: 'post' },
+  );
 </script>
 
 <template>

@@ -7,5 +7,5 @@
 </script>
 
 <template>
-  <wc-button v-bind="defaultProps"> Button </wc-button>
+  <wc-input v-bind="defaultProps" />
 </template>

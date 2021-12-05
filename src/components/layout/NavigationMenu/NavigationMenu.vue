@@ -15,8 +15,7 @@
       name="templateOutline"
       size="small"
       class="mr-2"
-      fill="none"
-      stroke="currentColor"
+      color="currentColor"
     />
     <h1 class="text-2xl">UI Library</h1>
   </div>

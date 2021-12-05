@@ -1,74 +1,91 @@
 <script setup lang="ts">
   import { useRouter, useRoute } from 'vue-router';
   import { useStore } from 'vuex';
-  import { computed, defineAsyncComponent, watch, ref } from 'vue';
+  import { ref } from 'vue';
+  import {
+    resizePanel,
+    setControls,
+    setComponents,
+    tabs,
+    updateQuery,
+  } from './composables.js';
 
   const router = useRouter();
   const route = useRoute();
   const store = useStore();
 
-  const components = {
-    WcSelect: defineAsyncComponent(
-      () => import('@/components/ui/WcSelect/WcSelect.vue'),
-    ),
-    WcInput: defineAsyncComponent(
-      () => import('@/components/ui/WcInput/WcInput.vue'),
-    ),
-  };
-
-  const controlsState = computed(() => store.state.controls.controls);
-  const tabs = [
-    { id: 'controls', title: 'Controls' },
-    { id: 'documentation', title: 'Documentation' },
-  ];
+  const panel = ref(null);
   const activeTab = ref('controls');
-  const tabContentSlot = computed(() => {
-    return `tab-content-${activeTab.value}`;
-  });
-
-  watch(
-    () => controlsState.value,
-    (val) => {
-      if (val) {
-        Object.entries(route.query).forEach(([key, value]) => {
-          controlsState.value[`${key}`].props.value = value;
-        });
-      }
-    },
-    { immediate: true },
-  );
-
-  const updateQuery = ({ val, name }) => {
-    controlsState.value[`${name}`].props.value = val;
-    store.dispatch('controls/setControls', controlsState.value);
-
-    router.push({
-      name: route.name,
-      query: {
-        ...route.query,
-        [`${name}`]: val,
-      },
-    });
-  };
+  const { height } = resizePanel(panel);
+  const controlsState = setControls(route, store);
 </script>
 
 <template>
-  <div class="min-h-[300px] bg-white mt-auto shadow">
-    <wc-tabs v-model:active="activeTab" :tabs="tabs">
-      <template #[tabContentSlot]="{ tab }">
-        <template v-if="controlsState && tab === 'controls'">
-          <template v-for="control in controlsState" :key="control.name">
-            <component
-              :is="
-                control.type === 'select'
-                  ? components.WcSelect
-                  : components.WcInput
-              "
-              v-bind="control.props"
-              @update:value="(val) => updateQuery({ val, name: control.name })"
-            />
-          </template>
-        </template>
+  <div
+    ref="panel"
+    class="w-full min-h-[400px] bg-white mt-auto shadow relative"
+    :style="{ height: `${height}${height !== 'auto' ? 'px' : ''}` }"
+  >
+    <div class="absolute top-0 left-0 h-1 w-full cursor-move z-10" />
+    <wc-tabs v-model:active="activeTab" :tabs="tabs" overflow-content>
+      <template #[activeTab]="{ tab }">
+        <table
+          v-if="controlsState && tab === 'controls'"
+          class="min-w-full divide-y divide-gray-200"
+        >
+          <thead class="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Name
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Description
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Control
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr v-for="control in controlsState" :key="control.name">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+              >
+                {{ control.name }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ control.description }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <component
+                  :is="setComponents(control.type)"
+                  :key="control.name"
+                  v-bind="control.props"
+                  @update:value="
+                    (val) =>
+                      updateQuery(
+                        { val, name: control.name },
+                        store,
+                        route,
+                        router,
+                        controlsState,
+                      )
+                  "
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
         <template v-if="tab === 'documentation'"> DOCS </template>
       </template>
     </wc-tabs>
