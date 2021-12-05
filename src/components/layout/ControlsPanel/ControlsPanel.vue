@@ -85,6 +85,9 @@
             </tr>
           </tbody>
         </table>
+        <template v-if="!controlsState"
+          >CONTROLS DISABLED FOR THE STORY
+        </template>
 
         <template v-if="tab === 'documentation'"> DOCS </template>
       </template>
