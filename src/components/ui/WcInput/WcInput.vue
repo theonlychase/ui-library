@@ -93,9 +93,8 @@
       :type="type"
       :name="type"
       :class="{
-        'bg-gray-50': variation === 'underline',
+        'bg-gray-50': variation === 'underline' || disabled,
         '!pl-8': iconLeft && variation !== 'labelInset',
-        'bg-gray-50': disabled,
       }"
       class="form-input block w-full min-w-max rounded-md sm:text-sm border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0"
       :placeholder="placeholder"
