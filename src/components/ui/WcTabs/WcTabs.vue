@@ -14,6 +14,10 @@
       type: Boolean,
       default: false,
     },
+    contentPadding: {
+      type: Boolean,
+      default: false,
+    },
     overflowContent: {
       type: Boolean,
       default: false,
@@ -48,10 +52,10 @@
 
 <template>
   <div
-    class="WcTabs flex-auto w-full"
+    class="WcTabs bg-white flex-auto w-full"
     :class="{ 'WcTabs-grow': props.grow, 'WcTabs-vertical': props.vertical }"
   >
-    <div class="WcTabs-header flex relative mb-6">
+    <div class="WcTabs-header flex relative">
       <div
         v-for="tab in tabs"
         :key="tab.id"
@@ -69,7 +73,13 @@
         </slot>
       </div>
     </div>
-    <div class="WcTabs-content" :class="overflowContent && 'overflow-x-auto'">
+    <div
+      class="WcTabs-content"
+      :class="{
+        'overflow-x-auto': overflowContent,
+        'p-6': contentPadding,
+      }"
+    >
       <slot :name="active" :tab="active" :content="tabContent" />
     </div>
   </div>

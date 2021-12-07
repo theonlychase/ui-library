@@ -1,4 +1,10 @@
 <script setup lang="ts">
+  import { useStore } from 'vuex';
+  import controls from './controls.js';
+  import { setDefaultControls } from '@/utils/helpers.js';
+
+  setDefaultControls(controls, useStore, true);
+
   const sizes = ['xSmall', 'small', 'medium', 'large'];
 </script>
 

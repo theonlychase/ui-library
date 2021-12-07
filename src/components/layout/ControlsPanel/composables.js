@@ -72,8 +72,10 @@ const setControls = (route, store) => {
 
 const tabs = [
   { id: 'controls', title: 'Controls' },
-  { id: 'documentation', title: 'Documentation' },
+  // { id: 'documentation', title: 'Documentation' },
 ];
+
+const panelHeaders = ['Name', 'Description', 'Control'];
 
 const updateQuery = ({ val, name }, store, route, router, controlsState) => {
   controlsState[`${name}`].props.value = val;
@@ -88,4 +90,11 @@ const updateQuery = ({ val, name }, store, route, router, controlsState) => {
   });
 };
 
-export { resizePanel, setControls, setComponents, tabs, updateQuery };
+export {
+  panelHeaders,
+  resizePanel,
+  setControls,
+  setComponents,
+  tabs,
+  updateQuery,
+};

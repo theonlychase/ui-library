@@ -1,1 +1,0 @@
-<template>{{ $route }}</template>

@@ -17,10 +17,12 @@
       class="mr-2"
       color="currentColor"
     />
-    <h1 class="text-2xl">UI Library</h1>
+    <h1 class="text-2xl">
+      <router-link :to="{ name: 'Dashboard' }">UI Library</router-link>
+    </h1>
   </div>
   <div class="mt-5 flex-1 h-0 overflow-y-auto">
-    <nav class="px-2 space-y-1 bg-white" aria-label="Sidebar">
+    <nav class="px-2 space-y-1 bg-gray-50" aria-label="Sidebar">
       <navigation-menu-item
         v-for="{ name, path, children } in parentItems"
         :key="name"

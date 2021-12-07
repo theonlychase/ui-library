@@ -1,5 +1,10 @@
-const setDefaultControls = (controls, useStore) => {
+const setDefaultControls = (controls, useStore, disabled = false) => {
   const store = useStore();
+
+  Object.keys(controls).forEach((key) => {
+    controls[key].props.disabled = disabled;
+  });
+
   store.dispatch('controls/setControls', controls);
 
   const defaultProps = {};

@@ -28,7 +28,14 @@ function getComponentPath(path) {
 //   customElements.define(element, customElement);
 // }
 
-export default function dynamicRoutes(components, stories, app, router, store) {
+export default function dynamicRoutes(
+  components,
+  stories,
+  pages,
+  app,
+  router,
+  store,
+) {
   Object.entries(components).forEach(([path, component]) => {
     const { componentName: parent, routePath } = getComponentPath(path);
 
@@ -80,5 +87,16 @@ export default function dynamicRoutes(components, stories, app, router, store) {
         ),
       );
     }
+  });
+
+  Object.entries(pages).forEach(([path, component]) => {
+    const { componentName, routePath } = getComponentPath(path);
+
+    app.component(
+      componentName,
+      defineAsyncComponent(() =>
+        import(`../pages/${componentName}/${componentName}.vue`),
+      ),
+    );
   });
 }

@@ -1,5 +1,9 @@
 <script setup lang="ts">
   const props = defineProps({
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     value: {
       type: Boolean,
       default: false,
@@ -13,6 +17,7 @@
   <label class="flex items-center cursor-pointer">
     <span class="relative flex">
       <input
+        :disabled="disabled"
         type="checkbox"
         class="peer sr-only"
         :value="value"

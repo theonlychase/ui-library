@@ -1,6 +1,6 @@
 @layer base {
   html {
-    @apply bg-gray-100 font-sans h-full overflow-y-scroll;
+    @apply font-sans h-full overflow-y-scroll;
   }
 
   body {

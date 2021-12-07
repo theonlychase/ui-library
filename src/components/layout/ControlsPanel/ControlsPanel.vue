@@ -3,6 +3,7 @@
   import { useStore } from 'vuex';
   import { ref } from 'vue';
   import {
+    panelHeaders,
     resizePanel,
     setControls,
     setComponents,
@@ -23,44 +24,37 @@
 <template>
   <div
     ref="panel"
-    class="w-full min-h-[400px] bg-white mt-auto shadow relative"
+    class="w-full min-h-[200px] bg-white mt-auto shadow relative bg-gray-50 border border-solid border-gray-200"
     :style="{ height: `${height}${height !== 'auto' ? 'px' : ''}` }"
   >
     <div class="absolute top-0 left-0 h-1 w-full cursor-move z-10" />
     <wc-tabs v-model:active="activeTab" :tabs="tabs" overflow-content>
       <template #[activeTab]="{ tab }">
         <table
-          v-if="controlsState && tab === 'controls'"
+          v-if="tab === 'controls'"
           class="min-w-full divide-y divide-gray-200"
         >
-          <thead class="bg-gray-50">
+          <thead class="bg-gray-100">
             <tr>
               <th
+                v-for="header in panelHeaders"
+                :key="header"
                 scope="col"
                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Name
-              </th>
-              <th
-                scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Description
-              </th>
-              <th
-                scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                Control
+                {{ header }}
               </th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody class="bg-gray-50 divide-y divide-gray-200">
             <tr v-for="control in controlsState" :key="control.name">
               <td
                 class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
               >
                 {{ control.name }}
+                <div class="text-gray-400 text-xs">
+                  {{ control.props.disabled ? 'disabled' : '' }}
+                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {{ control.description }}
@@ -85,11 +79,6 @@
             </tr>
           </tbody>
         </table>
-        <template v-if="!controlsState"
-          >CONTROLS DISABLED FOR THE STORY
-        </template>
-
-        <template v-if="tab === 'documentation'"> DOCS </template>
       </template>
     </wc-tabs>
   </div>

@@ -6,6 +6,7 @@ import store from './store';
 import dynamicRoutes from '@/utils/dynamicRoutes';
 import './assets/css/tailwind.css';
 const components = import.meta.globEager('./components/ui/**/*.vue');
+const pages = import.meta.globEager('./pages/**/*.vue');
 const stories = import.meta.globEager('./stories/**/*.vue');
 
 const app = createApp(App);
@@ -14,7 +15,7 @@ const router = createRouter({
   routes,
 });
 
-dynamicRoutes(components, stories, app, router, store);
+dynamicRoutes(components, stories, pages, app, router, store);
 
 const navItems = router.getRoutes();
 app.provide('nav-items', navItems);

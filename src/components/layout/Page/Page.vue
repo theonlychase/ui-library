@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import ControlsPanel from '@/components/layout/ControlsPanel';
+  import Dashboard from '@/pages/Dashboard/Dashboard.vue';
 </script>
 
 <template>
@@ -9,11 +10,10 @@
     </div>
     <div class="px-4 sm:px-6 md:px-8">
       <div class="py-4">
-        <router-view v-slot="{ Component }">
-          <component :is="Component" />
-        </router-view>
+        <slot name="page" />
+        <slot name="story" />
       </div>
     </div>
-    <controls-panel />
+    <controls-panel v-if="!$route.meta.static" />
   </main>
 </template>

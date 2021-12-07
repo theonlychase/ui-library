@@ -22,10 +22,6 @@
         return value.match(/(xxSmall|xSmall|small|medium|large|xLarge)/);
       },
     },
-    viewBox: {
-      type: String,
-      default: '0 0 24 24',
-    },
   });
 
   const strokeFill = computed(() => {
@@ -50,14 +46,15 @@
     'WcIcon--stroke--hover': strokeFill.value && props.hoverColor,
   }));
   const computedSvg = computed(
-    () => `<title>${props.name}</title>${icons[props.name]}`,
+    () => `<title>${props.name}</title>${icons[props.name].path}`,
   );
+  const computedViewBox = computed(() => icons[props.name].viewBox);
 </script>
 
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    :viewBox="viewBox"
+    :viewBox="computedViewBox"
     class="WcIcon select-none"
     :class="computedClasses"
     :style="[computedColor, computedHoverColor]"

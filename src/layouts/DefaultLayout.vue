@@ -6,6 +6,14 @@
 <template>
   <sidebar />
   <page>
-    <slot />
+    <template #page>
+      <slot name="page" />
+    </template>
+
+    <template #story>
+      <router-view v-slot="{ Component }">
+        <component :is="Component" />
+      </router-view>
+    </template>
   </page>
 </template>

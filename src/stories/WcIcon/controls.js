@@ -6,6 +6,8 @@ export default {
       value: 'medium',
       options: ['xxSmall', 'xSmall', 'small', 'medium', 'large', 'xLarge'],
     },
+    description:
+      'Valid Icon sizes: xxSmall, xSmall, small, medium, large, xLarge',
   },
   name: {
     name: 'name',
@@ -21,6 +23,7 @@ export default {
         'templateOutline',
       ],
     },
+    description: 'Valid icon name',
   },
   color: {
     name: 'color',
@@ -29,6 +32,7 @@ export default {
       value: 'blue500',
       options: ['blue500', 'gray500', 'green500', 'orange500', 'red500'],
     },
+    description: 'Valid color name for icon color',
   },
   hoverColor: {
     name: 'hoverColor',
@@ -37,5 +41,6 @@ export default {
       value: 'blue600',
       options: ['blue600', 'gray600', 'green600', 'orange600', 'red600'],
     },
+    description: 'Valid color name for icon hover color',
   },
 };

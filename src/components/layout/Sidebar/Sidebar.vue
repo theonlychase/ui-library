@@ -14,7 +14,7 @@
 
 <template>
   <div
-    v-if="sidebarOpen"
+    v-show="sidebarOpen"
     class="fixed inset-0 flex z-40 md:hidden"
     role="dialog"
     aria-modal="true"
@@ -31,7 +31,7 @@
       @after-leave="sidebarOpen = false"
     >
       <div
-        v-if="sidebarTransition"
+        v-show="sidebarTransition"
         class="fixed inset-0 bg-gray-600 bg-opacity-75"
         aria-hidden="true"
       />
@@ -47,7 +47,7 @@
       appear
     >
       <div
-        v-if="sidebarTransition"
+        v-show="sidebarTransition"
         class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white"
       >
         <transition
@@ -81,12 +81,12 @@
   <div
     class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-50 shadow"
   >
-    <div class="flex flex-col flex-grow pt-5 bg-white overflow-y-auto">
+    <div class="flex flex-col flex-grow pt-5 bg-gray-50 overflow-y-auto">
       <navigation-menu />
     </div>
   </div>
-  <div class="md:pl-64 flex flex-col">
-    <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
+  <div class="md:pl-64 flex flex-col bg-gray-50">
+    <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-gray-50 shadow">
       <button
         type="button"
         class="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"

@@ -1,4 +1,12 @@
 export default {
+  disabled: {
+    name: 'disabled',
+    type: 'toggle',
+    props: {
+      value: false,
+    },
+    description: 'Disabled State',
+  },
   iconLeft: {
     name: 'iconLeft',
     type: 'select',
