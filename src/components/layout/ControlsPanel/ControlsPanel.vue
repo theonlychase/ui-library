@@ -15,7 +15,7 @@
   const store = useStore();
 
   const panel = ref(null);
-  const activeTab = ref('controls');
+  const activeTab = ref('Controls');
   const { height } = resizePanel(panel);
   const { controlsState, headers } = setControls(route, store);
 </script>
@@ -30,7 +30,7 @@
     <wc-tabs v-model:value="activeTab" :tabs="tabs" overflow-content>
       <template #[activeTab]="{ tab }">
         <table
-          v-if="tab === 'controls'"
+          v-if="tab === 'Controls'"
           class="min-w-full divide-y divide-gray-200"
         >
           <thead class="bg-gray-100">

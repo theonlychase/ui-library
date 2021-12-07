@@ -5,24 +5,15 @@
   import { ref } from 'vue';
 
   const defaultProps = setDefaultControls(controls, useStore);
-  const value = ref('tab-1');
+  const value = ref('Controls');
 
-  const tabs = [
-    { id: 'tab-1', name: 'Tab 1' },
-    { id: 'tab-2', name: 'Tab 2' },
-    { id: 'tab-3', name: 'Tab 3' },
-    { id: 'tab-4', name: 'Tab 4' },
-  ];
+  const tabs = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4'];
 </script>
 
 <template>
-  <wc-tabs
-    v-model:value="value"
-    :tabs="tabs"
-    v-bind="{ ...defaultProps, value }"
-  >
-    <template #[value]="{ content }">
-      {{ content }}
+  <wc-tabs v-model:value="value" :tabs="tabs" v-bind="defaultProps">
+    <template #[value]="{ tab }">
+      {{ tab }}
     </template>
   </wc-tabs>
 </template>
