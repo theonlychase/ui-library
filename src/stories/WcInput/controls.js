@@ -13,13 +13,13 @@ export default {
     props: {
       value: 'mail',
       options: [
-        '',
         'chevronRight',
         'closeOutlineStroke',
         'mail',
         'menuAlt2Stroke',
         'questionMarkCircle',
         'templateOutline',
+        '',
       ],
     },
     description: 'Icon displayed on the left side of the input',
@@ -30,13 +30,13 @@ export default {
     props: {
       value: 'questionMarkCircle',
       options: [
-        '',
         'chevronRight',
         'closeOutlineStroke',
         'mail',
         'menuAlt2Stroke',
         'questionMarkCircle',
         'templateOutline',
+        '',
       ],
     },
     description: 'Icon displayed on the right side of the input',

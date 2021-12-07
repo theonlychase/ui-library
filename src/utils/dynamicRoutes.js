@@ -21,6 +21,7 @@ function getComponentPath(path) {
   return { componentName, routePath };
 }
 
+// TODO - Configure Dynamic Web Components
 // function setCustomElements(routePath, component, defineCustomElement) {
 //   const element = routePath.replace(/.ce/, '');
 //
@@ -36,6 +37,7 @@ export default function dynamicRoutes(
   router,
   store,
 ) {
+  // Global Components and Routes for UI and Stories
   Object.entries(components).forEach(([path, component]) => {
     const { componentName: parent, routePath } = getComponentPath(path);
 
@@ -89,6 +91,7 @@ export default function dynamicRoutes(
     }
   });
 
+  // Global Page Components and Routes
   Object.entries(pages).forEach(([path, component]) => {
     const { componentName, routePath } = getComponentPath(path);
     const homePath = componentName === 'Dashboard';

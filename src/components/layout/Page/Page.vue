@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import ControlsPanel from '@/components/layout/ControlsPanel';
-  import Dashboard from '@/pages/Dashboard/Dashboard.vue';
 </script>
 
 <template>

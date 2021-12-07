@@ -5,7 +5,7 @@
   import { ref } from 'vue';
 
   const defaultProps = setDefaultControls(controls, useStore);
-  const value = ref('Controls');
+  const value = ref('Tab 1');
 
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4'];
 </script>
