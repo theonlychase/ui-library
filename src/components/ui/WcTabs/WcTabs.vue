@@ -2,11 +2,11 @@
   import { computed } from 'vue';
   interface Tab {
     id: string;
-    title: string;
+    name: string;
   }
 
   const props = defineProps({
-    active: {
+    value: {
       type: String,
       default: null,
     },
@@ -34,7 +34,7 @@
       required: true,
       validator: (tabs: Array<Tab>) => {
         return tabs.every((tab: Tab) => {
-          return Boolean(tab.id && tab.title);
+          return Boolean(tab.id && tab.name);
         });
       },
     },
@@ -43,17 +43,17 @@
       default: false,
     },
   });
-  const emit = defineEmits(['update:active']);
+  const emit = defineEmits(['update:value']);
 
   const tabContent = computed(() => {
-    return props.tabs.find((tab) => tab.id === props.active);
+    return props.tabs.find((tab) => tab.id === props.value);
   });
 </script>
 
 <template>
   <div
     class="WcTabs bg-white flex-auto w-full"
-    :class="{ 'WcTabs-grow': props.grow, 'WcTabs-vertical': props.vertical }"
+    :class="{ 'WcTabs-grow': grow, 'WcTabs-vertical': vertical }"
   >
     <div class="WcTabs-header flex relative">
       <div
@@ -61,15 +61,15 @@
         :key="tab.id"
         class="WcTabs-tab text-gray-600 text-sm capitalize py-4 cursor-pointer flex justify-center items-center"
         :class="{
-          'WcTabs-tab--active': active === tab.id,
+          'WcTabs-tab--active': value === tab.id,
           [`WcTabs-tab--${size}`]: size,
         }"
         tabindex="0"
         role="tab"
-        @click="$emit('update:active', tab.id)"
+        @click="$emit('update:value', tab.id)"
       >
         <slot :name="`tab-head-${tab.id}`">
-          {{ tab.title }}
+          {{ tab.name }}
         </slot>
       </div>
     </div>
@@ -80,7 +80,7 @@
         'p-6': contentPadding,
       }"
     >
-      <slot :name="active" :tab="active" :content="tabContent" />
+      <slot :name="value" :tab="value" :content="tabContent" />
     </div>
   </div>
 </template>

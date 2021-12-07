@@ -27,7 +27,7 @@
     :style="{ height: `${height}${height !== 'auto' ? 'px' : ''}` }"
   >
     <div class="absolute top-0 left-0 h-1 w-full cursor-move z-10" />
-    <wc-tabs v-model:active="activeTab" :tabs="tabs" overflow-content>
+    <wc-tabs v-model:value="activeTab" :tabs="tabs" overflow-content>
       <template #[activeTab]="{ tab }">
         <table
           v-if="tab === 'controls'"

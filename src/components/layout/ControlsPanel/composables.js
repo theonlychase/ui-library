@@ -77,7 +77,7 @@ const setControls = (route, store) => {
 };
 
 const tabs = [
-  { id: 'controls', title: 'Controls' },
+  { id: 'controls', name: 'Controls' },
   // { id: 'documentation', title: 'Documentation' },
 ];
 

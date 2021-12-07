@@ -43,11 +43,6 @@ export default {
     type: 'select',
     props: {
       value: 'primary',
-      // options: [
-      //   { id: 'primary', name: 'primary' },
-      //   { id: 'secondary', name: 'secondary' },
-      //   { id: 'text', name: 'text' },
-      // ],
       options: ['primary', 'secondary', 'text'],
     },
     description:
