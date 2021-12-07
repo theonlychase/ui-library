@@ -1,3 +1,3 @@
-import WcInputBase from './WcInputBase.vue';
+import InputBase from './InputBase.vue';
 
-export default WcInputBase;
+export default InputBase;

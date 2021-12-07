@@ -3,7 +3,6 @@
   import { useStore } from 'vuex';
   import { ref } from 'vue';
   import {
-    panelHeaders,
     resizePanel,
     setControls,
     setComponents,
@@ -18,7 +17,7 @@
   const panel = ref(null);
   const activeTab = ref('controls');
   const { height } = resizePanel(panel);
-  const controlsState = setControls(route, store);
+  const { controlsState, headers } = setControls(route, store);
 </script>
 
 <template>
@@ -37,10 +36,10 @@
           <thead class="bg-gray-100">
             <tr>
               <th
-                v-for="header in panelHeaders"
+                v-for="header in headers"
                 :key="header"
                 scope="col"
-                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
               >
                 {{ header }}
               </th>
@@ -52,9 +51,6 @@
                 class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
               >
                 {{ control.name }}
-                <div class="text-gray-400 text-xs">
-                  {{ control.props.disabled ? 'disabled' : '' }}
-                </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {{ control.description }}

@@ -53,11 +53,17 @@ const setComponents = (type) => {
 
 const setControls = (route, store) => {
   const controlsState = computed(() => store.state.controls.controls);
+  let headers = ref([]);
 
   watch(
     () => controlsState.value,
     (val) => {
       if (val) {
+        const isDisabled = Object.keys(val).every((key) => {
+          return controlsState.value[key].props.disabled;
+        });
+        headers.value = panelHeaders(isDisabled);
+
         Object.entries(route.query).forEach(([key, value]) => {
           controlsState.value[`${key}`].props.value =
             value === 'true' ? true : value === 'false' ? false : value;
@@ -67,7 +73,7 @@ const setControls = (route, store) => {
     { immediate: true },
   );
 
-  return controlsState;
+  return { controlsState, headers };
 };
 
 const tabs = [
@@ -75,7 +81,9 @@ const tabs = [
   // { id: 'documentation', title: 'Documentation' },
 ];
 
-const panelHeaders = ['Name', 'Description', 'Control'];
+const panelHeaders = (disabledState) => {
+  return ['Name', 'Description', `Control${disabledState ? 's Disabled' : ''}`];
+};
 
 const updateQuery = ({ val, name }, store, route, router, controlsState) => {
   controlsState[`${name}`].props.value = val;
@@ -90,11 +98,4 @@ const updateQuery = ({ val, name }, store, route, router, controlsState) => {
   });
 };
 
-export {
-  panelHeaders,
-  resizePanel,
-  setControls,
-  setComponents,
-  tabs,
-  updateQuery,
-};
+export { resizePanel, setControls, setComponents, tabs, updateQuery };

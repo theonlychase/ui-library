@@ -16,4 +16,8 @@ const setDefaultControls = (controls, useStore, disabled = false) => {
   return defaultProps;
 };
 
-export { setDefaultControls };
+const isObject = (value) => {
+  return value !== null && typeof value === 'object';
+};
+
+export { isObject, setDefaultControls };

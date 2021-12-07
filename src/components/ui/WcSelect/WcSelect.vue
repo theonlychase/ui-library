@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { selectProps } from './composables.js';
+
   const props = defineProps({
     disabled: {
       type: Boolean,
@@ -19,6 +21,8 @@
   });
 
   const emit = defineEmits(['update:value']);
+
+  const { allOptions, getValueId, getValueName } = selectProps(props);
 </script>
 
 <template>
@@ -37,13 +41,13 @@
     :value="value"
     @input="({ target }) => $emit('update:value', target.value)"
   >
-    <template v-if="options.length">
+    <template v-if="allOptions.length">
       <option
-        v-for="option in options"
-        :key="option"
-        v-bind="{ selected: option === value }"
+        v-for="option in allOptions"
+        :key="getValueId(option)"
+        v-bind="{ selected: getValueName(option) === value }"
       >
-        {{ option }}
+        {{ getValueName(option) }}
       </option>
     </template>
   </select>

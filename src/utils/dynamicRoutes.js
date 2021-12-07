@@ -91,6 +91,18 @@ export default function dynamicRoutes(
 
   Object.entries(pages).forEach(([path, component]) => {
     const { componentName, routePath } = getComponentPath(path);
+    const homePath = componentName === 'Dashboard';
+
+    const pageRoute = {
+      name: componentName,
+      path: homePath ? '/' : `/${routePath}`,
+      component: () => import(`../pages/${componentName}/${componentName}.vue`),
+      meta: {
+        static: true,
+      },
+    };
+
+    router.addRoute(pageRoute);
 
     app.component(
       componentName,
