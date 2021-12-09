@@ -47,7 +47,9 @@ const setComponents = (type) => {
     ? components.WcSelect
     : type === 'text'
     ? components.WcInput
-    : components.WcToggle;
+    : type === 'text'
+    ? components.WcToggle
+    : null;
 };
 
 const setControls = (route, store) => {

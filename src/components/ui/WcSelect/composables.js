@@ -17,11 +17,18 @@ const selectProps = (props) => {
   };
 
   const allOptions = computed(() => {
-    return filterDuplicates(props.options);
+    return props.options.length ? filterDuplicates(props.options) : [];
   });
 
   const getValueIndex = (value) => {
     return allOptions.value.findIndex((val) => {
+      const name = getValueName(val);
+      return name === value;
+    });
+  };
+
+  const getSelectedValue = (value) => {
+    return allOptions.value.find((val) => {
       const name = getValueName(val);
       return name === value;
     });
@@ -43,7 +50,13 @@ const selectProps = (props) => {
     { immediate: true },
   );
 
-  return { allOptions, getValueId, getValueName, selectedIndex };
+  return {
+    allOptions,
+    getValueId,
+    getValueName,
+    getSelectedValue,
+    selectedIndex,
+  };
 };
 
 export { selectProps };
