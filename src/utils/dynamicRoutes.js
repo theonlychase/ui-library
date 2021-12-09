@@ -1,4 +1,4 @@
-import { defineAsyncComponent, defineCustomElement } from 'vue';
+import { defineAsyncComponent } from 'vue';
 
 function dynamicPropsFn(route) {
   const queries = {};
@@ -30,9 +30,7 @@ function getComponentPath(path) {
 // }
 
 export default function dynamicRoutes(
-  components,
-  stories,
-  pages,
+  { components, stories, pages },
   app,
   router,
   store,
@@ -54,7 +52,6 @@ export default function dynamicRoutes(
           children.push({
             name: componentName,
             path: variation,
-            // component: story.default,
             component: () =>
               import(`../stories/${parent}/${componentName}.vue`),
             meta: { parent },
@@ -72,7 +69,6 @@ export default function dynamicRoutes(
         name: parent,
         path: `/${routePath}`,
         component: () => import(`../components/ui/${parent}/${parent}.vue`),
-        // component: component.default,
         meta: { parent: true },
         props: dynamicPropsFn,
         redirect,
@@ -81,7 +77,6 @@ export default function dynamicRoutes(
 
       router.addRoute(parentRoute);
 
-      // app.component(parent, component.default);
       app.component(
         parent,
         defineAsyncComponent(() =>
