@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { computed, inject, ref, watch } from 'vue';
+  import { onClickOutside } from '@vueuse/core';
   import { selectProps } from './composables';
 
   const emit = defineEmits(['update:value']);
@@ -30,6 +31,14 @@
     },
   });
 
+  const listbox = ref(null);
+
+  onClickOutside(listbox, (e) => {
+    if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
+      listboxOpen.value = false;
+    }
+  });
+
   const setSelectedValue = (option) => {
     listboxOpen.value = false;
     emit('update:value', option);
@@ -57,7 +66,7 @@
     >
       {{ label }}
     </label>
-    <div class="mt-1 relative">
+    <div ref="listbox" class="mt-1 relative">
       <button
         type="button"
         class="relative w-full bg-white border border-gray-300 hover:border-gray-400 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
@@ -101,7 +110,7 @@
           class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
           tabindex="-1"
           role="listbox"
-          aria-labelledby="listbox-label"
+          :aria-labelledby="listboxLabel"
           :aria-activedescendant="`listbox-option-${getValueIndex}`"
         >
           <li
