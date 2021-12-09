@@ -47,7 +47,7 @@ const setComponents = (type) => {
     ? components.WcSelect
     : type === 'text'
     ? components.WcInput
-    : type === 'text'
+    : type === 'toggle'
     ? components.WcToggle
     : null;
 };

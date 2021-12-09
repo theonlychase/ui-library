@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, inject, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
   import { onClickOutside } from '@vueuse/core';
   import { selectProps } from './composables';
 
