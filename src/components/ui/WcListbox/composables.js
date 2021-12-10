@@ -1,4 +1,4 @@
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import {
   getValueName,
@@ -8,6 +8,8 @@ import {
 import { keyCodes } from '@/utils/helpers.js';
 
 const listbox = ref(null);
+const listboxMenu = ref(null);
+const listboxOptions = ref([]);
 const listboxOpen = ref(false);
 
 onClickOutside(listbox, (e) => {
@@ -49,12 +51,37 @@ const listboxApi = (props, emit) => {
     },
   );
 
+  watch(
+    () => highlightedIndex.value,
+    (val) => {
+      setScrollTop(val);
+    },
+    {
+      flush: 'post',
+    },
+  );
+
+  watch(
+    listboxMenu,
+    async (val) => {
+      await nextTick();
+      if (listboxOpen.value) {
+        listboxOptions.value = [...val.children];
+        selectedIndex.value !== -1 && setScrollTop(selectedIndex.value);
+      }
+    },
+    {
+      flush: 'post',
+    },
+  );
+
   return {
     allOptions,
     highlightedIndex,
     listbox,
     listboxLabel,
     listboxOpen,
+    listboxMenu,
     onKeyDown,
     selectedIndex,
     selectedValue,
@@ -140,6 +167,24 @@ const setSearchedValue = (options, search) => {
   return options.value.findIndex((option) =>
     getValueName(option).toLowerCase().startsWith(search),
   );
+};
+
+const setScrollTop = (index) => {
+  const el = listboxOptions.value[index];
+  if (listboxMenu.value) {
+    const { clientHeight, scrollHeight, scrollTop } = listboxMenu.value;
+    const fromTop = el.offsetTop + el.clientHeight;
+    if (fromTop > clientHeight) {
+      listboxMenu.value.scrollTop = scrollHeight - clientHeight;
+    }
+    if (scrollTop > 0 && fromTop < clientHeight) {
+      if (el.clientHeight > scrollTop) {
+        listboxMenu.value.scrollTop -= el.clientHeight;
+      } else {
+        listboxMenu.value.scrollTop = 0;
+      }
+    }
+  }
 };
 
 export { getValueName, listboxApi };

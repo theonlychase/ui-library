@@ -35,6 +35,7 @@
     listbox,
     listboxLabel,
     listboxOpen,
+    listboxMenu,
     onKeyDown,
     selectedIndex,
     selectedValue,
@@ -93,6 +94,7 @@
       >
         <ul
           v-if="listboxOpen && allOptions.length"
+          ref="listboxMenu"
           class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
           tabindex="-1"
           role="listbox"

@@ -14,6 +14,7 @@
     'Brazil',
     'Germany',
     'Turkey',
+    'Canada',
   ];
 </script>
 
