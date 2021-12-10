@@ -1,5 +1,5 @@
 import { computed, ref, watch } from 'vue';
-import { isObject } from '@/utils/helpers';
+import { isObject } from '@/utils/helpers.js';
 
 const filterDuplicates = (options) => {
   const uniqueValues = new Map();
@@ -21,34 +21,31 @@ const getValueName = (value) => {
   return isObject(value) ? value.name : value;
 };
 
-const selectProps = (props) => {
+const setValueIndex = (options, value) => {
+  return options.value.findIndex(
+    (val) => getValueName(value) === getValueName(val),
+  );
+};
+
+const selectApi = (props) => {
   const selectedIndex = ref(-1);
 
   const allOptions = computed(() => {
     return props.options.length ? filterDuplicates(props.options) : [];
   });
 
-  const getValueIndex = (value) => {
-    return allOptions.value.findIndex((val) => {
-      const name = getValueName(val);
-      return name === value;
-    });
-  };
-
   watch(
     () => props.value,
     (val) => {
-      selectedIndex.value = getValueIndex(val);
+      selectedIndex.value = setValueIndex(allOptions, val);
     },
     { immediate: true },
   );
 
   return {
     allOptions,
-    getValueId,
-    getValueName,
     selectedIndex,
   };
 };
 
-export { selectProps };
+export { selectApi, getValueId, getValueName, setValueIndex };

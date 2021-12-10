@@ -8,10 +8,12 @@
 
   const defaultProps = setDefaultControls(controls, useStore);
   const options = [
-    'Option 1',
-    { name: 'Option 2', id: 'option-2' },
-    'Option 3',
-    'Option 4',
+    'USA',
+    { name: 'Mexico', id: 'mexico' },
+    'Spain',
+    'Brazil',
+    'Germany',
+    'Turkey',
   ];
 </script>
 

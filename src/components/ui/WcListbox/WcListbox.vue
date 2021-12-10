@@ -1,7 +1,5 @@
 <script setup lang="ts">
-  import { computed, ref } from 'vue';
-  import { onClickOutside } from '@vueuse/core';
-  import { selectProps } from './composables';
+  import { getValueName, listboxApi } from './composables.js';
 
   const emit = defineEmits(['update:value']);
   const props = defineProps({
@@ -31,30 +29,17 @@
     },
   });
 
-  const listbox = ref(null);
-
-  onClickOutside(listbox, (e) => {
-    if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
-      listboxOpen.value = false;
-    }
-  });
-
-  const setSelectedValue = (option) => {
-    listboxOpen.value = false;
-    emit('update:value', option);
-  };
-
-  const listboxLabel = computed(() => {
-    return props.label ? 'listbox-label' : null;
-  });
-
-  const selectedValue = computed(() => {
-    return getValueName(props.value) || props.placeholder;
-  });
-
-  const listboxOpen = ref(false);
-  const { allOptions, getValueId, getValueName, getValueIndex } =
-    selectProps(props);
+  const {
+    allOptions,
+    highlightedIndex,
+    listbox,
+    listboxLabel,
+    listboxOpen,
+    onKeyDown,
+    selectedIndex,
+    selectedValue,
+    setSelectedValue,
+  } = listboxApi(props, emit);
 </script>
 
 <template>
@@ -74,6 +59,7 @@
         aria-expanded="true"
         :aria-labelledby="listboxLabel"
         @click="listboxOpen = !listboxOpen"
+        @keydown="onKeyDown"
       >
         <span
           v-if="$slots['icon-left']"
@@ -111,15 +97,16 @@
           tabindex="-1"
           role="listbox"
           :aria-labelledby="listboxLabel"
-          :aria-activedescendant="`listbox-option-${getValueIndex}`"
+          :aria-activedescendant="`listbox-option-${selectedIndex}`"
         >
           <li
             v-for="(option, optionIndex) in options"
             :id="`listbox-option-${optionIndex}`"
-            :key="getValueId(option)"
+            :key="getValueName(option)"
             class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-4"
             :class="{
               'hover:bg-gray-100': getValueName(option) !== selectedValue,
+              'bg-gray-100': optionIndex === highlightedIndex,
               'bg-blue-400 text-white': getValueName(option) === selectedValue,
             }"
             role="option"

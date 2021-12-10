@@ -77,10 +77,7 @@ const setControls = (route, store) => {
   return { controlsState, headers };
 };
 
-const tabs = [
-  'Controls',
-  // { id: 'documentation', title: 'Documentation' },
-];
+const tabs = ['Controls'];
 
 const panelHeaders = (disabledState) => {
   return ['Name', 'Description', `Control${disabledState ? 's Disabled' : ''}`];

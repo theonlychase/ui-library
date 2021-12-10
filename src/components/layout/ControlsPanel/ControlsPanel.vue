@@ -53,10 +53,9 @@
                 {{ control.name }}
               </td>
               <td
-                class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 whitespace-pre-line"
-              >
-                {{ control.description }}
-              </td>
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                v-html="control.description"
+              />
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 <component
                   :is="setComponents(control.type)"
@@ -73,9 +72,10 @@
                       )
                   "
                 />
-                <div v-if="!setComponents(control.type)">
-                  {{ control.props.value || '--' }}
-                </div>
+                <div
+                  v-if="!setComponents(control.type)"
+                  v-html="control.props.value || '--'"
+                />
               </td>
             </tr>
           </tbody>

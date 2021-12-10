@@ -28,10 +28,11 @@ export default {
     name: 'options',
     type: '',
     props: {
-      value: '"Option 1" or { id: "option-1", name: "Option 1" }',
+      value:
+        '<div>String: Option 1</div> <div>Object: { id: "option-1", name: "Option 1" }</div>',
     },
     description:
-      'List Box Options. Can be a String/Object. Object must contain both id and name properties.',
+      '<div>Can be a String/Object.</div><div>Object must contain both id and name properties.</div>',
   },
   placeholder: {
     name: 'placeholder',
