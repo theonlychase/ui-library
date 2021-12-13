@@ -1,10 +1,5 @@
 module.exports = {
-  mode: 'jit',
-  purge: {
-    enabled: true,
-    content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  },
-  darkMode: false,
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       transitionDuration: {
