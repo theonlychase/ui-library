@@ -8,17 +8,14 @@ import {
 import { keyCodes } from '@/utils/helpers.js';
 
 const listbox = ref(null);
-const listboxMenu = ref(null);
-const listboxOptions = ref([]);
 const listboxOpen = ref(false);
-
 onClickOutside(listbox, (e) => {
   if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
     listboxOpen.value = false;
   }
 });
 
-const listboxApi = (props, emit) => {
+const api = (props, emit) => {
   const { allOptions, selectedIndex } = selectApi(props);
   const highlightedIndex = reactive(selectedIndex);
 
@@ -51,37 +48,12 @@ const listboxApi = (props, emit) => {
     },
   );
 
-  watch(
-    () => highlightedIndex.value,
-    (val) => {
-      setScrollTop(val);
-    },
-    {
-      flush: 'post',
-    },
-  );
-
-  watch(
-    listboxMenu,
-    async (val) => {
-      await nextTick();
-      if (listboxOpen.value) {
-        listboxOptions.value = [...val.children];
-        selectedIndex.value !== -1 && setScrollTop(selectedIndex.value);
-      }
-    },
-    {
-      flush: 'post',
-    },
-  );
-
   return {
     allOptions,
     highlightedIndex,
     listbox,
     listboxLabel,
     listboxOpen,
-    listboxMenu,
     onKeyDown,
     selectedIndex,
     selectedValue,
@@ -137,6 +109,24 @@ const keyEvents = (options, emit, highlightedIndex, selectedIndex) => {
   return { onKeyDown };
 };
 
+const setScrollTop = (index, listboxMenu, listboxOptions) => {
+  const el = listboxOptions.value[index];
+  if (listboxMenu.value) {
+    const { clientHeight, scrollHeight, scrollTop } = listboxMenu.value;
+    const fromTop = el.offsetTop + el.clientHeight;
+    if (fromTop > clientHeight) {
+      listboxMenu.value.scrollTop = scrollHeight - clientHeight;
+    }
+    if (scrollTop > 0 && fromTop < clientHeight) {
+      if (el.clientHeight > scrollTop) {
+        listboxMenu.value.scrollTop -= el.clientHeight;
+      } else {
+        listboxMenu.value.scrollTop = 0;
+      }
+    }
+  }
+};
+
 const closeListbox = () => {
   if (listboxOpen.value) {
     listboxOpen.value = false;
@@ -169,22 +159,4 @@ const setSearchedValue = (options, search) => {
   );
 };
 
-const setScrollTop = (index) => {
-  const el = listboxOptions.value[index];
-  if (listboxMenu.value) {
-    const { clientHeight, scrollHeight, scrollTop } = listboxMenu.value;
-    const fromTop = el.offsetTop + el.clientHeight;
-    if (fromTop > clientHeight) {
-      listboxMenu.value.scrollTop = scrollHeight - clientHeight;
-    }
-    if (scrollTop > 0 && fromTop < clientHeight) {
-      if (el.clientHeight > scrollTop) {
-        listboxMenu.value.scrollTop -= el.clientHeight;
-      } else {
-        listboxMenu.value.scrollTop = 0;
-      }
-    }
-  }
-};
-
-export { getValueName, listboxApi };
+export { api, getValueName, setScrollTop };

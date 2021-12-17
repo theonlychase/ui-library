@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import { getValueName, listboxApi } from './composables.js';
+  import WcListboxOptions from './WcListboxOptions.vue';
+  import WcListboxOption from './WcListboxOption.vue';
+  import { getValueName, api } from './composables.js';
 
   const emit = defineEmits(['update:value']);
   const props = defineProps({
@@ -35,12 +37,11 @@
     listbox,
     listboxLabel,
     listboxOpen,
-    listboxMenu,
     onKeyDown,
     selectedIndex,
     selectedValue,
     setSelectedValue,
-  } = listboxApi(props, emit);
+  } = api(props, emit);
 </script>
 
 <template>
@@ -86,46 +87,23 @@
         </span>
       </button>
 
-      <transition
-        leave-to-class="opacity-0"
-        leave-from-class="opacity-100"
-        leave-active-class="transition ease-in duration-100"
-        appear
+      <wc-listbox-options
+        :highlighted-index="highlightedIndex"
+        :listbox-open="listboxOpen"
+        :listbox-label="listboxLabel"
+        :options="allOptions"
+        :selected-index="selectedIndex"
       >
-        <ul
-          v-if="listboxOpen && allOptions.length"
-          ref="listboxMenu"
-          class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
-          tabindex="-1"
-          role="listbox"
-          :aria-labelledby="listboxLabel"
-          :aria-activedescendant="`listbox-option-${selectedIndex}`"
-        >
-          <li
-            v-for="(option, optionIndex) in options"
-            :id="`listbox-option-${optionIndex}`"
-            :key="getValueName(option)"
-            class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-4"
-            :class="{
-              'hover:bg-gray-100': getValueName(option) !== selectedValue,
-              'bg-gray-100': optionIndex === highlightedIndex,
-              'bg-blue-400 text-white': getValueName(option) === selectedValue,
-            }"
-            role="option"
+        <template #default="{ option, index }">
+          <wc-listbox-option
+            :highlighted-index="highlightedIndex"
+            :index="index"
+            :selected-value="selectedValue"
+            :value="getValueName(option)"
             @click="setSelectedValue(option)"
-          >
-            <span
-              class="block truncate"
-              :class="{
-                'font-semibold': getValueName(option) === selectedValue,
-                'font-normal': getValueName(option) !== selectedValue,
-              }"
-            >
-              {{ getValueName(option) }}
-            </span>
-          </li>
-        </ul>
-      </transition>
+          />
+        </template>
+      </wc-listbox-options>
     </div>
   </div>
 </template>
