@@ -3,7 +3,8 @@
     "env": {
         "browser": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "vue/setup-compiler-macros": true
     },
     "extends": [
         "plugin:vue/vue3-recommended",
@@ -14,5 +15,10 @@
     ],
     "parserOptions": {
         "ecmaVersion": 2021
+    },
+    "rules": {
+        "vue/multi-word-component-names": 0,
+        "vue/no-v-html": 0,
+        "@typescript-eslint/no-unused-vars": 0
     }
 }

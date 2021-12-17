@@ -18,7 +18,7 @@ const resizePanel = (panel) => {
 
   watchEffect(
     () => {
-      panel.value.firstElementChild.onmousedown = (e) => {
+      panel.value.firstElementChild.onmousedown = () => {
         resizing.value = true;
       };
 

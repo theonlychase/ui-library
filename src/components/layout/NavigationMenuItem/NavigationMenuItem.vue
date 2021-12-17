@@ -41,7 +41,7 @@
           ? 'bg-gray-200 text-gray-900'
           : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
       "
-      class="bg-gray-50 group w-full flex items-center pr-2 py-2 text-left text-sm font-medium rounded-md focus:outline-none"
+      class="bg-gray-50 group w-full flex items-center px-2 py-2 text-left text-sm font-medium rounded-md focus:outline-none"
       :aria-controls="`sub-menu-${name}`"
       aria-expanded="false"
       @click="children.length ? (isOpen = !isOpen) : null"
