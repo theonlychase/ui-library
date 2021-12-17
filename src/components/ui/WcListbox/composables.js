@@ -70,14 +70,12 @@ const keyEvents = (options, emit, highlightedIndex, selectedIndex) => {
     e.stopPropagation();
 
     if (keyCodes.up === keyCode) {
-      if (listboxOpen.value) {
+      listboxOpen.value &&
         prevValue(lastIndex, highlightedIndex, selectedIndex);
-      }
     }
     if (keyCodes.down === keyCode) {
-      if (listboxOpen.value) {
+      listboxOpen.value &&
         nextValue(lastIndex, highlightedIndex, selectedIndex);
-      }
     }
     if (keyCodes.enter === keyCode || keyCodes.space === keyCode) {
       onKeySelect();
@@ -92,7 +90,10 @@ const keyEvents = (options, emit, highlightedIndex, selectedIndex) => {
     if (keyCode >= 65 && keyCode <= 90) {
       if (listboxOpen.value) {
         const search = e.key.toLowerCase();
-        highlightedIndex.value = setSearchedValue(options, search);
+        const searchIndex = setSearchedValue(options, search);
+        if (searchIndex !== -1) {
+          highlightedIndex.value = searchIndex;
+        }
       }
     }
   };
