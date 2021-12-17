@@ -6,7 +6,7 @@ function dynamicPropsFn(route) {
     queries[`${key}`] =
       value === 'true' ? true : value === 'false' ? false : value;
   });
-  return { ...route.query, ...queries };
+  return queries;
 }
 
 function getComponentPath(path) {
@@ -60,8 +60,8 @@ export default function dynamicRoutes(
               import(`../stories/${parent}/${componentName}.vue`),
             meta: { parent },
             beforeEnter(to, from) {
-              store.dispatch('controls/setControls', {});
               removeQueryParams(to);
+              store.dispatch('controls/setControls', null);
             },
             props: dynamicPropsFn,
           });
