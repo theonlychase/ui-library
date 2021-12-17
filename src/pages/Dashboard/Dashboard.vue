@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <h1 class="mb-6">Build component driven UIs Fast</h1>
   <ul class="space-y-2 list-disc list-inside">
