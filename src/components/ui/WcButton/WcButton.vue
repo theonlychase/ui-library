@@ -12,7 +12,7 @@
       type: String,
       default: null,
     },
-    linkTitle: {
+    title: {
       type: String,
       default: null,
     },
@@ -57,7 +57,8 @@
       [`WcButton--${variation}`]: variation,
       [`WcButton--${size}`]: size,
     }"
-    :title="linkTitle"
+    :title="title"
+    :type="type"
   >
     <span v-if="$slots['icon-left']" class="mr-2">
       <slot name="icon-left" />
@@ -78,16 +79,29 @@
     @apply text-sm uppercase font-medium appearance-none leading-none border border-solid rounded min-w-[3rem] flex items-center
     select-none no-underline outline-none cursor-pointer px-4 focus:outline-none;
     @apply transition-colors duration-50 ease-out;
-  }
 
-  .WcButton--disabled {
-    @apply bg-blue-500 pointer-events-none opacity-40;
+    &.WcButton--primary {
+      @apply bg-blue-500 border-blue-500 hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600 text-white;
+    }
 
-    &.WcButton--text,
     &.WcButton--secondary {
-      @apply bg-gray-200 text-gray-600 opacity-60 border-0;
+      @apply bg-white text-blue-500 border-blue-500 hover:bg-blue-50 focus:border-gray-600 focus:bg-gray-50 focus:text-gray-700;
+    }
+
+    &.WcButton--text {
+      @apply bg-transparent text-blue-500 border-transparent hover:bg-blue-100 focus:text-gray-700;
+    }
+
+    &.WcButton--disabled {
+      @apply bg-blue-500 pointer-events-none opacity-40;
+
+      &.WcButton--text,
+      &.WcButton--secondary {
+        @apply bg-gray-200 text-gray-600 opacity-60 border-0;
+      }
     }
   }
+
   .WcButton--xSmall {
     @apply text-xs h-6 py-0 px-2;
   }
@@ -102,18 +116,6 @@
 
   .WcButton--large {
     @apply text-base h-12 py-0 px-6;
-  }
-
-  .WcButton--primary {
-    @apply bg-blue-500 border-blue-500 hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600 text-white;
-  }
-
-  .WcButton--secondary {
-    @apply bg-white text-blue-500 border-blue-500 hover:bg-blue-50 focus:border-gray-600 focus:bg-gray-50 focus:text-gray-700;
-  }
-
-  .WcButton--text {
-    @apply bg-transparent text-blue-500 border-transparent hover:bg-blue-100 focus:text-gray-700;
   }
 
   .WcButton--rounded {
