@@ -70,10 +70,14 @@ const keyEvents = (options, emit, highlightedIndex, selectedIndex) => {
     e.stopPropagation();
 
     if (keyCodes.up === keyCode) {
-      prevValue(lastIndex, highlightedIndex, selectedIndex);
+      if (listboxOpen.value) {
+        prevValue(lastIndex, highlightedIndex, selectedIndex);
+      }
     }
     if (keyCodes.down === keyCode) {
-      nextValue(lastIndex, highlightedIndex, selectedIndex);
+      if (listboxOpen.value) {
+        nextValue(lastIndex, highlightedIndex, selectedIndex);
+      }
     }
     if (keyCodes.enter === keyCode || keyCodes.space === keyCode) {
       onKeySelect();
