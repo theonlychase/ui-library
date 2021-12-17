@@ -6,7 +6,7 @@ function dynamicPropsFn(route) {
     queries[`${key}`] =
       value === 'true' ? true : value === 'false' ? false : value;
   });
-  return { ...queries };
+  return { ...route.query, ...queries };
 }
 
 function getComponentPath(path) {
@@ -19,6 +19,10 @@ function getComponentPath(path) {
     .toLowerCase();
 
   return { componentName, routePath };
+}
+
+function removeQueryParams(to) {
+  if (Object.keys(to.query).length) return { path: to.path, query: {} };
 }
 
 // TODO - Configure Dynamic Web Components
@@ -56,7 +60,8 @@ export default function dynamicRoutes(
               import(`../stories/${parent}/${componentName}.vue`),
             meta: { parent },
             beforeEnter(to, from) {
-              store.dispatch('controls/setControls', null);
+              store.dispatch('controls/setControls', {});
+              removeQueryParams(to);
             },
             props: dynamicPropsFn,
           });

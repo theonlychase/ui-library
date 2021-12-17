@@ -1,20 +1,27 @@
 export default {
-  // disabled: {
-  //   name: 'disabled',
-  //   type: 'toggle',
-  //   props: {
-  //     value: false,
-  //   },
-  //   description: 'Select Menu will be disabled',
-  // },
+  disabled: {
+    name: 'disabled',
+    type: 'toggle',
+    props: {
+      value: false,
+    },
+    description: 'Listbox will be disabled',
+  },
+  iconLeft: {
+    name: 'iconLeft',
+    type: 'toggle',
+    props: {
+      value: false,
+    },
+    description: 'ListboxButton icon-left slot',
+  },
   iconRight: {
     name: 'iconRight',
-    type: 'select',
+    type: 'toggle',
     props: {
-      value: 'selector',
-      options: ['selector', 'chevronDown', 'chevronUp'],
+      value: false,
     },
-    description: 'Listbox Right Icon',
+    description: 'ListboxButton icon-right slot',
   },
   label: {
     name: 'label',

@@ -1,3 +1,5 @@
 import WcListbox from './WcListbox.vue';
+import WcListboxOptions from './WcListboxOptions.vue';
+import WcListboxOption from './WcListboxOption.vue';
 
-export default WcListbox;
+export { WcListbox, WcListboxOption, WcListboxOptions };
