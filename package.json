@@ -9,6 +9,9 @@
     "test": "jest",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.{vue,js,ts}": "eslint --fix"
+  },
   "dependencies": {
     "@vueuse/core": "^7.3.0",
     "vue": "^3.2.16",
