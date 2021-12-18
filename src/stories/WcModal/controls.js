@@ -5,6 +5,6 @@ export default {
     props: {
       value: false,
     },
-    description: 'Modal will be fullscreen in all viewports',
+    description: 'Modal will be fullscreen in mobile',
   },
 };
