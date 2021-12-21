@@ -31,15 +31,6 @@ export default {
     },
     description: 'Card header content slot',
   },
-  horizontal: {
-    name: 'horizontal',
-    type: 'toggle',
-    props: {
-      value: false,
-    },
-    description:
-      '<div>Card will display content and media horizontally</div><div>Media Slot is required</div>',
-  },
   mediaSlot: {
     name: 'mediaSlot',
     type: 'toggle',

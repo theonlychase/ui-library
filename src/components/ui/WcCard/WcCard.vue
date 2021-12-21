@@ -12,10 +12,6 @@
       type: Boolean,
       default: false,
     },
-    horizontal: {
-      type: Boolean,
-      default: false,
-    },
   });
 </script>
 
@@ -38,20 +34,14 @@
       <slot name="header" />
     </div>
 
-    <div
-      class="WcCard-content"
-      :class="{
-        'grid grid-cols-3': $slots.media && horizontal,
-      }"
-    >
+    <div class="WcCard-content">
       <slot v-if="$slots.media" name="media" />
 
       <div
         class="WcCard-content_main py-4"
         :class="{
-          'col-span-2': horizontal && $slots.media,
           'px-4': !borderless,
-          'border-t border-gray-200': $slots.media && !horizontal,
+          'border-t border-gray-200': $slots.media,
         }"
       >
         <slot />
