@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  const emit = defineEmits(['update:value']);
   const props = defineProps({
     disabled: {
       type: Boolean,
@@ -36,8 +37,6 @@
       default: 'solid',
     },
   });
-
-  const emit = defineEmits(['update:value']);
 </script>
 
 <template>
