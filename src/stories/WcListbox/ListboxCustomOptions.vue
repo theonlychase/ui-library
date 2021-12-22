@@ -2,7 +2,7 @@
   import { ref } from 'vue';
   import { useStore } from 'vuex';
   import controls from './controls';
-  import { setDefaultControls } from '@/utils/helpers.js';
+  import { setDefaultControls } from '@/utils/stories';
 
   const value = ref('');
 

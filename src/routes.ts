@@ -7,11 +7,15 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 
+const components = import.meta.globEager('./components/ui/**/*.vue');
+const pages = import.meta.globEager('./pages/**/*.vue');
+const stories = import.meta.globEager('./stories/**/*.vue');
+
 // Import all Component, Page, & Story Modules via Glob Imports (Vite Only)
 const routeComponents = {
-  components: import.meta.globEager('./components/ui/**/*.vue'),
-  pages: import.meta.globEager('./pages/**/*.vue'),
-  stories: import.meta.globEager('./stories/**/*.vue'),
+  components,
+  pages,
+  stories,
 };
 
-export { routes, routeComponents };
+export { components, routes, routeComponents };
