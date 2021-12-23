@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
   import WcIcon from '../WcIcon';
 
   const emit = defineEmits(['update:value']);
@@ -16,14 +16,17 @@
 
   const overlayTransition = ref(false);
 
-  const showModal = () => {
-    overlayTransition.value = !props.value;
-    emit('update:value', !props.value);
-  };
+  watch(
+    () => props.value,
+    (value) => {
+      overlayTransition.value = value;
+      emit('update:value', value);
+    },
+  );
 </script>
 
 <template>
-  <div class="WcModal-activator" @click="showModal">
+  <div class="WcModal-activator" @click="emit('update:value', true)">
     <slot name="activator" />
   </div>
 
