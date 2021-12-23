@@ -63,7 +63,7 @@
   />
 </template>
 
-<style scoped>
+<style>
   .WcIcon--fill {
     fill: var(--icon-color);
   }

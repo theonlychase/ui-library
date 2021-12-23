@@ -18,4 +18,4 @@ const routeComponents = {
   stories,
 };
 
-export { components, routes, routeComponents };
+export { routes, routeComponents };

@@ -9,7 +9,8 @@ export default defineConfig({
       name: 'UiLibrary',
       fileName: (format) => `ui-library.${format}.js`,
     },
-    outDir: 'lib',
+    cssCodeSplit: true,
+    outDir: 'lib/dist',
     rollupOptions: {
       external: ['vue'],
       output: {
@@ -24,5 +25,6 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
   },
+  publicDir: false,
   plugins: [vue({})],
 });
