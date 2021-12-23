@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import WcIcon from '../WcIcon';
   const emit = defineEmits(['update:value']);
   const props = defineProps({
     disabled: {
@@ -95,7 +96,7 @@
         'bg-gray-50': variation === 'underline' || disabled,
         '!pl-8': iconLeft && variation !== 'labelInset',
       }"
-      class="form-input block w-full min-w-max rounded-md sm:text-sm border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0"
+      class="form-input block w-full min-w-max rounded-md sm:text-sm border-0 p-0 text-gray-900 placeholder-gray-400 focus:ring-0"
       :placeholder="placeholder"
       :value="value"
       @input="({ target }) => $emit('update:value', target.value)"

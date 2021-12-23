@@ -76,13 +76,14 @@
           >
             <div
               v-if="overlayTransition"
-              class="bg-white text-left overflow-hidden shadow-xl transform transition-all relative px-4 pt-5 pb-4 sm:my-8 sm:p-6 rounded-lg sm:max-w-lg"
+              class="bg-white text-left overflow-hidden shadow-xl transform transition-all relative px-6 pt-5 pb-4 sm:my-8 sm:p-6 rounded-lg sm:max-w-xl"
               :class="{
                 'h-screen w-full sm:h-auto sm:w-max': fullscreen,
               }"
             >
               <wc-icon
                 name="closeOutlineStroke"
+                size="small"
                 color="gray500"
                 hover-color="gray600"
                 class="cursor-pointer absolute top-2 right-2"

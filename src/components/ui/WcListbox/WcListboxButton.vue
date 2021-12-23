@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import WcIcon from '../WcIcon';
   const props = defineProps({
     disabled: {
       type: Boolean,
