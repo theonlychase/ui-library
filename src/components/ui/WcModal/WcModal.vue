@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue';
+  import WcIcon from '../WcIcon';
 
   const emit = defineEmits(['update:value']);
   const props = defineProps({
