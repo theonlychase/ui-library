@@ -14,9 +14,17 @@
       type: String,
       default: '',
     },
+    id: {
+      type: String,
+      default: null,
+    },
     label: {
       type: String,
-      default: '',
+      default: null,
+    },
+    name: {
+      type: String,
+      default: null,
     },
     placeholder: {
       type: [String, Number],
@@ -43,7 +51,7 @@
 <template>
   <label
     v-if="label && variation !== 'labelOverlap' && variation !== 'labelInset'"
-    :for="type"
+    :for="label"
     class="block text-sm font-medium text-gray-700"
     :class="{
       'ml-px pl-4': variation === 'pill',
@@ -73,11 +81,12 @@
         view-box="0 0 20 20"
       />
     </div>
+
     <label
       v-if="
         label && (variation === 'labelOverlap' || variation === 'labelInset')
       "
-      :for="type"
+      :for="label"
       :class="{
         block: variation === 'labelInset',
         'absolute -top-2 left-2 -mt-px inline-block px-1':
@@ -85,13 +94,15 @@
         'bg-gray-50': disabled,
       }"
       class="bg-white text-xs font-medium text-gray-900"
-      >{{ label }}</label
     >
+      {{ label }}
+    </label>
+
     <input
-      :id="type"
+      :id="label || id"
       :disabled="disabled"
       :type="type"
-      :name="type"
+      :name="name"
       :class="{
         'bg-gray-50': variation === 'underline' || disabled,
         '!pl-8': iconLeft && variation !== 'labelInset',
@@ -101,6 +112,7 @@
       :value="value"
       @input="({ target }) => $emit('update:value', target.value)"
     />
+
     <div
       v-if="iconRight"
       class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"

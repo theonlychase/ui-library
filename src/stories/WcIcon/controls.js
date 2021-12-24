@@ -1,3 +1,5 @@
+import { iconNames } from '@/components/ui/WcIcon/icons';
+
 export default {
   size: {
     name: 'size',
@@ -14,14 +16,7 @@ export default {
     type: 'select',
     props: {
       value: 'templateOutline',
-      options: [
-        'chevronRight',
-        'closeOutlineStroke',
-        'mail',
-        'menuAlt2Stroke',
-        'questionMarkCircle',
-        'templateOutline',
-      ],
+      options: iconNames,
     },
     description: 'Valid icon name',
   },

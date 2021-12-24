@@ -19,10 +19,6 @@ const api = (props, emit) => {
   const { allOptions, selectedIndex } = selectApi(props);
   const highlightedIndex = reactive(selectedIndex);
 
-  const listboxLabel = computed(() => {
-    return props.label ? 'listbox-label' : null;
-  });
-
   const selectedValue = computed(() => {
     return getValueName(props.value) || props.placeholder;
   });
@@ -52,7 +48,6 @@ const api = (props, emit) => {
     allOptions,
     highlightedIndex,
     listbox,
-    listboxLabel,
     listboxOpen,
     onKeyDown,
     selectedIndex,

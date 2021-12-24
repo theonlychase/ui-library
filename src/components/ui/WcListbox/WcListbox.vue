@@ -8,7 +8,7 @@
   const props = defineProps({
     label: {
       type: String,
-      default: '',
+      default: null,
     },
     disabled: {
       type: Boolean,
@@ -32,7 +32,6 @@
     allOptions,
     highlightedIndex,
     listbox,
-    listboxLabel,
     listboxOpen,
     onKeyDown,
     selectedIndex,
@@ -45,7 +44,7 @@
   <div class="WcListbox">
     <label
       v-if="label"
-      :id="listboxLabel"
+      :id="label"
       class="block text-sm font-medium text-gray-700"
     >
       {{ label }}
@@ -69,7 +68,7 @@
       <wc-listbox-options
         :highlighted-index="highlightedIndex"
         :listbox-open="listboxOpen"
-        :listbox-label="listboxLabel"
+        :listbox-label="label"
         :options="allOptions"
         :selected-index="selectedIndex"
       >

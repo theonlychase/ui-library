@@ -6,9 +6,17 @@
       type: Boolean,
       default: false,
     },
+    id: {
+      type: String,
+      default: null,
+    },
     label: {
       type: String,
-      default: '',
+      default: null,
+    },
+    name: {
+      type: String,
+      default: null,
     },
     options: {
       type: Array,
@@ -36,9 +44,9 @@
     {{ label }}
   </label>
   <select
-    :id="label"
+    :id="label || id"
     :disabled="disabled"
-    :name="label"
+    :name="name || label"
     class="form-select mt-1 block w-full min-w-max pl-3 pr-10 py-2 text-gray-900 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md transition-colors"
     :class="{
       'bg-gray-50': disabled,
