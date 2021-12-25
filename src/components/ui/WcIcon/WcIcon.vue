@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed } from 'vue';
+  import { computed, ComponentOptionsWithArrayProps } from 'vue';
   import icons from './icons';
 
   const props = defineProps({
@@ -18,14 +18,14 @@
     size: {
       type: String,
       default: 'medium',
-      validator: (value) => {
+      validator: (value: ComponentOptionsWithArrayProps): boolean => {
         return value.match(/(xxSmall|xSmall|small|medium|large|xLarge)/);
       },
     },
   });
 
   const strokeFill = computed(() => {
-    return props.name.toLocaleLowerCase().includes('stroke');
+    return props.name.toLowerCase().includes('stroke');
   });
 
   const computedColor = computed(() => ({
@@ -45,10 +45,18 @@
     'WcIcon--stroke': strokeFill.value,
     'WcIcon--stroke--hover': strokeFill.value && props.hoverColor,
   }));
-  const computedSvg = computed(
-    () => `<title>${props.name}</title>${icons[props.name].path}`,
+
+  const computedIcon = computed(() => icons[props.name]);
+  const computedSvg = computed(() =>
+    computedIcon.value
+      ? `<title>${props.name}</title>${computedIcon.value.path}`
+      : null,
   );
-  const computedViewBox = computed(() => icons[props.name].viewBox);
+  const computedViewBox = computed(() => {
+    return !computedIcon.value
+      ? console.error('Icon does not exist')
+      : computedIcon.value.viewBox;
+  });
 </script>
 
 <template>

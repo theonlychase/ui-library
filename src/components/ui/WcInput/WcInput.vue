@@ -1,10 +1,31 @@
 <script setup lang="ts">
+  import { ComponentOptionsWithArrayProps, computed, ref, Ref } from 'vue';
   import WcIcon from '../WcIcon';
   const emit = defineEmits(['update:value']);
   const props = defineProps({
+    clearable: {
+      type: Boolean,
+      default: true,
+    },
+    customClasses: {
+      type: String,
+      default: '',
+    },
     disabled: {
       type: Boolean,
       default: false,
+    },
+    error: {
+      type: Boolean,
+      default: false,
+    },
+    errorMessage: {
+      type: String,
+      default: '',
+    },
+    hint: {
+      type: String,
+      default: null,
     },
     iconLeft: {
       type: String,
@@ -33,8 +54,8 @@
     type: {
       type: String,
       default: 'text',
-      validator: (val) => {
-        return val.match(/text|checkbox|radio|password|number|email|color/);
+      validator: (val: ComponentOptionsWithArrayProps): boolean => {
+        return val?.match(/text|checkbox|radio|password|number|email|color/);
       },
     },
     value: {
@@ -46,6 +67,25 @@
       default: 'solid',
     },
   });
+
+  const input: Ref<HTMLInputElement | null> = ref(null);
+
+  const isClearable = computed(() => {
+    return props.clearable && props.value;
+  });
+
+  const getRightIcon = computed(() => {
+    return !props.error
+      ? isClearable.value
+        ? 'xCircle'
+        : props.iconRight
+      : 'exclamationCircle';
+  });
+
+  const clear = () => {
+    input.value && input.value.focus();
+    emit('update:value', '');
+  };
 </script>
 
 <template>
@@ -62,17 +102,21 @@
   <div
     :class="{
       '!rounded-full': variation === 'pill',
-      'bg-gray-50 border-b-2 shadow-none rounded-none transition-colors':
+      'bg-gray-50 border-b-2 shadow-none rounded-none':
         variation === 'underline',
-      'shadow-sm border focus-within:ring-1 focus-within:ring-blue-500 transition-shadow':
+      '!border-red-500': error && variation === 'underline',
+      '!border-red-500 !ring-1 !ring-red-500':
+        error && variation !== 'underline',
+      'shadow-sm border focus-within:ring-1 focus-within:ring-blue-500':
         variation !== 'underline',
       'bg-gray-50': disabled,
+      [`${customClasses}`]: customClasses,
     }"
-    class="mt-1 relative rounded-md px-3 py-2 border-gray-300 bg-white focus-within:border-blue-500"
+    class="mt-1 relative rounded-md px-3 py-2 border-gray-300 bg-white focus-within:border-blue-500 transition-all"
   >
     <div
       v-if="iconLeft && variation !== 'labelInset'"
-      class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+      class="absolute inset-y-0 left-0 pl-3 flex items-center"
     >
       <wc-icon
         :name="iconLeft"
@@ -100,29 +144,50 @@
 
     <input
       :id="label || id"
+      ref="input"
       :disabled="disabled"
       :type="type"
       :name="name"
       :class="{
         'bg-gray-50': variation === 'underline' || disabled,
-        '!pl-8': iconLeft && variation !== 'labelInset',
+        '!pl-7': iconLeft && variation !== 'labelInset',
       }"
-      class="form-input block w-full min-w-max rounded-md sm:text-sm border-0 p-0 text-gray-900 placeholder-gray-400 focus:ring-0"
+      class="form-input block w-full rounded-md sm:text-sm border-0 pl-0 py-0 pr-7 text-gray-900 placeholder-gray-400 focus:ring-0"
       :placeholder="placeholder"
       :value="value"
-      @input="({ target }) => $emit('update:value', target.value)"
+      @input="({ target }) => emit('update:value', target.value)"
     />
 
     <div
-      v-if="iconRight"
-      class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+      v-if="getRightIcon"
+      class="absolute inset-y-0 right-0 pr-3 flex items-center"
+      :class="{
+        'cursor-pointer': isClearable,
+        'pointer-events-none': !isClearable,
+      }"
+      @click="isClearable ? clear() : null"
     >
       <wc-icon
-        :name="iconRight"
+        :name="getRightIcon"
         size="xSmall"
-        color="gray400"
+        :color="error ? 'red500' : 'gray400'"
         view-box="0 0 20 20"
       />
+    </div>
+    <div
+      v-if="(error && errorMessage) || hint"
+      class="absolute -bottom-5 left-0 text-xs text-left truncate w-full"
+      :class="{
+        'text-red-500': error && errorMessage,
+        'text-gray-400': hint && !error && !errorMessage,
+      }"
+    >
+      <template v-if="error && errorMessage">
+        {{ errorMessage }}
+      </template>
+      <template v-if="hint && !error && !errorMessage">
+        {{ hint }}
+      </template>
     </div>
   </div>
 </template>

@@ -53,7 +53,7 @@
         aria-modal="true"
       >
         <div
-          class="flex justify-center text-center sm:p-0"
+          class="w-full sm:flex sm:justify-center text-center sm:p-0"
           :class="{
             'p-4': !fullscreen,
           }"
