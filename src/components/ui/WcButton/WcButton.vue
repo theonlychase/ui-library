@@ -4,6 +4,10 @@
       type: Boolean,
       default: false,
     },
+    circle: {
+      type: Boolean,
+      default: false,
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -38,7 +42,7 @@
       type: String,
       default: 'primary',
       validator: (value) => {
-        return value.match(/(primary|secondary|link|text)/);
+        return value.match(/(primary|secondary|text)/);
       },
     },
   });
@@ -51,9 +55,9 @@
     class="WcButton"
     :class="{
       'WcButton--disabled': disabled,
-      'WcButton--anchor': href,
-      'WcButton--block': block,
-      'WcButton--rounded': rounded,
+      'w-full max-w-full justify-center': block,
+      'rounded-full': rounded || circle,
+      'WcButton--circle': circle,
       [`WcButton--${variation}`]: variation,
       [`WcButton--${size}`]: size,
     }"
@@ -78,18 +82,18 @@
   .WcButton {
     @apply border border-solid border-transparent shadow-sm font-medium rounded appearance-none leading-none rounded inline-flex items-center
     select-none no-underline outline-none cursor-pointer focus:outline-none;
-    @apply transition-colors duration-50 ease-out hover:transition-colors;
+    @apply transition-colors duration-200 ease-in-out hover:transition-colors;
 
     &.WcButton--primary {
-      @apply text-white border-transparent bg-blue-500 hover:bg-blue-600;
+      @apply text-white bg-blue-500 hover:bg-blue-600;
     }
 
     &.WcButton--secondary {
-      @apply text-blue-700 bg-blue-100 hover:bg-blue-200;
+      @apply border-gray-300 text-gray-700 bg-white hover:bg-gray-100;
     }
 
     &.WcButton--text {
-      @apply bg-transparent text-blue-500 border-transparent hover:bg-blue-100 focus:text-gray-700;
+      @apply bg-transparent shadow-none text-blue-500 hover:bg-blue-100;
     }
 
     &.WcButton--disabled {
@@ -97,50 +101,40 @@
 
       &.WcButton--text,
       &.WcButton--secondary {
-        @apply bg-gray-200 text-gray-600 opacity-60 border-0;
+        @apply bg-gray-200 text-gray-600 opacity-60;
       }
     }
   }
 
   .WcButton--xSmall {
     @apply text-xs px-2.5 py-1.5;
+
+    &.WcButton--circle {
+      @apply px-1 py-1;
+    }
   }
 
   .WcButton--small {
     @apply text-sm px-3 py-2;
+
+    &.WcButton--circle {
+      @apply px-1.5 py-1.5;
+    }
   }
 
   .WcButton--medium {
     @apply text-base px-4 py-2;
+
+    &.WcButton--circle {
+      @apply px-2 py-2;
+    }
   }
 
   .WcButton--large {
     @apply text-base px-6 py-3;
-  }
 
-  .WcButton--rounded {
-    &.WcButton--xSmall {
-      @apply rounded-lg;
+    &.WcButton--circle {
+      @apply px-3 py-3;
     }
-
-    &.WcButton--small {
-      @apply rounded-xl;
-    }
-
-    &.WcButton--medium {
-      @apply rounded-2xl;
-    }
-
-    &.WcButton--large {
-      @apply rounded-[1.25rem];
-    }
-  }
-
-  .WcButton--block {
-    @apply w-full max-w-full justify-center;
-  }
-
-  .WcButton--anchor {
-    @apply inline-flex hover:no-underline;
   }
 </style>

@@ -7,6 +7,14 @@ export default {
     },
     description: 'Button will expand to 100% width of container',
   },
+  circle: {
+    name: 'circle',
+    type: 'toggle',
+    props: {
+      value: false,
+    },
+    description: 'Button will be a circle',
+  },
   disabled: {
     name: 'disabled',
     type: 'toggle',
@@ -14,6 +22,22 @@ export default {
       value: false,
     },
     description: 'Button will be disabled',
+  },
+  iconLeft: {
+    name: 'iconLeft',
+    type: 'toggle',
+    props: {
+      value: false,
+    },
+    description: 'Button icon-left slot',
+  },
+  iconRight: {
+    name: 'iconRight',
+    type: 'toggle',
+    props: {
+      value: false,
+    },
+    description: 'Button icon-right slot',
   },
   rounded: {
     name: 'rounded',
