@@ -1,0 +1,15 @@
+{
+  "name": "wc-ui-library",
+  "files": ["dist"],
+  "main": "./dist/ui-library.umd.js",
+  "module": "./dist/ui-library.es.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/ui-library.es.js",
+      "require": "./dist/ui-library.umd.js"
+    }
+  },
+  "version": "0.0.25",
+  "author": "Chase Isley"
+}
