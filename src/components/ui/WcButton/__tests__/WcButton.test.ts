@@ -48,7 +48,7 @@ describe('WcButton', () => {
   it('renders rounded state', async () => {
     await wrapper.setProps({ rounded: true });
 
-    expect(wrapper.classes()).toContain('WcButton--rounded');
+    expect(wrapper.classes()).toContain('rounded-full');
   });
 
   it('renders button sizes', async () => {
