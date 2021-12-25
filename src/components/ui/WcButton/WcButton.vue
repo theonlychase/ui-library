@@ -56,7 +56,7 @@
     :class="{
       'WcButton--disabled': disabled,
       'w-full max-w-full justify-center': block,
-      'rounded-full': rounded || circle,
+      '!rounded-full': rounded || circle,
       'WcButton--circle': circle,
       [`WcButton--${variation}`]: variation,
       [`WcButton--${size}`]: size,
@@ -80,7 +80,7 @@
 
 <style>
   .WcButton {
-    @apply border border-solid border-transparent shadow-sm font-medium rounded appearance-none leading-none rounded inline-flex items-center
+    @apply border border-solid border-transparent shadow-sm font-medium rounded-md min-w-max appearance-none leading-none inline-flex items-center
     select-none no-underline outline-none cursor-pointer focus:outline-none;
     @apply transition-colors duration-200 ease-in-out hover:transition-colors;
 
