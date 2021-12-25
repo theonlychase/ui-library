@@ -35,7 +35,7 @@
     </span>
 
     <span
-      class="block truncate"
+      class="block truncate min-h-[1.25rem]"
       :class="{
         'pl-6': $slots['icon-left'],
         'text-gray-500': !selectedValue,

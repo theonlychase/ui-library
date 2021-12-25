@@ -76,16 +76,16 @@
 
 <style>
   .WcButton {
-    @apply text-sm uppercase font-medium appearance-none leading-none border border-solid rounded min-w-[3rem] flex items-center
-    select-none no-underline outline-none cursor-pointer px-4 focus:outline-none;
-    @apply transition-colors duration-50 ease-out;
+    @apply border border-solid border-transparent shadow-sm font-medium rounded appearance-none leading-none rounded inline-flex items-center
+    select-none no-underline outline-none cursor-pointer focus:outline-none;
+    @apply transition-colors duration-50 ease-out hover:transition-colors;
 
     &.WcButton--primary {
-      @apply bg-blue-500 border-blue-500 hover:border-blue-600 hover:bg-blue-600 focus:border-blue-600 focus:bg-blue-600 text-white;
+      @apply text-white border-transparent bg-blue-500 hover:bg-blue-600;
     }
 
     &.WcButton--secondary {
-      @apply bg-white text-blue-500 border-blue-500 hover:bg-blue-50 focus:border-gray-600 focus:bg-gray-50 focus:text-gray-700;
+      @apply text-blue-700 bg-blue-100 hover:bg-blue-200;
     }
 
     &.WcButton--text {
@@ -103,19 +103,19 @@
   }
 
   .WcButton--xSmall {
-    @apply text-xs h-6 py-0 px-2;
+    @apply text-xs px-2.5 py-1.5;
   }
 
   .WcButton--small {
-    @apply text-sm h-8 py-0 px-3;
+    @apply text-sm px-3 py-2;
   }
 
   .WcButton--medium {
-    @apply h-10;
+    @apply text-base px-4 py-2;
   }
 
   .WcButton--large {
-    @apply text-base h-12 py-0 px-6;
+    @apply text-base px-6 py-3;
   }
 
   .WcButton--rounded {
