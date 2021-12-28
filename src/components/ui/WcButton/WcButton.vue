@@ -52,7 +52,7 @@
   const variations = {
     primary: 'text-white bg-blue-500 hover:bg-blue-600',
     secondary: 'text-white bg-gray-500 hover:bg-gray-600',
-    white: 'border-gray-400 text-gray-700 bg-white hover:bg-gray-100',
+    white: '!border-gray-400 text-gray-700 bg-white hover:bg-gray-100',
     text: 'bg-transparent shadow-none text-gray-700 hover:bg-gray-100',
     error: 'bg-red-500 text-white hover:bg-red-600',
   };
