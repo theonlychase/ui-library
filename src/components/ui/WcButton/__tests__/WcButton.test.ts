@@ -35,7 +35,8 @@ describe('WcButton', () => {
   it('renders disabled state', async () => {
     await wrapper.setProps({ disabled: true });
 
-    expect(wrapper.classes()).toContain('WcButton--disabled');
+    expect(wrapper.classes()).toContain('pointer-events-none');
+    expect(wrapper.classes()).toContain('opacity-40');
   });
 
   it('renders title attribute', async () => {
@@ -82,16 +83,49 @@ describe('WcButton', () => {
   });
 
   it('renders button variations', async () => {
+    let classes = ['text-white', 'bg-blue-500', 'hover:bg-blue-600'];
     // default primary
-    expect(wrapper.classes()).toContain('WcButton--primary');
+    classes.forEach((val) => {
+      expect(wrapper.classes()).toContain(val);
+    });
 
     // secondary
     await wrapper.setProps({ variation: 'secondary' });
-    expect(wrapper.classes()).toContain('WcButton--secondary');
+    classes = ['text-white', 'bg-gray-500', 'hover:bg-gray-600'];
+    classes.forEach((val) => {
+      expect(wrapper.classes()).toContain(val);
+    });
+
+    // white
+    await wrapper.setProps({ variation: 'white' });
+    classes = [
+      'border-gray-400',
+      'text-gray-700',
+      'bg-white',
+      'hover:bg-gray-100',
+    ];
+    classes.forEach((val) => {
+      expect(wrapper.classes()).toContain(val);
+    });
 
     // text
     await wrapper.setProps({ variation: 'text' });
-    expect(wrapper.classes()).toContain('WcButton--text');
+    classes = [
+      'bg-transparent',
+      'shadow-none',
+      'text-gray-700',
+      'hover:bg-gray-100',
+    ];
+    classes.forEach((val) => {
+      expect(wrapper.classes()).toContain(val);
+    });
+
+    // error
+    await wrapper.setProps({ variation: 'error' });
+    classes = ['bg-red-500', 'text-white', 'hover:bg-red-600'];
+    classes.forEach((val) => {
+      expect(wrapper.classes()).toContain(val);
+    });
   });
 
   it('renders default slot', () => {

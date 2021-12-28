@@ -96,26 +96,6 @@
     @apply border border-solid border-transparent shadow-sm font-medium rounded-md min-w-max appearance-none leading-none inline-flex items-center
     select-none no-underline outline-none cursor-pointer focus:outline-none;
     @apply transition-colors duration-200 ease-in-out hover:transition-colors;
-
-    &.WcButton--primary {
-      @apply text-white bg-blue-500 hover:bg-blue-600;
-    }
-
-    &.WcButton--secondary {
-      @apply text-white bg-gray-500 hover:bg-gray-600;
-    }
-
-    &.WcButton--white {
-      @apply border-gray-400 text-gray-700 bg-white hover:bg-gray-100;
-    }
-
-    &.WcButton--text {
-      @apply bg-transparent shadow-none text-gray-700 hover:bg-gray-100;
-    }
-
-    &.WcButton--error {
-      @apply bg-red-500 text-white hover:bg-red-600;
-    }
   }
 
   .WcButton--xSmall {
