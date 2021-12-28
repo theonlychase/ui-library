@@ -165,7 +165,7 @@
         'cursor-pointer': isClearable,
         'pointer-events-none': !isClearable,
       }"
-      @click="isClearable ? clear() : null"
+      @click.prevent.stop="isClearable ? clear() : null"
     >
       <wc-icon
         :name="getRightIcon"
