@@ -60,16 +60,16 @@ export default {
       ],
     },
     description:
-      'Button will become either "xSmall", "small," "medium", or "large"',
+      'Button sizes are <span class="font-bold">xSmall, small, medium, or large</span>',
   },
   variation: {
     name: 'variation',
     type: 'select',
     props: {
       value: 'primary',
-      options: ['primary', 'secondary', 'text'],
+      options: ['primary', 'secondary', 'white', 'text', 'error'],
     },
     description:
-      'Button will become become either "primary", "secondary", or "text"',
+      'Button variations are: <span class="font-bold">primary, secondary, white, text, error</span>',
   },
 };

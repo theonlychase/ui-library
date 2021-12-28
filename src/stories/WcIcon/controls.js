@@ -9,7 +9,7 @@ export default {
       options: ['xxSmall', 'xSmall', 'small', 'medium', 'large', 'xLarge'],
     },
     description:
-      'Valid Icon sizes: xxSmall, xSmall, small, medium, large, xLarge',
+      'Icon sizes are: <span class="font-bold">xxSmall, xSmall, small, medium, large, xLarge</span>',
   },
   name: {
     name: 'name',

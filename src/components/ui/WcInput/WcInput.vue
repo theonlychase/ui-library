@@ -55,7 +55,7 @@
       type: String,
       default: 'text',
       validator: (val: ComponentOptionsWithArrayProps): boolean => {
-        return val?.match(/text|checkbox|radio|password|number|email|color/);
+        return val.match(/text|checkbox|radio|password|number|email|color/);
       },
     },
     value: {

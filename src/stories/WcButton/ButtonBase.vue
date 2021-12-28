@@ -10,17 +10,39 @@
 <template>
   <wc-button v-bind="defaultProps">
     <template v-if="$route.query.iconLeft === 'true'" #icon-left>
-      <wc-icon name="plus" color="gray400" size="xSmall" />
+      <wc-icon
+        name="plus"
+        :color="
+          $route.query.variation === 'white' ||
+          $route.query.variation === 'text'
+            ? 'gray700'
+            : 'white'
+        "
+        size="xSmall"
+      />
     </template>
     <wc-icon
       v-if="$route.query.circle === 'true'"
       name="plus"
-      :color="$route.query.variation !== 'primary' ? 'gray700' : 'white'"
+      :color="
+        $route.query.variation === 'white' || $route.query.variation === 'text'
+          ? 'gray700'
+          : 'white'
+      "
       size="xSmall"
     />
     <div v-else>Button</div>
     <template v-if="$route.query.iconRight === 'true'" #icon-right>
-      <wc-icon name="chevronRight" color="gray400" size="xSmall" />
+      <wc-icon
+        name="chevronRight"
+        :color="
+          $route.query.variation === 'white' ||
+          $route.query.variation === 'text'
+            ? 'gray700'
+            : 'white'
+        "
+        size="xSmall"
+      />
     </template>
   </wc-button>
 </template>

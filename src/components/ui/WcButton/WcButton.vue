@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { ComponentOptionsWithArrayProps, computed } from 'vue';
+
   const props = defineProps({
     block: {
       type: Boolean,
@@ -27,25 +29,43 @@
     size: {
       type: String,
       default: 'medium',
-      validator: (value) => {
-        return value.match(/(xSmall|small|medium|large)/);
+      validator: (val: ComponentOptionsWithArrayProps): boolean => {
+        return val.match(/(xSmall|small|medium|large)/);
       },
     },
     type: {
       type: String,
       default: 'button',
-      validator: (value) => {
-        return value.match(/(button|submit|reset)/);
+      validator: (val: ComponentOptionsWithArrayProps): boolean => {
+        return val.match(/(button|submit|reset)/);
       },
     },
     variation: {
       type: String,
       default: 'primary',
-      validator: (value) => {
-        return value.match(/(primary|secondary|text)/);
+      validator: (val: ComponentOptionsWithArrayProps): boolean => {
+        return val.match(/(primary|secondary|white|text|error)/);
       },
     },
   });
+
+  const variations = {
+    primary: 'text-white bg-blue-500 hover:bg-blue-600',
+    secondary: 'text-white bg-gray-500 hover:bg-gray-600',
+    white: 'border-gray-400 text-gray-700 bg-white hover:bg-gray-100',
+    text: 'bg-transparent shadow-none text-gray-700 hover:bg-gray-100',
+    error: 'bg-red-500 text-white hover:bg-red-600',
+  };
+
+  const computedClasses = computed(() => ({
+    'pointer-events-none opacity-40': props.disabled,
+    'w-full max-w-full justify-center': props.block,
+    '!rounded-full': props.rounded || props.circle,
+    'WcButton--circle': props.circle,
+    [`WcButton--${props.size}`]: props.size,
+  }));
+
+  const computedVariation = computed(() => variations[props.variation]);
 </script>
 
 <template>
@@ -53,14 +73,7 @@
     :is="href ? 'a' : 'button'"
     :href="href"
     class="WcButton"
-    :class="{
-      'WcButton--disabled': disabled,
-      'w-full max-w-full justify-center': block,
-      '!rounded-full': rounded || circle,
-      'WcButton--circle': circle,
-      [`WcButton--${variation}`]: variation,
-      [`WcButton--${size}`]: size,
-    }"
+    :class="[computedClasses, computedVariation]"
     :title="title"
     :type="type"
   >
@@ -89,20 +102,19 @@
     }
 
     &.WcButton--secondary {
-      @apply border-gray-300 text-gray-700 bg-white hover:bg-gray-100;
+      @apply text-white bg-gray-500 hover:bg-gray-600;
+    }
+
+    &.WcButton--white {
+      @apply border-gray-400 text-gray-700 bg-white hover:bg-gray-100;
     }
 
     &.WcButton--text {
-      @apply bg-transparent shadow-none text-blue-500 hover:bg-blue-100;
+      @apply bg-transparent shadow-none text-gray-700 hover:bg-gray-100;
     }
 
-    &.WcButton--disabled {
-      @apply bg-blue-500 pointer-events-none opacity-40;
-
-      &.WcButton--text,
-      &.WcButton--secondary {
-        @apply bg-gray-200 text-gray-600 opacity-60;
-      }
+    &.WcButton--error {
+      @apply bg-red-500 text-white hover:bg-red-600;
     }
   }
 

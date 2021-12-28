@@ -105,6 +105,6 @@ export default {
       options: ['labelInset', 'labelOverlap', 'pill', 'solid', 'underline'],
     },
     description:
-      'Variations of Input Styling. labelInset, labelOverlap, pill, solid, and underline',
+      'Input variations: <span class="font-bold">labelInset, labelOverlap, pill, solid, underline</span>',
   },
 };
