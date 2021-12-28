@@ -99,7 +99,7 @@ describe('WcButton', () => {
     // white
     await wrapper.setProps({ variation: 'white' });
     classes = [
-      'border-gray-400',
+      '!border-gray-400',
       'text-gray-700',
       'bg-white',
       'hover:bg-gray-100',
