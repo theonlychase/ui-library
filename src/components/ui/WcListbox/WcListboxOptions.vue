@@ -33,9 +33,13 @@
     async (val) => {
       await nextTick();
       if (props.listboxOpen) {
-        listboxOptions.value = [...val.children];
-        props.selectedIndex !== -1 &&
-          setScrollTop(props.selectedIndex, listboxMenu, listboxOptions);
+        if (val && val.children) {
+          listboxOptions.value = [...val.children];
+          props.selectedIndex !== -1 &&
+            setScrollTop(props.selectedIndex, listboxMenu, listboxOptions);
+        } else {
+          listboxOptions.value = [];
+        }
       }
     },
     {

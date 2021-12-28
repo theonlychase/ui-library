@@ -1,4 +1,4 @@
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import {
   getValueName,
@@ -9,6 +9,7 @@ import { keyCodes } from '@/utils/helpers.js';
 
 const listbox = ref(null);
 const listboxOpen = ref(false);
+const lastIndex = ref(0);
 onClickOutside(listbox, (e) => {
   if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
     listboxOpen.value = false;
@@ -26,23 +27,56 @@ const api = (props, emit) => {
   const setSelectedValue = (option) => {
     listboxOpen.value = false;
     emit('update:value', option);
+    props.autocomplete && emit('update:search', getValueName(option));
   };
 
   const { onKeyDown } = keyEvents(
     allOptions,
     emit,
     highlightedIndex,
+    props.autocomplete,
     selectedIndex,
   );
 
   watch(
     () => listboxOpen.value,
-    (val) => {
-      if (!val) {
+    async (val) => {
+      if (props.autocomplete && val) {
+        await nextTick();
+        highlightedIndex.value = 0;
+      }
+
+      if (!props.autocomplete && !val) {
         highlightedIndex.value = setValueIndex(allOptions, props.value);
       }
     },
   );
+
+  if (props.autocomplete) {
+    watch(
+      () => allOptions.value,
+      (val) => {
+        if (val.length) {
+          lastIndex.value = val.length - 1;
+          if (!props.value) {
+            listboxOpen.value = true;
+          }
+        } else {
+          listboxOpen.value = false;
+        }
+      },
+      { deep: true },
+    );
+
+    watch(
+      () => props.search,
+      (val) => {
+        if (props.value) {
+          emit('update:value', null);
+        }
+      },
+    );
+  }
 
   return {
     allOptions,
@@ -56,21 +90,30 @@ const api = (props, emit) => {
   };
 };
 
-const keyEvents = (options, emit, highlightedIndex, selectedIndex) => {
-  const lastIndex = options.value.length - 1;
+const keyEvents = (
+  options,
+  emit,
+  highlightedIndex,
+  autocomplete,
+  selectedIndex,
+) => {
+  lastIndex.value = options.value.length - 1;
 
   const onKeyDown = (e) => {
     const keyCode = e.keyCode;
-    e.preventDefault();
-    e.stopPropagation();
+
+    if (!autocomplete) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     if (keyCodes.up === keyCode) {
       listboxOpen.value &&
-        prevValue(lastIndex, highlightedIndex, selectedIndex);
+        prevValue(lastIndex.value, highlightedIndex, selectedIndex);
     }
     if (keyCodes.down === keyCode) {
       listboxOpen.value &&
-        nextValue(lastIndex, highlightedIndex, selectedIndex);
+        nextValue(lastIndex.value, highlightedIndex, selectedIndex);
     }
     if (keyCodes.enter === keyCode || keyCodes.space === keyCode) {
       onKeySelect();
@@ -82,7 +125,7 @@ const keyEvents = (options, emit, highlightedIndex, selectedIndex) => {
     if (keyCodes.esc === keyCode) {
       closeListbox();
     }
-    if (keyCode >= 65 && keyCode <= 90) {
+    if (keyCode >= 65 && keyCode <= 90 && !autocomplete) {
       if (listboxOpen.value) {
         const search = e.key.toLowerCase();
         const searchIndex = setSearchedValue(options, search);
@@ -101,8 +144,9 @@ const keyEvents = (options, emit, highlightedIndex, selectedIndex) => {
 
     if (listboxOpen.value) {
       const selected = options.value[highlightedIndex.value];
-      listboxOpen.value = false;
       emit('update:value', selected);
+      autocomplete && emit('update:search', getValueName(selected));
+      listboxOpen.value = false;
     }
   };
 

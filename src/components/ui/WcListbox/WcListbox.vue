@@ -2,10 +2,15 @@
   import WcListboxOptions from './WcListboxOptions.vue';
   import WcListboxOption from './WcListboxOption.vue';
   import WcListboxButton from './WcListboxButton.vue';
+  import WcInput from '../WcInput';
   import { getValueName, api } from './composables.js';
 
-  const emit = defineEmits(['update:value']);
+  const emit = defineEmits(['update:search', 'update:value']);
   const props = defineProps({
+    autocomplete: {
+      type: Boolean,
+      default: false,
+    },
     label: {
       type: String,
       default: null,
@@ -18,9 +23,13 @@
       type: Array,
       default: () => [],
     },
-    placeholder: {
-      type: String,
+    inputProps: {
+      type: Object,
       default: null,
+    },
+    search: {
+      type: String,
+      default: '',
     },
     value: {
       type: [String, Object],
@@ -51,6 +60,7 @@
     </label>
     <div ref="listbox" class="mt-1 relative">
       <wc-listbox-button
+        v-if="!autocomplete"
         :disabled="disabled"
         :selected-value="selectedValue"
         @click="listboxOpen = !listboxOpen"
@@ -64,6 +74,14 @@
           <slot name="icon-right" />
         </template>
       </wc-listbox-button>
+
+      <wc-input
+        v-if="autocomplete"
+        :value="search"
+        v-bind="inputProps"
+        @update:value="(searchValue) => emit('update:search', searchValue)"
+        @keydown="(e) => listboxOpen && onKeyDown(e)"
+      />
 
       <wc-listbox-options
         :highlighted-index="highlightedIndex"

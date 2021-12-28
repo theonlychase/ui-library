@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ComponentOptionsWithArrayProps, computed, ref, Ref } from 'vue';
   import WcIcon from '../WcIcon';
-  const emit = defineEmits(['update:value']);
+  const emit = defineEmits(['keydown', 'update:value']);
   const props = defineProps({
     clearable: {
       type: Boolean,
@@ -156,6 +156,7 @@
       :placeholder="placeholder"
       :value="value"
       @input="({ target }) => emit('update:value', target.value)"
+      @keydown="(e) => emit('keydown', e)"
     />
 
     <div
