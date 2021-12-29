@@ -6,6 +6,7 @@ export { default as WcListbox } from './ui/WcListbox/WcListbox.vue';
 export { default as WcListboxOptions } from './ui/WcListbox/WcListboxOptions.vue';
 export { default as WcListboxOption } from './ui/WcListbox/WcListboxOption.vue';
 export { default as WcListboxButton } from './ui/WcListbox/WcListboxButton.vue';
+export { default as WcMenu } from './ui/WcMenu';
 export { default as WcModal } from './ui/WcModal';
 export { default as WcSelect } from './ui/WcSelect';
 export { default as WcTabs } from './ui/WcTabs';

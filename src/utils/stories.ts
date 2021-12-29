@@ -32,4 +32,18 @@ const setPageMeta = ({ title, description }: PageMeta) => {
   Object.assign(pageMeta, { title, description });
 };
 
-export { setDefaultControls };
+const mockOptions = [
+  { name: 'Usa', id: 'usa' },
+  { name: 'Mexico', id: 'mexico' },
+  { name: 'Spain', id: 'spain' },
+  { name: 'Brazil', id: 'brazil' },
+  { name: 'Germany', id: 'germany' },
+  { name: 'Turkey', id: 'turkey' },
+  { name: 'Egypt', id: 'egypt' },
+  { name: 'Iran', id: 'iran' },
+  { name: 'Russia', id: 'russia' },
+  { name: 'Romania', id: 'romania' },
+  { name: 'Canada', id: 'canada' },
+];
+
+export { mockOptions, setDefaultControls };

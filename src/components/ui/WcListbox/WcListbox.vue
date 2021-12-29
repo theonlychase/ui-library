@@ -3,7 +3,8 @@
   import WcListboxOption from './WcListboxOption.vue';
   import WcListboxButton from './WcListboxButton.vue';
   import WcInput from '../WcInput';
-  import { api, getValueName, onMousedown, onMouseup } from './composables.js';
+  import { getValueName } from '@/utils/helpers';
+  import { api, onMousedown, onMouseup } from './composables.js';
 
   const emit = defineEmits(['update:search', 'update:value']);
   const props = defineProps({

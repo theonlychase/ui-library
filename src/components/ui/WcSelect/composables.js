@@ -1,25 +1,5 @@
 import { computed, ref, watch } from 'vue';
-import { isObject } from '@/utils/helpers.js';
-
-const filterDuplicates = (options) => {
-  const uniqueValues = new Map();
-
-  options.forEach((value) => {
-    const id = getValueId(value);
-
-    !uniqueValues.has(id) && uniqueValues.set(id, value);
-  });
-
-  return Array.from(uniqueValues.values());
-};
-
-const getValueId = (value) => {
-  return isObject(value) ? value.id : value;
-};
-
-const getValueName = (value) => {
-  return isObject(value) ? value.name : value;
-};
+import { filterDuplicates, getValueName } from '@/utils/helpers.ts';
 
 const setValueIndex = (options, value) => {
   return options.value.findIndex(
@@ -48,4 +28,4 @@ const selectApi = (props) => {
   };
 };
 
-export { selectApi, getValueId, getValueName, setValueIndex };
+export { selectApi, setValueIndex };

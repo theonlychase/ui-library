@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import { selectApi, getValueId, getValueName } from './composables.js';
+  import { getValueId, getValueName } from '@/utils/helpers';
+  import { selectApi } from './composables.js';
 
   const props = defineProps({
     disabled: {

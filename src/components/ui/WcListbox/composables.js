@@ -1,11 +1,11 @@
 import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+import { getValueName } from '@/utils/helpers';
 import {
-  getValueName,
   selectApi,
   setValueIndex,
 } from '@/components/ui/WcSelect/composables.js';
-import { keyCodes } from '@/utils/helpers.js';
+import { keyCodes } from '@/utils/helpers.ts';
 
 const listbox = ref(null);
 const listboxOpen = ref(false);
@@ -229,4 +229,4 @@ const setSearchedValue = (options, search) => {
   );
 };
 
-export { api, getValueName, onMousedown, onMouseup, setScrollTop };
+export { api, onMousedown, onMouseup, setScrollTop };
