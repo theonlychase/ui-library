@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, Ref, watch } from 'vue';
+  import { ref, watch } from 'vue';
   import controls from './controls.js';
   import { setDefaultControls } from '@/utils/stories';
 
@@ -10,7 +10,7 @@
   });
   const value = ref('');
   const search = ref('');
-  const options: Ref<Array<object | string>> = ref([]);
+  const options = ref([]);
   const api = [
     {
       name: 'Adam',
@@ -83,7 +83,7 @@
           const search = val.toLowerCase().trim();
           return name.includes(search);
         });
-        options.value = [...found];
+        options.value = found;
       } else {
         options.value = [];
       }
