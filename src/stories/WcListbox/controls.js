@@ -1,4 +1,12 @@
 export default {
+  autocomplete: {
+    name: 'autocomplete',
+    type: '',
+    props: {
+      value: false,
+    },
+    description: 'Listbox will become a searchable autocomplete.',
+  },
   disabled: {
     name: 'disabled',
     type: 'toggle',
@@ -7,21 +15,14 @@ export default {
     },
     description: 'Listbox will be disabled',
   },
-  iconLeft: {
-    name: 'iconLeft',
-    type: 'toggle',
+  inputProps: {
+    name: 'inputProps',
+    type: '',
     props: {
-      value: false,
+      value: null,
     },
-    description: 'ListboxButton icon-left slot',
-  },
-  iconRight: {
-    name: 'iconRight',
-    type: 'toggle',
-    props: {
-      value: false,
-    },
-    description: 'ListboxButton icon-right slot',
+    description:
+      '<div>When <strong>autocomplete = true</strong>, Pass any WcInput prop to customize the input.</div><div>See WcInput for available props</div>',
   },
   label: {
     name: 'label',
@@ -35,11 +36,10 @@ export default {
     name: 'options',
     type: '',
     props: {
-      value:
-        '<div>String: Option 1</div> <div>Object: { id: "option-1", name: "Option 1" }</div>',
+      value: '',
     },
     description:
-      '<div>Can be a String/Object.</div><div>Object must contain both id and name properties.</div>',
+      '<div>Array of Strings/Objects.</div><div>Object must contain both id and name properties.</div>',
   },
   placeholder: {
     name: 'placeholder',
@@ -47,6 +47,24 @@ export default {
     props: {
       value: 'Select an option...',
     },
-    description: 'Select Menu Placeholder',
+    description: 'Listbox Placeholder',
+  },
+  search: {
+    name: 'search',
+    type: '',
+    props: {
+      value: '',
+    },
+    description:
+      '<div>Bound model for search input.</div><div>autocomplete prop required.</div>',
+  },
+  value: {
+    name: 'value',
+    type: '',
+    props: {
+      value: '',
+    },
+    description:
+      '<div>Bound model for selected listbox item.</div><div>String/Object</div><div>Object must contain both id and name properties.</div>',
   },
 };

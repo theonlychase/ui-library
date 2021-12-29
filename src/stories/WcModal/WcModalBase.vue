@@ -1,10 +1,9 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { useStore } from 'vuex';
   import controls from './controls.js';
   import { setDefaultControls } from '@/utils/stories';
 
-  const defaultProps = setDefaultControls(controls, useStore);
+  const defaultProps = setDefaultControls({ controls });
   const value = ref(false);
 </script>
 

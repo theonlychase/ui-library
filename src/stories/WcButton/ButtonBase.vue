@@ -1,10 +1,9 @@
 <script setup lang="ts">
-  import { useStore } from 'vuex';
   import controls from './controls.js';
   import { setDefaultControls } from '@/utils/stories';
   import WcIcon from '@/components/ui/WcIcon/WcIcon.vue';
 
-  const defaultProps = setDefaultControls(controls, useStore);
+  const defaultProps = setDefaultControls({ controls });
 </script>
 
 <template>

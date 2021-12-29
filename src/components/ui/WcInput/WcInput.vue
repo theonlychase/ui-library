@@ -1,7 +1,14 @@
 <script setup lang="ts">
-  import { ComponentOptionsWithArrayProps, computed, ref, Ref } from 'vue';
+  import {
+    ComponentOptionsWithArrayProps,
+    computed,
+    ref,
+    Ref,
+    watch,
+  } from 'vue';
   import WcIcon from '../WcIcon';
-  const emit = defineEmits(['keydown', 'update:value']);
+
+  const emit = defineEmits(['focus', 'keydown', 'update:value']);
   const props = defineProps({
     clearable: {
       type: Boolean,
@@ -22,6 +29,10 @@
     errorMessage: {
       type: String,
       default: '',
+    },
+    focus: {
+      type: Boolean,
+      default: false,
     },
     hint: {
       type: String,
@@ -71,10 +82,12 @@
   const input: Ref<HTMLInputElement | null> = ref(null);
 
   const isClearable = computed(() => {
-    return props.clearable && props.value;
+    return props.clearable && props.value && !props.disabled;
   });
 
-  const getRightIcon = computed(() => {
+  const keepFocus: Ref<boolean> = ref(false);
+
+  const getRightIcon = computed((): string => {
     return !props.error
       ? isClearable.value
         ? 'xCircle'
@@ -82,10 +95,22 @@
       : 'exclamationCircle';
   });
 
-  const clear = () => {
-    input.value && input.value.focus();
+  const clear = (): void => {
+    setFocus();
     emit('update:value', '');
   };
+
+  const setFocus = () => {
+    input.value && input.value.focus();
+  };
+
+  watch(
+    () => props.focus,
+    (val) => {
+      setFocus();
+      keepFocus.value = !!val;
+    },
+  );
 </script>
 
 <template>
@@ -107,9 +132,10 @@
       '!border-red-500': error && variation === 'underline',
       '!border-red-500 !ring-1 !ring-red-500':
         error && variation !== 'underline',
+      '!border-blue-500 !ring-1 !ring-blue-500': keepFocus,
       'shadow-sm border focus-within:ring-1 focus-within:ring-blue-500':
         variation !== 'underline',
-      'bg-gray-50': disabled,
+      'bg-gray-50 pointer-events-none': disabled,
       [`${customClasses}`]: customClasses,
     }"
     class="mt-1 relative rounded-md px-3 py-2 border-gray-300 bg-white focus-within:border-blue-500 transition-all"
@@ -152,11 +178,12 @@
         'bg-gray-50': variation === 'underline' || disabled,
         '!pl-7': iconLeft && variation !== 'labelInset',
       }"
-      class="form-input block w-full rounded-md sm:text-sm border-0 pl-0 py-0 pr-7 text-gray-900 placeholder-gray-400 focus:ring-0"
+      class="form-input block w-full min-w-max rounded-md sm:text-sm border-0 pl-0 py-0 pr-7 text-gray-900 placeholder-gray-400 disabled:text-gray-400 focus:ring-0"
       :placeholder="placeholder"
       :value="value"
       @input="({ target }) => emit('update:value', target.value)"
       @keydown="(e) => emit('keydown', e)"
+      @focus="(e) => emit('focus', e)"
     />
 
     <div
@@ -167,6 +194,8 @@
         'pointer-events-none': !isClearable,
       }"
       @click.prevent.stop="isClearable ? clear() : null"
+      @mousedown="keepFocus = true"
+      @mouseup="keepFocus = false"
     >
       <wc-icon
         :name="getRightIcon"

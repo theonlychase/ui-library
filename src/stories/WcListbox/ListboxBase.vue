@@ -1,12 +1,13 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { useStore } from 'vuex';
   import controls from './controls';
   import { setDefaultControls } from '@/utils/stories';
-
   const value = ref('');
 
-  const defaultProps = setDefaultControls(controls, useStore);
+  const defaultProps = setDefaultControls({
+    controls,
+    title: 'Default Listbox',
+  });
   const options = [
     'USA',
     { name: 'Mexico', id: 'mexico' },
@@ -19,13 +20,9 @@
 </script>
 
 <template>
-  <wc-listbox v-model:value="value" v-bind="defaultProps" :options="options">
-    <template v-if="$route.query.iconLeft === 'true'" #icon-left>
-      <wc-icon name="check" color="gray400" size="xSmall" />
-    </template>
-
-    <template v-if="$route.query.iconRight === 'true'" #icon-right>
-      <wc-icon name="chevronDown" color="gray400" size="xSmall" />
-    </template>
-  </wc-listbox>
+  <wc-listbox
+    v-model:value="value"
+    v-bind="{ ...defaultProps, value }"
+    :options="options"
+  />
 </template>

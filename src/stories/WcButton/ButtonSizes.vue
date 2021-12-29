@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import { useStore } from 'vuex';
   import controls from './controls.js';
   import { setDefaultControls } from '@/utils/stories';
 
-  setDefaultControls(controls, useStore, true);
+  setDefaultControls({ controls, disabled: true });
 
   const sizes = ['xSmall', 'small', 'medium', 'large'];
 </script>

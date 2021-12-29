@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { setScrollTop } from '@/components/ui/WcListbox/composables';
-  import { nextTick, ref, watch } from 'vue';
+  import { nextTick, Ref, ref, watch } from 'vue';
 
   const props = defineProps({
     highlightedIndex: {
@@ -25,8 +25,8 @@
     },
   });
 
-  const listboxMenu = ref(null);
-  const listboxOptions = ref([]);
+  const listboxMenu: Ref<HTMLInputElement | null> = ref(null);
+  const listboxOptions: Ref<Array<string | object>> = ref([]);
 
   watch(
     listboxMenu,
@@ -66,7 +66,7 @@
     appear
   >
     <ul
-      v-if="listboxOpen && options.length"
+      v-if="listboxOpen"
       ref="listboxMenu"
       class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
       tabindex="-1"
@@ -74,9 +74,14 @@
       :aria-labelledby="listboxLabel"
       :aria-activedescendant="`listbox-option-${selectedIndex}`"
     >
-      <template v-for="(option, optionIndex) in options">
-        <slot :option="option" :index="optionIndex" />
+      <template v-if="options.length">
+        <slot
+          v-for="(option, optionIndex) in options"
+          :option="option"
+          :index="optionIndex"
+        />
       </template>
+      <slot v-else name="no-results" />
     </ul>
   </transition>
 </template>

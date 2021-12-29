@@ -3,7 +3,7 @@
   import WcListboxOption from './WcListboxOption.vue';
   import WcListboxButton from './WcListboxButton.vue';
   import WcInput from '../WcInput';
-  import { getValueName, api } from './composables.js';
+  import { api, getValueName, onMousedown, onMouseup } from './composables.js';
 
   const emit = defineEmits(['update:search', 'update:value']);
   const props = defineProps({
@@ -19,9 +19,17 @@
       type: Boolean,
       default: false,
     },
+    noResults: {
+      type: Boolean,
+      default: true,
+    },
     options: {
       type: Array,
       default: () => [],
+    },
+    placeholder: {
+      type: String,
+      default: null,
     },
     inputProps: {
       type: Object,
@@ -39,9 +47,11 @@
 
   const {
     allOptions,
+    focused,
     highlightedIndex,
     listbox,
     listboxOpen,
+    onFocus,
     onKeyDown,
     selectedIndex,
     selectedValue,
@@ -77,10 +87,16 @@
 
       <wc-input
         v-if="autocomplete"
+        v-bind="{
+          ...inputProps,
+          disabled,
+          focus: focused,
+          placeholder,
+        }"
         :value="search"
-        v-bind="inputProps"
         @update:value="(searchValue) => emit('update:search', searchValue)"
         @keydown="(e) => listboxOpen && onKeyDown(e)"
+        @focus="() => onFocus(search, allOptions)"
       />
 
       <wc-listbox-options
@@ -97,6 +113,8 @@
             :selected-value="selectedValue"
             :option="getValueName(option)"
             @click="setSelectedValue(option)"
+            @mousedown="autocomplete && onMousedown()"
+            @mouseup="autocomplete && onMouseup()"
           >
             <template #option="{ active }">
               <slot
@@ -104,6 +122,16 @@
                 :option="getValueName(option)"
                 :active="active"
               />
+            </template>
+          </wc-listbox-option>
+        </template>
+
+        <template v-if="autocomplete && noResults" #no-results>
+          <wc-listbox-option>
+            <template #option>
+              <slot name="no-results">
+                No Results. Please refine your search.
+              </slot>
             </template>
           </wc-listbox-option>
         </template>

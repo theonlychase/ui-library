@@ -10,6 +10,8 @@ import { keyCodes } from '@/utils/helpers.js';
 const listbox = ref(null);
 const listboxOpen = ref(false);
 const lastIndex = ref(0);
+const internalValue = ref(null);
+const focused = ref(false);
 onClickOutside(listbox, (e) => {
   if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
     listboxOpen.value = false;
@@ -25,6 +27,7 @@ const api = (props, emit) => {
   });
 
   const setSelectedValue = (option) => {
+    internalValue.value = option;
     listboxOpen.value = false;
     emit('update:value', option);
     props.autocomplete && emit('update:search', getValueName(option));
@@ -58,11 +61,12 @@ const api = (props, emit) => {
       (val) => {
         if (val.length) {
           lastIndex.value = val.length - 1;
-          if (!props.value) {
+          if (!internalValue.value) {
             listboxOpen.value = true;
           }
-        } else {
-          listboxOpen.value = false;
+        }
+        if (!val.length) {
+          listboxOpen.value = !!(props.noResults && props.search);
         }
       },
       { deep: true },
@@ -71,8 +75,9 @@ const api = (props, emit) => {
     watch(
       () => props.search,
       (val) => {
+        !val && emit('update:value', null);
         if (props.value) {
-          emit('update:value', null);
+          internalValue.value = null;
         }
       },
     );
@@ -80,9 +85,11 @@ const api = (props, emit) => {
 
   return {
     allOptions,
+    focused,
     highlightedIndex,
     listbox,
     listboxOpen,
+    onFocus,
     onKeyDown,
     selectedIndex,
     selectedValue,
@@ -115,7 +122,11 @@ const keyEvents = (
       listboxOpen.value &&
         nextValue(lastIndex.value, highlightedIndex, selectedIndex);
     }
-    if (keyCodes.enter === keyCode || keyCodes.space === keyCode) {
+    if (keyCodes.enter === keyCode) {
+      if (autocomplete && !options.value.length) return;
+      onKeySelect();
+    }
+    if (keyCodes.space === keyCode && !autocomplete) {
       onKeySelect();
     }
     if (keyCodes.tab === keyCode) {
@@ -144,18 +155,33 @@ const keyEvents = (
 
     if (listboxOpen.value) {
       const selected = options.value[highlightedIndex.value];
+      internalValue.value = selected;
+      listboxOpen.value = false;
       emit('update:value', selected);
       autocomplete && emit('update:search', getValueName(selected));
-      listboxOpen.value = false;
     }
   };
 
   return { onKeyDown };
 };
 
+const onFocus = (search, options) => {
+  if (search && options.length) {
+    listboxOpen.value = true;
+  }
+};
+
+const onMousedown = () => {
+  focused.value = true;
+};
+
+const onMouseup = () => {
+  focused.value = false;
+};
+
 const setScrollTop = (index, listboxMenu, listboxOptions) => {
   const el = listboxOptions.value[index];
-  if (listboxMenu.value) {
+  if (listboxMenu.value && el) {
     const { clientHeight, scrollHeight, scrollTop } = listboxMenu.value;
     const fromTop = el.offsetTop + el.clientHeight;
     if (fromTop > clientHeight) {
@@ -203,4 +229,4 @@ const setSearchedValue = (options, search) => {
   );
 };
 
-export { api, getValueName, setScrollTop };
+export { api, getValueName, onMousedown, onMouseup, setScrollTop };

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import { useStore } from 'vuex';
   import controls from './controls.js';
   import { setDefaultControls } from '@/utils/stories';
 
-  setDefaultControls(controls, useStore, true);
+  setDefaultControls({ controls, disabled: true });
 
   const sizes = ['xxSmall', 'xSmall', 'small', 'medium', 'large', 'xLarge'];
   const name = 'templateOutline';

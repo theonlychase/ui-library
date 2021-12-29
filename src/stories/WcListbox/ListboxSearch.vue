@@ -1,13 +1,16 @@
 <script setup lang="ts">
-  import { ref, watch } from 'vue';
-  // import { useStore } from 'vuex';
-  // import controls from './controls.js';
-  // import { setDefaultControls } from '@/utils/stories';
-  //
-  // const defaultProps = setDefaultControls(controls, useStore);
+  import { ref, Ref, watch } from 'vue';
+  import controls from './controls.js';
+  import { setDefaultControls } from '@/utils/stories';
+
+  const defaultProps = setDefaultControls({
+    controls,
+    disabled: true,
+    title: 'Listbox Autocomplete',
+  });
   const value = ref('');
   const search = ref('');
-  const options = ref([]);
+  const options: Ref<Array<object | string>> = ref([]);
   const api = [
     {
       name: 'Adam',
@@ -77,7 +80,7 @@
       if (val) {
         const found = api.filter((v) => {
           const name = v.name.toLowerCase();
-          const search = val.toLowerCase();
+          const search = val.toLowerCase().trim();
           return name.includes(search);
         });
         options.value = [...found];
@@ -95,11 +98,22 @@
       v-model:search="search"
       autocomplete
       :options="options"
+      placeholder="Search for a name"
       :input-props="{
         iconLeft: 'search',
-        placeholder: 'Search for a name',
       }"
-    />
-    {{ value }}
+    >
+      <template #no-results>
+        <div class="flex items-center">
+          <span class="mr-2">
+            <wc-icon name="exclamationCircle" color="yellow500" size="xSmall" />
+          </span>
+
+          <span class="truncate flex-1"> Custom No Results Message... </span>
+        </div>
+      </template>
+    </wc-listbox>
+
+    <div class="text-sm mt-6">Selected Option: {{ value }}</div>
   </div>
 </template>
