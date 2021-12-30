@@ -1,16 +1,17 @@
 import { computed, nextTick, reactive, ref, watch } from 'vue';
-import { onClickOutside } from '@vueuse/core';
-import { getValueName } from '@/utils/helpers';
+import { onClickOutside, debouncedWatch } from '@vueuse/core';
+import { getValueName, keyCodes } from '@/utils/helpers';
 import {
   selectApi,
   setValueIndex,
 } from '@/components/ui/WcSelect/composables.js';
-import { keyCodes } from '@/utils/helpers.ts';
 
 const listbox = ref(null);
 const listboxOpen = ref(false);
 const lastIndex = ref(0);
+const isLoading = ref(false);
 const internalValue = ref(null);
+const internalSearch = ref('');
 const focused = ref(false);
 onClickOutside(listbox, (e) => {
   if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
@@ -47,6 +48,7 @@ const api = (props, emit) => {
       if (props.autocomplete && val) {
         await nextTick();
         highlightedIndex.value = 0;
+        isLoading.value = false;
       }
 
       if (!props.autocomplete && !val) {
@@ -59,6 +61,7 @@ const api = (props, emit) => {
     watch(
       () => allOptions.value,
       (val) => {
+        isLoading.value = false;
         if (val.length) {
           lastIndex.value = val.length - 1;
           if (!internalValue.value) {
@@ -81,12 +84,21 @@ const api = (props, emit) => {
         }
       },
     );
+
+    debouncedWatch(
+      () => internalSearch.value,
+      (searchValue) => {
+        emit('update:search', searchValue);
+      },
+      { debounce: props.debounce },
+    );
   }
 
   return {
     allOptions,
     focused,
     highlightedIndex,
+    isLoading,
     listbox,
     listboxOpen,
     onFocus,
@@ -179,6 +191,18 @@ const onMouseup = () => {
   focused.value = false;
 };
 
+const setInternalSearch = (emit, searchValue) => {
+  internalSearch.value = searchValue;
+  if (searchValue) {
+    isLoading.value = true;
+  }
+
+  if (!searchValue) {
+    emit('update:search', '');
+    isLoading.value = false;
+  }
+};
+
 const setScrollTop = (index, listboxMenu, listboxOptions) => {
   const el = listboxOptions.value[index];
   if (listboxMenu.value && el) {
@@ -229,4 +253,4 @@ const setSearchedValue = (options, search) => {
   );
 };
 
-export { api, onMousedown, onMouseup, setScrollTop };
+export { api, onMousedown, onMouseup, setInternalSearch, setScrollTop };

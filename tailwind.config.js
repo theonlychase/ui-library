@@ -2,9 +2,35 @@ module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      animation: {
+        'loading-before': 'loading-before 1s ease-out infinite',
+        'loading-after': 'loading-after 1s ease-out infinite',
+      },
       aspectRatio: {
         '4/3': '4 / 3',
         '16/9': '16 / 9',
+      },
+      keyframes: {
+        'loading-before': {
+          '0%': {
+            left: '-100%',
+            width: '100%',
+          },
+          '100%': {
+            left: '100%',
+            width: '100%',
+          },
+        },
+        'loading-after': {
+          '0%': {
+            left: '-100%',
+            width: '100%',
+          },
+          '100%': {
+            left: '100%',
+            width: '100%',
+          },
+        },
       },
       transitionDuration: {
         0: '0ms',

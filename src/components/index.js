@@ -1,5 +1,7 @@
 export { default as WcButton } from './ui/WcButton';
 export { default as WcCard } from './ui/WcCard';
+export { default as WcCheckbox } from './ui/WcCheckbox';
+export { default as WcFieldset } from './ui/WcForm/WcFieldset.vue';
 export { default as WcIcon } from './ui/WcIcon';
 export { default as WcInput } from './ui/WcInput';
 export { default as WcListbox } from './ui/WcListbox/WcListbox.vue';
@@ -8,6 +10,7 @@ export { default as WcListboxOption } from './ui/WcListbox/WcListboxOption.vue';
 export { default as WcListboxButton } from './ui/WcListbox/WcListboxButton.vue';
 export { default as WcMenu } from './ui/WcMenu';
 export { default as WcModal } from './ui/WcModal';
+export { default as WcRadio } from './ui/WcRadio';
 export { default as WcSelect } from './ui/WcSelect';
 export { default as WcTabs } from './ui/WcTabs';
 export { default as WcToggle } from './ui/WcToggle';

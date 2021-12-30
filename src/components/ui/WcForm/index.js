@@ -1,3 +1,3 @@
-import WcFieldset from './WcFieldset';
+import WcFieldset from './WcFieldset.vue';
 
 export { WcFieldset };

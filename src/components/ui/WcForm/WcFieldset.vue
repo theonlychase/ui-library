@@ -19,7 +19,7 @@
 </script>
 
 <template>
-  <fieldset>
+  <fieldset class="space-y-4">
     <legend class="sr-only">{{ legend }}</legend>
 
     <template v-if="options.length">

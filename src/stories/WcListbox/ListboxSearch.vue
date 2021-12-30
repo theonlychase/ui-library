@@ -1,89 +1,50 @@
 <script setup lang="ts">
   import { ref, watch } from 'vue';
+  import { useRouteQuery } from '@vueuse/router';
   import controls from './controls.js';
+  import { InputValueProps } from '@/types/global';
   import { setDefaultControls } from '@/utils/stories';
+  import { mockOptions } from '@/utils/stories';
+  let controlState = { ...controls };
+  controlState = {
+    ...controlState,
+    debounce: {
+      ...controlState.debounce,
+      type: 'select',
+      props: {
+        value: '0',
+        options: ['0', '500', '1000', '2000'],
+      },
+    },
+  };
 
   const defaultProps = setDefaultControls({
-    controls,
-    disabled: true,
+    controls: controlState,
     title: 'Listbox Autocomplete',
   });
   const value = ref('');
   const search = ref('');
-  const options = ref([]);
-  const api = [
-    {
-      name: 'Adam',
-      id: 'adam',
-    },
-    {
-      name: 'Brian',
-      id: 'brian',
-    },
-    {
-      name: 'Chase',
-      id: 'chase',
-    },
-    {
-      name: 'David',
-      id: 'david',
-    },
-    {
-      name: 'Eric',
-      id: 'eric',
-    },
-    {
-      name: 'Frank',
-      id: 'frank',
-    },
-    {
-      name: 'Greg',
-      id: 'greg',
-    },
-    {
-      name: 'Henry',
-      id: 'henry',
-    },
-    {
-      name: 'Jack',
-      id: 'jack',
-    },
-    {
-      name: 'Mary',
-      id: 'mary',
-    },
-    {
-      name: 'Natasha',
-      id: 'natasha',
-    },
-    {
-      name: 'Paul',
-      id: 'paul',
-    },
-    {
-      name: 'Roger',
-      id: 'roger',
-    },
-    {
-      name: 'Sam',
-      id: 'sam',
-    },
-    {
-      name: 'Tim',
-      id: 'tim',
-    },
-  ];
+  const options = ref<InputValueProps[]>([]);
+  const debounceQuery = useRouteQuery('debounce');
+  const searchQuery = useRouteQuery('search');
+  const key = ref(0);
 
   watch(
-    () => search.value,
+    () => debounceQuery.value,
+    (val) => {
+      key.value++;
+    },
+  );
+
+  watch(
+    () => searchQuery.value,
     (val) => {
       if (val) {
-        const found = api.filter((v) => {
+        options.value = mockOptions.filter((v) => {
           const name = v.name.toLowerCase();
           const search = val.toLowerCase().trim();
           return name.includes(search);
         });
-        options.value = found;
       } else {
         options.value = [];
       }
@@ -94,13 +55,18 @@
 <template>
   <div>
     <wc-listbox
+      :key="key"
       v-model:value="value"
-      v-model:search="search"
-      autocomplete
-      :options="options"
+      v-model:search="searchQuery"
       placeholder="Search for a name"
-      :input-props="{
-        iconLeft: 'search',
+      v-bind="{
+        ...defaultProps,
+        debounce: JSON.parse(debounceQuery),
+        options,
+        autocomplete: true,
+        inputProps: { iconLeft: 'search' },
+        search: searchQuery,
+        value,
       }"
     >
       <template #no-results>

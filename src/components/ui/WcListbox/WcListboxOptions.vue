@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { setScrollTop } from '@/components/ui/WcListbox/composables';
-  import { nextTick, Ref, ref, watch } from 'vue';
+  import { nextTick, ref, watch } from 'vue';
 
   const props = defineProps({
     highlightedIndex: {
@@ -25,8 +25,8 @@
     },
   });
 
-  const listboxMenu: Ref<HTMLInputElement | null> = ref(null);
-  const listboxOptions: Ref<Array<string | object>> = ref([]);
+  const listboxMenu = ref<HTMLInputElement | null>(null);
+  const listboxOptions = ref<Array<Element>>([]);
 
   watch(
     listboxMenu,

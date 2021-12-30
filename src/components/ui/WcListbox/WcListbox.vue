@@ -3,8 +3,14 @@
   import WcListboxOption from './WcListboxOption.vue';
   import WcListboxButton from './WcListboxButton.vue';
   import WcInput from '../WcInput';
+  import WcLoadingBar from '../WcLoadingBar';
   import { getValueName } from '@/utils/helpers';
-  import { api, onMousedown, onMouseup } from './composables.js';
+  import {
+    api,
+    onMousedown,
+    onMouseup,
+    setInternalSearch,
+  } from './composables.js';
 
   const emit = defineEmits(['update:search', 'update:value']);
   const props = defineProps({
@@ -12,13 +18,17 @@
       type: Boolean,
       default: false,
     },
-    label: {
-      type: String,
-      default: null,
+    debounce: {
+      type: Number,
+      default: 0,
     },
     disabled: {
       type: Boolean,
       default: false,
+    },
+    label: {
+      type: String,
+      default: null,
     },
     noResults: {
       type: Boolean,
@@ -50,6 +60,7 @@
     allOptions,
     focused,
     highlightedIndex,
+    isLoading,
     listbox,
     listboxOpen,
     onFocus,
@@ -95,10 +106,11 @@
           placeholder,
         }"
         :value="search"
-        @update:value="(searchValue) => emit('update:search', searchValue)"
+        @update:value="(searchValue) => setInternalSearch(emit, searchValue)"
         @keydown="(e) => listboxOpen && onKeyDown(e)"
         @focus="() => onFocus(search, allOptions)"
       />
+      <wc-loading-bar v-if="autocomplete" :loading="isLoading" />
 
       <wc-listbox-options
         :highlighted-index="highlightedIndex"

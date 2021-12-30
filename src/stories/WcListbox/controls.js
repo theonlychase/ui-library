@@ -7,6 +7,15 @@ export default {
     },
     description: 'Listbox will become a searchable autocomplete.',
   },
+  debounce: {
+    name: 'debounce',
+    type: '',
+    props: {
+      value: 0,
+    },
+    description:
+      '<div>When <strong>autocomplete = true</strong>, delays emitted search value for performance.</div><div>Default = 0</div>',
+  },
   disabled: {
     name: 'disabled',
     type: 'toggle',
@@ -51,9 +60,10 @@ export default {
   },
   search: {
     name: 'search',
-    type: '',
+    type: 'text',
     props: {
       value: '',
+      placeholder: 'Type to see reactivity',
     },
     description:
       '<div>Bound model for search input.</div><div>autocomplete prop required.</div>',

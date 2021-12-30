@@ -60,7 +60,7 @@
                 <component
                   :is="setComponents(control.type)"
                   :key="control.name"
-                  v-bind="control.props"
+                  v-bind="{ ...control.props }"
                   @update:value="
                     (val) =>
                       updateQuery(
