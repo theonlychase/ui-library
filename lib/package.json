@@ -10,6 +10,6 @@
       "require": "./dist/ui-library.umd.js"
     }
   },
-  "version": "0.0.35",
+  "version": "0.0.36",
   "author": "Chase Isley"
 }

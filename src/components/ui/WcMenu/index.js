@@ -1,3 +1,3 @@
-import WcMenu from './WcMenu';
+import WcMenu from './WcMenu.vue';
 
 export default WcMenu;

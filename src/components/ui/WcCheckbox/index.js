@@ -1,3 +1,3 @@
-import WcChecklist from './WcCheckbox';
+import WcChecklist from './WcCheckbox.vue';
 
 export default WcChecklist;

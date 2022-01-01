@@ -9,7 +9,7 @@
   const defaultProps = setDefaultControls({
     controls,
     disabled: true,
-    title: 'Listbox Autocomplete With Loading Bar',
+    title: 'Listbox Autocomplete With Loading Spinner',
     description: 'debounce of 1000ms used on every keypress',
   });
   const value = ref('');
