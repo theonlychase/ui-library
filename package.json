@@ -17,8 +17,7 @@
     "@vueuse/core": "^7.5.1",
     "qs": "^6.10.2",
     "vue": "^3.2.16",
-    "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.12"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.4.0",

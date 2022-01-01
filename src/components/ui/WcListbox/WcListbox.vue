@@ -3,7 +3,6 @@
   import WcListboxOption from './WcListboxOption.vue';
   import WcListboxButton from './WcListboxButton.vue';
   import WcInput from '../WcInput';
-  import WcLoadingBar from '../WcLoadingBar';
   import { getValueName } from '@/utils/helpers';
   import {
     api,
@@ -99,17 +98,17 @@
       <wc-input
         v-if="autocomplete"
         v-bind="{
-          ...inputProps,
           disabled,
           focus: focused,
+          loading,
           placeholder,
+          ...inputProps,
         }"
         :value="search"
         @update:value="(searchValue) => setInternalSearch(emit, searchValue)"
         @keydown="(e) => listboxOpen && onKeyDown(e)"
         @focus="() => onFocus(search, allOptions)"
       />
-      <wc-loading-bar v-if="autocomplete && loading" :loading="loading" />
 
       <wc-listbox-options
         :highlighted-index="highlightedIndex"

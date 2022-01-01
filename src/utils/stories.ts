@@ -1,5 +1,5 @@
 import { inject, ref, Ref } from 'vue';
-import { PageMeta } from '@/types/global';
+import { Controls, PageMeta } from '@/types/global';
 
 const defaultControlState = ref({});
 
@@ -8,6 +8,11 @@ const setDefaultControls = ({
   disabled = false,
   title = '',
   description = '',
+}: {
+  controls: Controls;
+  disabled?: boolean;
+  title?: string;
+  description?: string;
 }) => {
   const controlState = inject('controlState') as Ref;
 
@@ -19,7 +24,7 @@ const setDefaultControls = ({
 
   const defaultProps = {};
 
-  Object.entries(controls).forEach(([key, value]) => {
+  Object.entries(controls).forEach(([key, value]): void => {
     defaultProps[`${key}`] = value.props.value;
   });
 

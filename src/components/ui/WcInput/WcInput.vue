@@ -54,6 +54,10 @@
       type: String,
       default: null,
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
     name: {
       type: String,
       default: null,
@@ -88,6 +92,9 @@
   const keepFocus: Ref<boolean> = ref(false);
 
   const getRightIcon = computed((): string => {
+    if (props.loading) {
+      return 'spinner';
+    }
     return !props.error
       ? isClearable.value
         ? 'xCircle'
@@ -200,10 +207,12 @@
       <wc-icon
         :name="getRightIcon"
         size="xSmall"
-        :color="error ? 'red500' : 'gray400'"
+        :color="loading ? 'blue500' : error ? 'red500' : 'gray400'"
+        :class="loading && 'animate-spin'"
         view-box="0 0 20 20"
       />
     </div>
+
     <div
       v-if="(error && errorMessage) || hint"
       class="absolute -bottom-5 left-0 text-xs text-left truncate w-full"

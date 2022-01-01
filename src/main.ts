@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import qs from 'qs';
+import { parse, stringify } from 'qs';
 import App from './App.vue';
 import { routes, routeComponents } from './routes';
 import { defaultControlState } from '@/utils/stories';
@@ -11,8 +11,8 @@ const app = createApp(App);
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  parseQuery: qs.parse,
-  stringifyQuery: qs.stringify,
+  parseQuery: parse,
+  stringifyQuery: stringify,
 });
 
 dynamicRoutes(routeComponents, app, router);

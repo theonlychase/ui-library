@@ -15,10 +15,8 @@
 
 <template>
   <label
-    class="flex items-center cursor-pointer"
-    :class="{
-      'opacity-60': disabled,
-    }"
+    class="flex items-center"
+    :class="disabled ? 'opacity-60' : 'cursor-pointer'"
   >
     <span class="relative flex">
       <input
@@ -26,7 +24,7 @@
         type="checkbox"
         class="peer sr-only"
         :class="{
-          'pointer-events-none opacity-60': disabled,
+          'pointer-events-none': disabled,
         }"
         :value="value"
         @change="({ target }) => $emit('update:value', target.checked)"

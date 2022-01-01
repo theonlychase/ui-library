@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { useRouter, useRoute } from 'vue-router';
   import { inject, ref } from 'vue';
+  import { Controls } from '@/types/global';
   import {
     resizePanel,
     setControls,
@@ -16,7 +17,10 @@
   const panel = ref(null);
   const activeTab = ref('Controls');
   const { height } = resizePanel(panel);
-  const { controlsState, headers } = setControls(controls);
+  const {
+    controlsState,
+    headers,
+  }: { controlsState: Controls; headers: string[] } = setControls(controls);
 </script>
 
 <template>
