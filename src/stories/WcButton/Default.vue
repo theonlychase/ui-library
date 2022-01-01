@@ -3,7 +3,10 @@
   import { setDefaultControls } from '@/utils/stories';
   import WcIcon from '@/components/ui/WcIcon/WcIcon.vue';
 
-  const defaultProps = setDefaultControls({ controls });
+  const defaultProps = setDefaultControls({
+    controls,
+    title: 'Default Button',
+  });
 </script>
 
 <template>

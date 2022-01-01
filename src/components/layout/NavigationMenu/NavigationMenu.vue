@@ -5,9 +5,14 @@
   const navItems = inject('nav-items');
   const closeSidebar = inject('closeSidebar');
 
-  const parentItems = navItems.filter(
-    (item) => item.meta.parent && item.children.length,
-  );
+  const parentItems = navItems
+    .filter((item) => item.meta.parent && item.children.length)
+    .map((parent) => {
+      parent.children.sort(
+        (a, b) => (b.meta.name === 'Default') - (a.meta.name === 'Default'),
+      );
+      return parent;
+    });
 </script>
 
 <template>

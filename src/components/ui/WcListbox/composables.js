@@ -1,5 +1,5 @@
 import { computed, nextTick, reactive, ref, watch } from 'vue';
-import { onClickOutside, debouncedWatch } from '@vueuse/core';
+import { onClickOutside } from '@vueuse/core';
 import { getValueName, keyCodes } from '@/utils/helpers';
 import {
   selectApi,
@@ -9,7 +9,6 @@ import {
 const listbox = ref(null);
 const listboxOpen = ref(false);
 const lastIndex = ref(0);
-const isLoading = ref(false);
 const internalValue = ref(null);
 const internalSearch = ref('');
 const focused = ref(false);
@@ -48,7 +47,6 @@ const api = (props, emit) => {
       if (props.autocomplete && val) {
         await nextTick();
         highlightedIndex.value = 0;
-        isLoading.value = false;
       }
 
       if (!props.autocomplete && !val) {
@@ -61,7 +59,6 @@ const api = (props, emit) => {
     watch(
       () => allOptions.value,
       (val) => {
-        isLoading.value = false;
         if (val.length) {
           lastIndex.value = val.length - 1;
           if (!internalValue.value) {
@@ -85,12 +82,11 @@ const api = (props, emit) => {
       },
     );
 
-    debouncedWatch(
+    watch(
       () => internalSearch.value,
       (searchValue) => {
         emit('update:search', searchValue);
       },
-      { debounce: props.debounce },
     );
   }
 
@@ -98,7 +94,6 @@ const api = (props, emit) => {
     allOptions,
     focused,
     highlightedIndex,
-    isLoading,
     listbox,
     listboxOpen,
     onFocus,
@@ -193,14 +188,8 @@ const onMouseup = () => {
 
 const setInternalSearch = (emit, searchValue) => {
   internalSearch.value = searchValue;
-  if (searchValue) {
-    isLoading.value = true;
-  }
 
-  if (!searchValue) {
-    emit('update:search', '');
-    isLoading.value = false;
-  }
+  !searchValue && emit('update:search', '');
 };
 
 const setScrollTop = (index, listboxMenu, listboxOptions) => {

@@ -2,7 +2,10 @@
   import controls from './controls';
   import { setDefaultControls } from '@/utils/stories';
 
-  const defaultProps = setDefaultControls({ controls });
+  const defaultProps = setDefaultControls({
+    controls,
+    title: 'Default Select',
+  });
   const options = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
 </script>
 

@@ -18,10 +18,6 @@
       type: Boolean,
       default: false,
     },
-    debounce: {
-      type: Number,
-      default: 0,
-    },
     disabled: {
       type: Boolean,
       default: false,
@@ -29,6 +25,10 @@
     label: {
       type: String,
       default: null,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
     noResults: {
       type: Boolean,
@@ -60,7 +60,6 @@
     allOptions,
     focused,
     highlightedIndex,
-    isLoading,
     listbox,
     listboxOpen,
     onFocus,
@@ -110,7 +109,7 @@
         @keydown="(e) => listboxOpen && onKeyDown(e)"
         @focus="() => onFocus(search, allOptions)"
       />
-      <wc-loading-bar v-if="autocomplete" :loading="isLoading" />
+      <wc-loading-bar v-if="autocomplete && loading" :loading="loading" />
 
       <wc-listbox-options
         :highlighted-index="highlightedIndex"

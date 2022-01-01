@@ -2,7 +2,7 @@
   import controls from './controls';
   import { setDefaultControls } from '@/utils/stories';
 
-  const defaultProps = setDefaultControls({ controls });
+  const defaultProps = setDefaultControls({ controls, title: 'Default Icon' });
 </script>
 
 <template>

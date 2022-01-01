@@ -78,7 +78,7 @@
         class="group w-full flex items-center pl-10 pr-2 py-2 text-sm font-medium rounded-md"
         @click="closeSidebar"
       >
-        {{ child.name }}
+        {{ child.meta.name }}
       </button>
     </router-link>
   </div>

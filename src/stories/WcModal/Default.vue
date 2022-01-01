@@ -3,7 +3,7 @@
   import controls from './controls.js';
   import { setDefaultControls } from '@/utils/stories';
 
-  const defaultProps = setDefaultControls({ controls });
+  const defaultProps = setDefaultControls({ controls, title: 'Default Modal' });
   const value = ref(false);
 </script>
 

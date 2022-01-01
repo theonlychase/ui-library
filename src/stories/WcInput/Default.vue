@@ -5,7 +5,7 @@
 
   const value = ref('');
 
-  const defaultProps = setDefaultControls({ controls });
+  const defaultProps = setDefaultControls({ controls, title: 'Default Input' });
 </script>
 
 <template>

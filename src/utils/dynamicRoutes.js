@@ -14,11 +14,10 @@ function getComponentPath(path) {
     .split('/')
     .pop()
     .replace(/\.\w+$/, '');
-  const routePath = componentName
-    .replace(/([a-zA-Z])(?=[A-Z])/g, '$1-')
-    .toLowerCase();
+  const name = componentName.replace(/([a-zA-Z])(?=[A-Z])/g, '$1-');
+  const routePath = name.toLowerCase();
 
-  return { componentName, routePath };
+  return { componentName, name, routePath };
 }
 
 function removeQueryParams(to) {
@@ -50,15 +49,19 @@ export default function dynamicRoutes(
       const children = [];
       Object.entries(stories).forEach(([storyPath, story]) => {
         if (storyPath.includes(parent)) {
-          const { componentName, routePath: variation } =
-            getComponentPath(storyPath);
+          const {
+            componentName,
+            name,
+            routePath: variation,
+          } = getComponentPath(storyPath);
+          const storyName = name.replaceAll('-', ' ');
 
           children.push({
-            name: componentName,
+            name: `${parent}-${componentName}`,
             path: variation,
             component: () =>
               import(`../stories/${parent}/${componentName}.vue`),
-            meta: { parent },
+            meta: { parent, name: storyName },
             beforeEnter(to, from) {
               removeQueryParams(to);
               store.dispatch('controls/setControls', null);

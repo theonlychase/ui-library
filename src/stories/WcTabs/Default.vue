@@ -3,7 +3,7 @@
   import { setDefaultControls } from '@/utils/stories';
   import { ref } from 'vue';
 
-  const defaultProps = setDefaultControls({ controls });
+  const defaultProps = setDefaultControls({ controls, title: 'Default Tabs' });
   const value = ref('Tab 1');
 
   const tabs = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4'];
