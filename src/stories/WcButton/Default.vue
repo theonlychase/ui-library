@@ -11,7 +11,7 @@
 
 <template>
   <wc-button v-bind="defaultProps">
-    <template v-if="$route.query.iconLeft === 'true'" #icon-left>
+    <template v-if="$route.query.iconLeft" #icon-left>
       <wc-icon
         name="plus"
         :color="
@@ -24,7 +24,7 @@
       />
     </template>
     <wc-icon
-      v-if="$route.query.circle === 'true'"
+      v-if="$route.query.circle"
       name="plus"
       :color="
         $route.query.variation === 'white' || $route.query.variation === 'text'
@@ -34,7 +34,7 @@
       size="xSmall"
     />
     <div v-else>Button</div>
-    <template v-if="$route.query.iconRight === 'true'" #icon-right>
+    <template v-if="$route.query.iconRight" #icon-right>
       <wc-icon
         name="chevronRight"
         :color="

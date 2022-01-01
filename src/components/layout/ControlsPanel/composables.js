@@ -64,11 +64,6 @@ const setControls = (route, store) => {
           return controlsState.value[key].props.disabled;
         });
         headers.value = panelHeaders(isDisabled);
-
-        Object.entries(route.query).forEach(([key, value]) => {
-          controlsState.value[`${key}`].props.value =
-            value === 'true' ? true : value === 'false' ? false : value;
-        });
       }
     },
     { immediate: true },

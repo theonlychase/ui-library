@@ -1,12 +1,7 @@
 import { defineAsyncComponent } from 'vue';
 
 function dynamicPropsFn(route) {
-  const queries = {};
-  Object.entries(route.query).forEach(([key, value]) => {
-    queries[`${key}`] =
-      value === 'true' ? true : value === 'false' ? false : value;
-  });
-  return queries;
+  return { ...route.query };
 }
 
 function getComponentPath(path) {
