@@ -89,6 +89,14 @@ export default {
     },
     description: 'Text Field Label, for accessibility',
   },
+  loading: {
+    name: 'loading',
+    type: 'toggle',
+    props: {
+      value: false,
+    },
+    description: 'Loading Spinner',
+  },
   placeholder: {
     name: 'placeholder',
     type: 'text',

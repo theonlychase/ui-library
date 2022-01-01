@@ -14,7 +14,7 @@ const components = {
 
 const resizePanel = (panel) => {
   const resizing = ref(false);
-  const height = ref('auto');
+  const height = ref('400');
 
   watchEffect(
     () => {

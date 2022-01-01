@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <wc-menu v-model:value="value" v-bind="defaultProps">
+  <wc-menu v-model:value="value" v-bind="defaultProps" class="mx-auto">
     <template #activator>
       <wc-button>{{ value ? 'Close' : 'Open' }}</wc-button>
     </template>

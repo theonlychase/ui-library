@@ -9,6 +9,8 @@
     controls,
     disabled: true,
     title: 'Listbox Autocomplete',
+    description:
+      'Combines WcInput & WcListbox for a fully functional Autocomplete',
   });
   const value = ref('');
   const search = ref('');
