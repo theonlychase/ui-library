@@ -176,6 +176,9 @@ const onFocus = (search, options) => {
   if (search && options.length) {
     listboxOpen.value = true;
   }
+  if (!search && internalValue.value) {
+    internalValue.value = null;
+  }
 };
 
 const onMousedown = () => {
