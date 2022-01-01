@@ -183,7 +183,7 @@
       :value="value"
       @input="({ target }) => emit('update:value', target.value)"
       @keydown="(e) => emit('keydown', e)"
-      @focus="(e) => emit('focus', e)"
+      @focus="(e) => !keepFocus && emit('focus', e)"
     />
 
     <div
@@ -193,9 +193,9 @@
         'cursor-pointer': isClearable,
         'pointer-events-none': !isClearable,
       }"
-      @click.prevent.stop="isClearable ? clear() : null"
-      @mousedown="keepFocus = true"
-      @mouseup="keepFocus = false"
+      @click.prevent="isClearable ? clear() : null"
+      @mousedown.prevent="keepFocus = true"
+      @mouseup.prevent="keepFocus = false"
     >
       <wc-icon
         :name="getRightIcon"
