@@ -4,10 +4,10 @@
   import { InputValueProps } from '@/types/global';
   import { setDefaultControls } from '@/utils/stories';
   import { mockOptions } from '@/utils/stories';
-  let controlState = { ...controls };
 
   const defaultProps = setDefaultControls({
-    controls: controlState,
+    controls,
+    disabled: true,
     title: 'Listbox Autocomplete',
   });
   const value = ref('');

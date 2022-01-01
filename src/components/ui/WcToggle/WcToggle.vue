@@ -14,14 +14,21 @@
 </script>
 
 <template>
-  <label class="flex items-center cursor-pointer">
+  <label
+    class="flex items-center cursor-pointer"
+    :class="{
+      'opacity-60': disabled,
+    }"
+  >
     <span class="relative flex">
       <input
         :disabled="disabled"
         type="checkbox"
         class="peer sr-only"
+        :class="{
+          'pointer-events-none opacity-60': disabled,
+        }"
         :value="value"
-        :checked="value"
         @change="({ target }) => $emit('update:value', target.checked)"
       />
       <span class="block bg-gray-300 w-14 h-8 rounded-full" />

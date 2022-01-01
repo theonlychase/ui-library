@@ -5,10 +5,10 @@
   import { InputValueProps } from '@/types/global';
   import { setDefaultControls } from '@/utils/stories';
   import { mockOptions } from '@/utils/stories';
-  let controlState = { ...controls };
 
   const defaultProps = setDefaultControls({
-    controls: controlState,
+    controls,
+    disabled: true,
     title: 'Listbox Autocomplete With Loading Bar',
     description: 'debounce of 1000ms used on every keypress',
   });
@@ -48,12 +48,11 @@
       v-model:value="value"
       v-model:search="search"
       :loading="loading"
-      placeholder="Search for a name"
       v-bind="{
         ...defaultProps,
-        options,
         autocomplete: true,
         inputProps: { iconLeft: 'search' },
+        options,
         search,
         value,
       }"

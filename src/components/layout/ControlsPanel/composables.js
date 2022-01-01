@@ -1,4 +1,4 @@
-import { computed, defineAsyncComponent, ref, watch, watchEffect } from 'vue';
+import { defineAsyncComponent, ref, watch, watchEffect } from 'vue';
 
 const components = {
   WcSelect: defineAsyncComponent(() =>
@@ -52,8 +52,7 @@ const setComponents = (type) => {
     : null;
 };
 
-const setControls = (route, store) => {
-  const controlsState = computed(() => store.state.controls.controls);
+const setControls = (controlsState) => {
   let headers = ref([]);
 
   watch(
@@ -66,7 +65,7 @@ const setControls = (route, store) => {
         headers.value = panelHeaders(isDisabled);
       }
     },
-    { immediate: true },
+    { deep: true, immediate: true },
   );
 
   return { controlsState, headers };
@@ -78,9 +77,8 @@ const panelHeaders = (disabledState) => {
   return ['Name', 'Description', `Control${disabledState ? 's Disabled' : ''}`];
 };
 
-const updateQuery = ({ val, name }, store, route, router, controlsState) => {
+const updateQuery = ({ val, name }, route, router, controlsState) => {
   controlsState[`${name}`].props.value = val;
-  store.dispatch('controls/setControls', controlsState);
 
   router.push({
     name: route.name,

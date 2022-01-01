@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import qs from 'qs';
 import App from './App.vue';
 import { routes, routeComponents } from './routes';
-import store from './store';
+import { defaultControlState } from '@/utils/stories';
 import dynamicRoutes from '@/utils/dynamicRoutes';
 import './assets/css/tailwind.css';
 
@@ -15,9 +15,10 @@ const router = createRouter({
   stringifyQuery: qs.stringify,
 });
 
-dynamicRoutes(routeComponents, app, router, store);
+dynamicRoutes(routeComponents, app, router);
 
 const navItems = router.getRoutes();
 app.provide('nav-items', navItems);
+app.provide('controlState', defaultControlState);
 
-app.use(router).use(store).mount('#app');
+app.use(router).mount('#app');

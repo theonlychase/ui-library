@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { useRouter, useRoute } from 'vue-router';
-  import { useStore } from 'vuex';
-  import { ref } from 'vue';
+  import { inject, ref } from 'vue';
   import {
     resizePanel,
     setControls,
@@ -12,12 +11,12 @@
 
   const router = useRouter();
   const route = useRoute();
-  const store = useStore();
+  const controls = inject('controlState');
 
   const panel = ref(null);
   const activeTab = ref('Controls');
   const { height } = resizePanel(panel);
-  const { controlsState, headers } = setControls(route, store);
+  const { controlsState, headers } = setControls(controls);
 </script>
 
 <template>
@@ -65,7 +64,6 @@
                     (val) =>
                       updateQuery(
                         { val, name: control.name },
-                        store,
                         route,
                         router,
                         controlsState,

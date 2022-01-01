@@ -31,7 +31,6 @@ export default function dynamicRoutes(
   { components, stories, pages },
   app,
   router,
-  store,
 ) {
   // Global Components and Routes for UI and Stories
   Object.entries(components).forEach(([path, component]) => {
@@ -57,9 +56,8 @@ export default function dynamicRoutes(
             component: () =>
               import(`../stories/${parent}/${componentName}.vue`),
             meta: { parent, name: storyName },
-            beforeEnter(to, from) {
+            beforeEnter(to) {
               removeQueryParams(to);
-              store.dispatch('controls/setControls', null);
             },
             props: dynamicPropsFn,
           });

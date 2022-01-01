@@ -1,6 +1,7 @@
-import { inject } from 'vue';
-import { useStore } from 'vuex';
+import { inject, ref, Ref } from 'vue';
 import { PageMeta } from '@/types/global';
+
+const defaultControlState = ref({});
 
 const setDefaultControls = ({
   controls,
@@ -8,13 +9,13 @@ const setDefaultControls = ({
   title = '',
   description = '',
 }) => {
-  const store = useStore();
+  const controlState = inject('controlState') as Ref;
 
   Object.keys(controls).forEach((key) => {
     controls[key].props.disabled = disabled;
   });
 
-  store.dispatch('controls/setControls', controls);
+  controlState.value = { ...controls };
 
   const defaultProps = {};
 
@@ -46,4 +47,4 @@ const mockOptions = [
   { name: 'Canada', id: 'canada' },
 ];
 
-export { mockOptions, setDefaultControls };
+export { defaultControlState, mockOptions, setDefaultControls };

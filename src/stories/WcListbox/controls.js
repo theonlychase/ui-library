@@ -36,7 +36,7 @@ export default {
     name: 'options',
     type: '',
     props: {
-      value: '',
+      value: [],
     },
     description:
       '<div>Array of Strings/Objects.</div><div>Object must contain both id and name properties.</div>',
