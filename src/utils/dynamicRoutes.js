@@ -67,8 +67,8 @@ export default function dynamicRoutes(
       const childToRedirect = children.find(
         (child) => child.meta.name.toLowerCase() === 'default',
       );
-      const redirect = childToRedirect
-        ? { name: childToRedirect.name }
+      const redirect = children.length
+        ? { name: childToRedirect ? childToRedirect.name : children[0].name }
         : parent;
 
       const parentRoute = {

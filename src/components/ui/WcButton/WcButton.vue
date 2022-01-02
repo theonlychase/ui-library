@@ -78,7 +78,7 @@
     :is="href ? 'a' : 'button'"
     :href="href"
     class="WcButton"
-    :class="[computedClasses, computedVariation]"
+    :class="[computedClasses, computedVariation, { 'min-w-max': !truncate }]"
     :title="title"
     :type="type"
   >
