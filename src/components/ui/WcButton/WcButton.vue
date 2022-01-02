@@ -55,11 +55,15 @@
   });
 
   const variations = {
-    primary: 'text-white bg-blue-500 hover:bg-blue-600',
-    secondary: 'text-white bg-gray-500 hover:bg-gray-600',
-    white: '!border-gray-400 text-gray-700 bg-white hover:bg-gray-100',
-    text: 'bg-transparent shadow-none text-gray-700 hover:bg-gray-100',
-    error: 'bg-red-500 text-white hover:bg-red-600',
+    primary:
+      'text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-500',
+    secondary:
+      'text-gray-900 bg-gray-100 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500',
+    white:
+      'ring-1 ring-gray-400 text-gray-700 bg-white hover:bg-gray-100 focus:ring-2 focus:ring-gray-400',
+    text: 'bg-transparent shadow-none text-gray-700 hover:bg-gray-100 focus:ring-2 focus:ring-gray-100',
+    error:
+      'bg-red-500 text-white hover:bg-red-600 focus:ring-2 focus:ring-red-600',
   };
 
   const computedClasses = computed(() => ({

@@ -22,7 +22,7 @@
     :aria-expanded="isOpen"
     :aria-controls="`panel-${id}`"
     :title="`Accordion Button ${id}`"
-    class="justify-between font-medium text-left !rounded-lg !text-gray-900 !bg-gray-100 hover:!bg-gray-200 focus-visible:ring focus-visible:ring-blue-500 focus:outline-none focus-visible:ring-opacity-75 mt-2 first:mt-0"
+    class="justify-between font-medium text-left !rounded-lg !text-gray-900 !bg-gray-100 hover:!bg-gray-200 focus:outline-none focus:ring-gray-500 mt-2 first:mt-0"
     :class="computedSizes.font"
     :size="size"
     truncate

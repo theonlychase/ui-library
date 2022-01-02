@@ -144,6 +144,7 @@ module.exports = {
     isolation: false,
     ringOffsetColor: false,
     ringOffsetWidth: false,
+    ringOpacity: false,
     sepia: false,
     saturate: false,
     strokeWidth: false,
