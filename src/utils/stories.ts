@@ -1,4 +1,5 @@
 import { inject, ref, Ref } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
 import { Controls, PageMeta } from '@/types/global';
 
 const defaultControlState = ref({});
@@ -29,6 +30,10 @@ const setDefaultControls = ({
   });
 
   setPageMeta({ title, description });
+
+  onBeforeRouteLeave((to, from) => {
+    controlState.value = null;
+  });
 
   return defaultProps;
 };

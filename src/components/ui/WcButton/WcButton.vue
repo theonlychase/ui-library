@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { ComponentOptionsWithArrayProps, computed } from 'vue';
+  export type ButtonSizes = 'xSmall' | 'small' | 'medium' | 'large';
 
   const props = defineProps({
     block: {
@@ -32,6 +33,10 @@
       validator: (val: ComponentOptionsWithArrayProps): boolean => {
         return val.match(/(xSmall|small|medium|large)/);
       },
+    },
+    truncate: {
+      type: Boolean,
+      default: false,
     },
     type: {
       type: String,
@@ -81,7 +86,7 @@
       <slot name="icon-left" />
     </span>
 
-    <span class="WcButton-label">
+    <span class="WcButton-label" :class="truncate && 'truncate'">
       <slot />
     </span>
 
@@ -93,7 +98,7 @@
 
 <style>
   .WcButton {
-    @apply border border-solid border-transparent shadow-sm font-medium rounded-md min-w-max appearance-none leading-none inline-flex items-center
+    @apply border border-solid border-transparent shadow-sm font-medium rounded-md appearance-none leading-none inline-flex items-center
     select-none no-underline outline-none cursor-pointer focus:outline-none;
     @apply transition-colors duration-200 ease-in-out hover:transition-colors;
   }
