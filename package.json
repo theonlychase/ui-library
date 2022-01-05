@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^7.5.1",
+    "keen-slider": "^6.6.2",
     "qs": "^6.10.2",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
