@@ -30,9 +30,6 @@
 
     <div
       class="absolute hidden p-1 bg-white left-4 right-auto top-1/2 -translate-y-1/2 opacity-80 rounded-full cursor-pointer md:block"
-      :class="{
-        'pointer-events-none opacity-50': current === 0,
-      }"
       @click="slider.prev()"
     >
       <wc-icon name="chevronLeft" />
@@ -40,9 +37,6 @@
 
     <div
       class="absolute hidden p-1 bg-white right-4 left-auto top-1/2 -translate-y-1/2 opacity-80 rounded-full cursor-pointer md:block"
-      :class="{
-        'pointer-events-none opacity-50': current > slides.length / 2,
-      }"
       @click="slider.next()"
     >
       <wc-icon name="chevronRight" />

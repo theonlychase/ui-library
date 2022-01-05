@@ -15,7 +15,7 @@
         {{ meta.description }}
       </div>
     </div>
-    <div class="px-4 sm:px-6 md:px-8">
+    <div class="px-4 sm:px-6 md:px-8 max-w-7xl">
       <div class="py-4">
         <slot name="page" />
         <slot name="story" />
