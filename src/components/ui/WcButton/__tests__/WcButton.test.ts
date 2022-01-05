@@ -91,19 +91,14 @@ describe('WcButton', () => {
 
     // secondary
     await wrapper.setProps({ variation: 'secondary' });
-    classes = ['text-white', 'bg-gray-500', 'hover:bg-gray-600'];
+    classes = ['text-gray-900', 'bg-gray-100', 'hover:bg-gray-200'];
     classes.forEach((val) => {
       expect(wrapper.classes()).toContain(val);
     });
 
     // white
     await wrapper.setProps({ variation: 'white' });
-    classes = [
-      '!border-gray-400',
-      'text-gray-700',
-      'bg-white',
-      'hover:bg-gray-100',
-    ];
+    classes = ['text-gray-700', 'bg-white', 'hover:bg-gray-100'];
     classes.forEach((val) => {
       expect(wrapper.classes()).toContain(val);
     });
