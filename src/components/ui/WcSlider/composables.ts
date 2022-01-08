@@ -1,22 +1,44 @@
-import { ref } from 'vue';
-import { useKeenSlider } from 'keen-slider/vue.es';
-import 'keen-slider/keen-slider.min.css';
+import { computed, onMounted, ref, Ref, watchEffect } from 'vue';
 
-const current = ref(1);
+const currentSlides = ref([]);
+const container = ref(null);
+const lazyIndex = ref(4);
+const loadAll = ref(false);
+const observer: Ref<IntersectionObserver | null> = ref(null);
+const threshold = [0.15, 0.9];
 
-const initSwiper = () => {
-  const [container, slider] = useKeenSlider({
-    initial: current.value,
-    slides: {
-      perView: 'auto',
-      spacing: 12,
-    },
-    slideChanged: (s) => {
-      current.value = s.track.details.rel;
-    },
+const initSlider = (props) => {
+  currentSlides.value = props.slides;
+
+  onMounted(() => {
+    initObserver();
   });
 
-  return { container, current, slider };
+  // watchEffect(
+  //   () => {
+  //     currentSlides.value =
+  //   },
+  //   {
+  //     flush: 'post',
+  //   },
+  // );
+
+  const handleSlides = computed(() =>
+    currentSlides.value.slice(0, lazyIndex.value),
+  );
+
+  return { container, handleSlides };
 };
 
-export { initSwiper };
+const initObserver = () => {
+  observer.value = new IntersectionObserver(handleIntersect, {
+    root: container.value,
+    threshold,
+  });
+};
+
+const handleIntersect = (entries, observer) => {
+  console.log('test');
+};
+
+export { initSlider };

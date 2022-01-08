@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { initSwiper } from './composables';
+  import { initSlider } from './composables';
   import WcIcon from '@/components/ui/WcIcon/WcIcon.vue';
 
   export interface SwiperProps {
@@ -12,40 +12,30 @@
     width: '100%',
   });
 
-  const { container, current, slider } = initSwiper();
+  const { container, handleSlides } = initSlider(props);
 </script>
 
 <template>
-  <div class="relative">
-    <div ref="container" class="keen-slider">
-      <div
-        v-for="slide in slides"
-        :key="slide"
-        :style="{ width }"
-        class="keen-slider__slide max-w-full flex-shrink-0"
-      >
-        <slot :slide="slide" />
-      </div>
-    </div>
-
+  <div class="slider relative overflow-hidden">
     <div
-      class="absolute hidden p-1 bg-white left-4 right-auto top-1/2 -translate-y-1/2 opacity-80 rounded-full cursor-pointer md:block"
-      @click="slider.prev()"
+      ref="container"
+      class="slider__container grid grid-flow-col auto-cols-min gap-x-3"
     >
-      <wc-icon name="chevronLeft" />
-    </div>
-
-    <div
-      class="absolute hidden p-1 bg-white right-4 left-auto top-1/2 -translate-y-1/2 opacity-80 rounded-full cursor-pointer md:block"
-      @click="slider.next()"
-    >
-      <wc-icon name="chevronRight" />
+      <slot v-for="slide in handleSlides" :slide="slide" />
     </div>
   </div>
 </template>
 
 <style>
-  .keen-slider__slide > * {
-    @apply h-full max-w-full;
+  .slider {
+    & .slider__container > * {
+      @apply max-w-full flex-shrink-0;
+    }
+
+    &::-webkit-scrollbar {
+      /* WebKit */
+      width: 0;
+      height: 0;
+    }
   }
 </style>
