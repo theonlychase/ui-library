@@ -1,9 +1,10 @@
 <script setup lang="ts">
   import { mockOptions } from '@/utils/stories';
+  const slides = mockOptions.slice(0, 4);
 </script>
 
 <template>
-  <wc-slider :slides="mockOptions" width="16rem">
+  <wc-slider :slides="mockOptions">
     <template #default="{ slide }">
       <wc-card>
         <template #media>
