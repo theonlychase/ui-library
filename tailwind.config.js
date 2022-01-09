@@ -32,6 +32,11 @@ module.exports = {
           },
         },
       },
+      screens: {
+        'sm-max': {
+          max: '767px',
+        },
+      },
       transitionDuration: {
         0: '0ms',
         50: '50ms',

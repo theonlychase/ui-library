@@ -36,14 +36,14 @@
 
     <div
       ref="container"
-      class="slider__container inline-flex w-full overflow-x-scroll md:overflow-x-hidden md:w-auto transition duration-200 ease-in-out"
+      class="slider__container inline-flex w-full overflow-x-scroll md:overflow-x-hidden md:w-auto transition duration-200 ease-in-out sm-max:!transform-none"
     >
       <span class="slider__slide--first" />
 
       <div
         v-for="slide in computedSlides"
         :key="slide"
-        class="flex-shrink-0 max-w-full mr-3 last-of-type:mr-0"
+        class="mr-3 last-of-type:mr-0"
       >
         <slot :slide="slide" />
       </div>
@@ -64,7 +64,8 @@
 </template>
 
 <style>
-  .slider {
+  .slider,
+  .slider__container {
     &::-webkit-scrollbar {
       width: 0;
       height: 0;
