@@ -1,4 +1,4 @@
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref, Ref, watch, watchEffect } from 'vue';
 export type ImageSize = 'small' | 'medium';
 export interface ImageProps {
   description: string;
@@ -10,9 +10,9 @@ interface SourceType {
 }
 
 const slider = ref(null);
-const placeholder = ref(null);
+const placeholder: Ref<HTMLElement | null> = ref(null);
 const activeIndex = ref(0);
-const galleryMinHeight = ref(0);
+const galleryMinHeight: Ref<number> = ref(0);
 const imageReadyInterval = ref(0);
 const leftTransition = ref(32);
 const placeholderClasses = computed(() => {
@@ -98,7 +98,9 @@ const setImageInterval = () => {
 };
 
 const setSwiperMinHeight = () => {
-  galleryMinHeight.value = placeholder.value.clientHeight;
+  galleryMinHeight.value = placeholder.value
+    ? placeholder.value.clientHeight
+    : 0;
 };
 
 export { api };

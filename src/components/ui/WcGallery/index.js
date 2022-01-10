@@ -1,3 +1,3 @@
 import WcGallery from './WcGallery.vue';
 
-export { WcGallery };
+export default WcGallery;
