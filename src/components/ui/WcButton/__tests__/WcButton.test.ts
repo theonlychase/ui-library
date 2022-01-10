@@ -36,7 +36,7 @@ describe('WcButton', () => {
     await wrapper.setProps({ disabled: true });
 
     expect(wrapper.classes()).toContain('pointer-events-none');
-    expect(wrapper.classes()).toContain('opacity-40');
+    expect(wrapper.classes()).toContain('!opacity-40');
   });
 
   it('renders title attribute', async () => {

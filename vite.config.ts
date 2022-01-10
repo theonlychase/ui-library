@@ -18,6 +18,6 @@ export default defineConfig({
     }),
   ],
   optimizeDeps: {
-    include: ['vue', 'vue-router', '@vueuse/core', 'qs', 'keen-slider/vue'],
+    include: ['vue', 'vue-router', '@vueuse/core', 'qs', 'keen-slider/vue.es'],
   },
 });
