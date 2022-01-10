@@ -67,7 +67,7 @@
   };
 
   const computedClasses = computed(() => ({
-    'pointer-events-none opacity-40': props.disabled,
+    'pointer-events-none !opacity-40': props.disabled,
     'w-full max-w-full justify-center': props.block,
     '!rounded-full': props.rounded || props.circle,
     'WcButton--circle': props.circle,

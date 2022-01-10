@@ -1,6 +1,15 @@
 <script setup lang="ts">
+  import controls from './controls';
+  import { setDefaultControls } from '@/utils/stories';
   import { mockOptions } from '@/utils/stories';
-  const slides = mockOptions.slice(0, 4);
+
+  const defaultProps = setDefaultControls({
+    controls,
+    title: 'Default Slider',
+    description:
+      'Built with Intersection Observer to track slide visibility and lazy loaded slides',
+    disabled: true,
+  });
 </script>
 
 <template>

@@ -57,4 +57,49 @@ const mockOptions = [
   { name: 'Canada', id: 'canada' },
 ];
 
-export { defaultControlState, mockOptions, setDefaultControls };
+const mockImages = [
+  {
+    source: {
+      medium: 'https://images.unsplash.com/photo-1511225070737-5af5ac9a690d',
+    },
+    description: 'Image description',
+  },
+  {
+    source: {
+      medium: 'https://images.unsplash.com/photo-1511225070737-5af5ac9a690d',
+    },
+    description: 'Image description',
+  },
+  {
+    source: {
+      medium: 'https://images.unsplash.com/photo-1511225070737-5af5ac9a690d',
+    },
+    description: 'Image description',
+  },
+  {
+    source: {
+      medium: 'https://images.unsplash.com/photo-1511225070737-5af5ac9a690d',
+    },
+    description: 'Image description',
+  },
+  {
+    source: {
+      medium: 'https://images.unsplash.com/photo-1511225070737-5af5ac9a690d',
+    },
+    description: 'Image description',
+  },
+  {
+    source: {
+      medium: 'https://images.unsplash.com/photo-1511225070737-5af5ac9a690d',
+    },
+    description: 'Image description',
+  },
+  {
+    source: {
+      medium: 'https://images.unsplash.com/photo-1511225070737-5af5ac9a690d',
+    },
+    description: 'Image description',
+  },
+];
+
+export { defaultControlState, mockImages, mockOptions, setDefaultControls };
