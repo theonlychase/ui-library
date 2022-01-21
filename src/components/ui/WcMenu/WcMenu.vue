@@ -18,7 +18,7 @@
 
 <template>
   <div ref="menu" class="relative max-w-max">
-    <div v-if="$slots.activator" @click="showMenu = !showMenu">
+    <div v-if="$slots.activator" class="flex" @click="showMenu = !showMenu">
       <slot name="activator" />
     </div>
 

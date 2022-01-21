@@ -7,20 +7,20 @@ import {
 } from '@/components/ui/WcSelect/composables.js';
 
 const listbox = ref(null);
-const listboxOpen = ref(false);
 const lastIndex = ref(0);
 const internalValue = ref(null);
 const internalSearch = ref('');
 const focused = ref(false);
-onClickOutside(listbox, (e) => {
-  if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
-    listboxOpen.value = false;
-  }
-});
 
 const api = (props, emit) => {
   const { allOptions, selectedIndex } = selectApi(props);
   const highlightedIndex = reactive(selectedIndex);
+  const listboxOpen = ref(false);
+  onClickOutside(listbox, (e) => {
+    if (!(listbox.value === e.target || listbox.value.contains(e.target))) {
+      listboxOpen.value = false;
+    }
+  });
 
   const selectedValue = computed(() => {
     return getValueName(props.value) || props.placeholder;
@@ -39,7 +39,17 @@ const api = (props, emit) => {
     highlightedIndex,
     props.autocomplete,
     selectedIndex,
+    listboxOpen,
   );
+
+  const onFocus = (search, options) => {
+    if (search && options.length) {
+      listboxOpen.value = true;
+    }
+    if (!search && internalValue.value) {
+      internalValue.value = null;
+    }
+  };
 
   watch(
     () => listboxOpen.value,
@@ -110,6 +120,7 @@ const keyEvents = (
   highlightedIndex,
   autocomplete,
   selectedIndex,
+  listboxOpen,
 ) => {
   lastIndex.value = options.value.length - 1;
 
@@ -123,25 +134,35 @@ const keyEvents = (
 
     if (keyCodes.up === keyCode) {
       listboxOpen.value &&
-        prevValue(lastIndex.value, highlightedIndex, selectedIndex);
+        prevValue(
+          lastIndex.value,
+          highlightedIndex,
+          selectedIndex,
+          listboxOpen,
+        );
     }
     if (keyCodes.down === keyCode) {
       listboxOpen.value &&
-        nextValue(lastIndex.value, highlightedIndex, selectedIndex);
+        nextValue(
+          lastIndex.value,
+          highlightedIndex,
+          selectedIndex,
+          listboxOpen,
+        );
     }
     if (keyCodes.enter === keyCode) {
       if (autocomplete && !options.value.length) return;
-      onKeySelect();
+      onKeySelect(listboxOpen);
     }
     if (keyCodes.space === keyCode && !autocomplete) {
-      onKeySelect();
+      onKeySelect(listboxOpen);
     }
     if (keyCodes.tab === keyCode) {
       e.target.blur();
-      closeListbox();
+      closeListbox(listboxOpen);
     }
     if (keyCodes.esc === keyCode) {
-      closeListbox();
+      closeListbox(listboxOpen);
     }
     if (keyCode >= 65 && keyCode <= 90 && !autocomplete) {
       if (listboxOpen.value) {
@@ -154,7 +175,7 @@ const keyEvents = (
     }
   };
 
-  const onKeySelect = () => {
+  const onKeySelect = (listboxOpen) => {
     if (!listboxOpen.value) {
       listboxOpen.value = true;
       return;
@@ -170,15 +191,6 @@ const keyEvents = (
   };
 
   return { onKeyDown };
-};
-
-const onFocus = (search, options) => {
-  if (search && options.length) {
-    listboxOpen.value = true;
-  }
-  if (!search && internalValue.value) {
-    internalValue.value = null;
-  }
 };
 
 const onMousedown = () => {
@@ -213,27 +225,27 @@ const setScrollTop = (index, listboxMenu, listboxOptions) => {
   }
 };
 
-const closeListbox = () => {
+const closeListbox = (listboxOpen) => {
   if (listboxOpen.value) {
     listboxOpen.value = false;
   }
 };
 
-const openListbox = () => {
+const openListbox = (listboxOpen) => {
   if (!listboxOpen.value) {
     listboxOpen.value = true;
   }
 };
 
-const nextValue = (lastIndex, highlightedIndex, selectedIndex) => {
-  openListbox();
+const nextValue = (lastIndex, highlightedIndex, selectedIndex, listboxOpen) => {
+  openListbox(listboxOpen);
 
   highlightedIndex.value =
     selectedIndex.value < lastIndex ? selectedIndex.value + 1 : 0;
 };
 
-const prevValue = (lastIndex, highlightedIndex, selectedIndex) => {
-  openListbox();
+const prevValue = (lastIndex, highlightedIndex, selectedIndex, listboxOpen) => {
+  openListbox(listboxOpen);
 
   highlightedIndex.value =
     selectedIndex.value > 0 ? selectedIndex.value - 1 : lastIndex;
