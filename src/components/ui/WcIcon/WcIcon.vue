@@ -54,7 +54,7 @@
   );
   const computedViewBox = computed(() => {
     return !computedIcon.value
-      ? console.error('Icon does not exist')
+      ? console.error('Icon does not exist', props.name)
       : computedIcon.value.viewBox;
   });
 </script>

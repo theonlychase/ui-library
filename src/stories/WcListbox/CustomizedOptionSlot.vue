@@ -26,7 +26,7 @@
     v-bind="{ ...defaultProps, value }"
     :options="options"
     class="mb-6"
-    >å
+  >
     <template #option="{ active, option }">
       <div class="flex items-center">
         <span class="mr-2">
