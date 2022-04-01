@@ -43,6 +43,10 @@ const icons = {
     path: '<path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />',
     viewBox: '0 0 20 20',
   },
+  moon: {
+    path: '<path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />',
+    viewBox: '0 0 24 24',
+  },
   pencil: {
     path: '<path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />',
     viewBox: '0 0 20 20',
@@ -69,6 +73,10 @@ const icons = {
   },
   spinner: {
     path: '<circle cx="12" cy="12" r="10" class="fill-white stroke-gray-300" stroke-width="4" /> <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />',
+    viewBox: '0 0 24 24',
+  },
+  sun: {
+    path: '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />',
     viewBox: '0 0 24 24',
   },
   templateOutline: {
