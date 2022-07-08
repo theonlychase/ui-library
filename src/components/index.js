@@ -4,6 +4,7 @@ export { default as WcBreadcrumbs } from './ui/WcBreadcrumbs/WcBreadcrumbs.vue';
 export { default as WcButton } from './ui/WcButton/WcButton.vue';
 export { default as WcCard } from './ui/WcCard/WcCard.vue';
 export { default as WcCheckbox } from './ui/WcCheckbox/WcCheckbox.vue';
+export { default as WcDataTable } from './ui/WcDataTable/WcDataTable.vue';
 export { default as WcFieldset } from './ui/WcForm/WcFieldset.vue';
 export { default as WcGallery } from './ui/WcGallery/WcGallery.vue';
 export { default as WcIcon } from './ui/WcIcon/WcIcon.vue';
