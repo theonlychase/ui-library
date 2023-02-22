@@ -5,5 +5,6 @@ module.exports = {
     '^.+\\.ts$': 'ts-jest',
     '^.+\\.vue$': '@vue/vue3-jest',
   },
+  testEnvironment: 'node',
   testPathIgnorePatterns: ['/node_modules/'],
 };
