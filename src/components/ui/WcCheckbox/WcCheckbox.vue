@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { InputValueProps } from '@/types/global';
-  import { api } from './composables';
+  import { computed, ref, watch } from 'vue';
+  import { getValueName } from '@/utils/helpers';
 
   interface CheckboxProps {
     option: InputValueProps;
@@ -13,7 +14,15 @@
     value: () => [],
   });
 
-  const { label, selected } = api(emit, props);
+  const label = computed(() => getValueName(props.option));
+  const selected = ref([]);
+
+  watch(
+    () => selected.value,
+    (option) => {
+      emit('update:value', [...option]);
+    },
+  );
 </script>
 
 <template>

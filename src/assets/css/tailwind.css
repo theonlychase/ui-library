@@ -3,3 +3,9 @@
 @import 'tailwindcss/utilities';
 @import './base.css';
 @import './theme.css';
+
+@layer utilities {
+  .bg-overlay-50 {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}

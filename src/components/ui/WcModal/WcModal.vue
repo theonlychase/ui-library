@@ -84,9 +84,7 @@
               <wc-icon
                 name="closeOutlineStroke"
                 size="small"
-                color="gray500"
-                hover-color="gray600"
-                class="cursor-pointer absolute top-2 right-2"
+                class="cursor-pointer absolute top-2 right-2 text-gray-500 hover:text-gray-600"
                 @click="overlayTransition = false"
               />
               <slot />

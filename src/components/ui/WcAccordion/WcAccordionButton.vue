@@ -35,8 +35,7 @@
       <wc-icon
         name="chevronUp"
         :size="computedSizes.icon"
-        color="blue900"
-        class="transition-all duration-200 ease-in-out"
+        class="transition-all duration-200 ease-in-out text-blue-900"
         :class="isOpen && 'rotate-180'"
       />
     </template>

@@ -17,7 +17,7 @@
 
 <template>
   <div class="flex-shrink-0 flex items-center px-4">
-    <wc-icon name="templateOutline" size="small" class="mr-2" color="blue400" />
+    <wc-icon name="templateOutline" size="small" class="mr-2 text-blue4-00" />
     <h1 class="text-2xl" @click="closeSidebar">
       <router-link :to="{ name: 'Dashboard' }">UI Library</router-link>
     </h1>

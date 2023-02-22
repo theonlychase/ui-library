@@ -3,14 +3,6 @@
   import icons from './icons';
 
   const props = defineProps({
-    color: {
-      type: String,
-      default: 'currentColor',
-    },
-    hoverColor: {
-      type: String,
-      default: '',
-    },
     name: {
       type: String,
       required: true,
@@ -22,97 +14,33 @@
         return value.match(/(xxSmall|xSmall|small|medium|large|xLarge)/);
       },
     },
+    attrs: {
+      type: Object,
+      default: () => ({
+        viewBox: '0 0 20 20',
+      }),
+    },
   });
 
-  const strokeFill = computed(() => {
-    return props.name.toLowerCase().includes('stroke');
-  });
-
-  const computedColor = computed(() => ({
-    '--icon-color': `var(--color--${props.color})`,
-  }));
-
-  const computedHoverColor = computed(() => {
-    return props.hoverColor
-      ? { '--icon-color--hover': `var(--color--${props.hoverColor})` }
-      : '';
-  });
-
-  const computedClasses = computed(() => ({
-    [`WcIcon--${props.size}`]: props.size,
-    'WcIcon--fill': !strokeFill.value,
-    'WcIcon--fill--hover': !strokeFill.value && props.hoverColor,
-    'WcIcon--stroke': strokeFill.value,
-    'WcIcon--stroke--hover': strokeFill.value && props.hoverColor,
-  }));
-
+  const sizeClasses = {
+    xxSmall: 'w-4 h-4',
+    xSmall: 'w-5 h-5',
+    small: 'w-6 h-6',
+    medium: 'w-8 h-8',
+    large: 'w-10 h-10',
+    xLarge: 'w-12 h-12',
+  };
   const computedIcon = computed(() => icons[props.name]);
-  const computedSvg = computed(() =>
-    computedIcon.value
-      ? `<title>${props.name}</title>${computedIcon.value.path}`
-      : null,
-  );
-  const computedViewBox = computed(() => {
-    return !computedIcon.value
-      ? console.error('Icon does not exist', props.name)
-      : computedIcon.value.viewBox;
-  });
+  const computedSvg = computed(() => (computedIcon.value ? `<title>${props.name}</title>${computedIcon.value.path}` : null));
 </script>
 
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    :viewBox="computedViewBox"
-    class="WcIcon select-none"
-    :class="computedClasses"
-    :style="[computedColor, computedHoverColor]"
+    class="fill-current select-none"
+    :class="[sizeClasses[props.size]]"
     role="presentation"
+    v-bind="attrs"
     v-html="computedSvg"
   />
 </template>
-
-<style>
-  .WcIcon--fill {
-    fill: var(--icon-color);
-  }
-
-  .WcIcon--fill--hover {
-    &:hover {
-      fill: var(--icon-color--hover);
-    }
-  }
-
-  .WcIcon--stroke {
-    stroke: var(--icon-color);
-  }
-
-  .WcIcon--stroke--hover {
-    &:hover {
-      stroke: var(--icon-color--hover);
-    }
-  }
-
-  .WcIcon--xxSmall {
-    @apply w-4 h-4;
-  }
-
-  .WcIcon--xSmall {
-    @apply w-5 h-5;
-  }
-
-  .WcIcon--small {
-    @apply w-6 h-6;
-  }
-
-  .WcIcon--medium {
-    @apply w-8 h-8;
-  }
-
-  .WcIcon--large {
-    @apply w-10 h-10;
-  }
-
-  .WcIcon--xLarge {
-    @apply w-12 h-12;
-  }
-</style>

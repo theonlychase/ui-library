@@ -108,7 +108,7 @@ module.exports = {
       },
       transparent: 'var(--color--transparent)',
       white: 'var(--color--white)',
-      currentColor: 'var(--color--currentColor)',
+      current: 'currentColor',
       error: 'var(--color--error)',
       info: 'var(--color--info)',
       success: 'var(--color--success)',

@@ -2,7 +2,7 @@
   import WcListboxOptions from './WcListboxOptions.vue';
   import WcListboxOption from './WcListboxOption.vue';
   import WcListboxButton from './WcListboxButton.vue';
-  import WcInput from '../WcInput';
+  import WcInput from '@/components/ui/WcInput';
   import { getValueName } from '@/utils/helpers';
   import {
     api,
