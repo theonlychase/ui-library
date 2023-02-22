@@ -32,7 +32,7 @@
         <span class="mr-2">
           <wc-icon
             name="mail"
-            :color="active ? 'white' : 'gray400'"
+            :class="active ? 'text-white' : 'text-gray-400'"
             size="xSmall"
           />
         </span>
@@ -44,7 +44,7 @@
         <wc-icon
           v-if="active"
           name="check"
-          :color="active ? 'white' : 'gray400'"
+          :class="active ? 'text-white' : 'text-gray-400'"
           size="xSmall"
         />
       </div>

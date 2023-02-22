@@ -44,7 +44,7 @@
       class="absolute left-4 right-auto top-1/2 z-10 -translate-y-1/2 cursor-pointer !bg-white opacity-90 hidden md:block"
       @click.prevent="slider.prev()"
     >
-      <wc-icon name="chevronLeft" color="gray900" />
+      <wc-icon name="chevronLeft" class="text-gray-900" />
     </wc-button>
 
     <div
@@ -83,7 +83,7 @@
       class="absolute right-4 left-auto top-1/2 z-10 -translate-y-1/2 cursor-pointer !bg-white opacity-90 hidden md:block"
       @click.prevent="slider.next()"
     >
-      <wc-icon name="chevronRight" color="gray900" />
+      <wc-icon name="chevronRight" class="text-gray-900" />
     </wc-button>
 
     <div

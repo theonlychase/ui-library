@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import controls from './controls';
+  import controls from './controls.js';
   import { setDefaultControls } from '@/utils/stories';
   import { mockOptions } from '@/utils/stories';
   const value = ref('');

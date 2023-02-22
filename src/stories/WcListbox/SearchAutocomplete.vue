@@ -50,7 +50,7 @@
       <template #no-results>
         <div class="flex items-center">
           <span class="mr-2">
-            <wc-icon name="exclamationCircle" color="yellow500" size="xSmall" />
+            <wc-icon name="exclamationCircle" class="text-yellow-500" size="xSmall" />
           </span>
 
           <span class="truncate flex-1"> Custom No Results Message... </span>

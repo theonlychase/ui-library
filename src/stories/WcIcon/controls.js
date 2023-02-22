@@ -8,8 +8,7 @@ export default {
       value: 'medium',
       options: ['xxSmall', 'xSmall', 'small', 'medium', 'large', 'xLarge'],
     },
-    description:
-      'Icon sizes are: <span class="font-bold">xxSmall, xSmall, small, medium, large, xLarge</span>',
+    description: 'Icon sizes are: <span class="font-bold">xxSmall, xSmall, small, medium, large, xLarge</span>',
   },
   name: {
     name: 'name',
@@ -24,18 +23,15 @@ export default {
     name: 'color',
     type: 'select',
     props: {
-      value: 'blue500',
-      options: ['blue500', 'gray500', 'green500', 'orange500', 'red500'],
+      value: 'text-blue-500 hover:text-blue-600',
+      options: [
+        'text-blue-500 hover:text-blue-600',
+        'text-gray-500 hover:text-gray-600',
+        'text-green-500 hover:text-green-600',
+        'text-orange-500 hover:text-orange-600',
+        'text-red-500 hover:text-red-600',
+      ],
     },
     description: 'Valid color name for icon color',
-  },
-  hoverColor: {
-    name: 'hoverColor',
-    type: 'select',
-    props: {
-      value: 'blue600',
-      options: ['blue600', 'gray600', 'green600', 'orange600', 'red600'],
-    },
-    description: 'Valid color name for icon hover color',
   },
 };

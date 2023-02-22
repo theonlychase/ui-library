@@ -1,11 +1,5 @@
 <script setup lang="ts">
-  import {
-    ComponentOptionsWithArrayProps,
-    computed,
-    ref,
-    Ref,
-    watch,
-  } from 'vue';
+  import { ComponentOptionsWithArrayProps, computed, ref, Ref, watch } from 'vue';
   import WcIcon from '../WcIcon';
 
   const emit = defineEmits(['focus', 'keydown', 'update:value']);
@@ -95,11 +89,7 @@
     if (props.loading) {
       return 'spinner';
     }
-    return !props.error
-      ? isClearable.value
-        ? 'xCircle'
-        : props.iconRight
-      : 'exclamationCircle';
+    return !props.error ? (isClearable.value ? 'xCircle' : props.iconRight) : 'exclamationCircle';
   });
 
   const clear = (): void => {
@@ -134,40 +124,26 @@
   <div
     :class="{
       '!rounded-full': variation === 'pill',
-      'bg-gray-50 border-b-2 shadow-none rounded-none':
-        variation === 'underline',
+      'bg-gray-50 border-b-2 shadow-none rounded-none': variation === 'underline',
       '!border-red-500': error && variation === 'underline',
-      '!border-red-500 !ring-1 !ring-red-500':
-        error && variation !== 'underline',
+      '!border-red-500 !ring-1 !ring-red-500': error && variation !== 'underline',
       '!border-blue-500 !ring-1 !ring-blue-500': keepFocus,
-      'shadow-sm border focus-within:ring-1 focus-within:ring-blue-500':
-        variation !== 'underline',
+      'shadow-sm border focus-within:ring-1 focus-within:ring-blue-500': variation !== 'underline',
       'bg-gray-50 pointer-events-none': disabled,
       [`${customClasses}`]: customClasses,
     }"
-    class="mt-1 relative rounded-md px-3 py-2 border-gray-300 bg-white focus-within:border-blue-500 transition-all"
+    class="relative rounded-md px-3 py-2 border-gray-300 bg-white focus-within:border-blue-500 transition-all"
   >
-    <div
-      v-if="iconLeft && variation !== 'labelInset'"
-      class="absolute inset-y-0 left-0 pl-3 flex items-center"
-    >
-      <wc-icon
-        :name="iconLeft"
-        size="xSmall"
-        color="gray400"
-        view-box="0 0 20 20"
-      />
+    <div v-if="iconLeft && variation !== 'labelInset'" class="absolute inset-y-0 left-0 pl-3 flex items-center">
+      <wc-icon :name="iconLeft" size="xSmall" class="text-gray-400" view-box="0 0 20 20" />
     </div>
 
     <label
-      v-if="
-        label && (variation === 'labelOverlap' || variation === 'labelInset')
-      "
+      v-if="label && (variation === 'labelOverlap' || variation === 'labelInset')"
       :for="label"
       :class="{
         block: variation === 'labelInset',
-        'absolute -top-2 left-2 -mt-px inline-block px-1':
-          variation === 'labelOverlap',
+        'absolute -top-2 left-2 -mt-px inline-block px-1': variation === 'labelOverlap',
         'bg-gray-50': disabled,
       }"
       class="bg-white text-xs font-medium text-gray-900"
@@ -207,9 +183,12 @@
       <wc-icon
         :name="getRightIcon"
         size="xSmall"
-        :color="loading ? 'blue500' : error ? 'red500' : 'gray400'"
-        :class="loading && 'animate-spin'"
-        view-box="0 0 20 20"
+        :class="[{
+          'animate-spin text-blue-500': loading,
+          'text-red-500': error,
+          'text-gray-400': !loading && !error
+        }]"
+        :attrs="{ viewBox: loading ? '0 0 24 24' : '0 0 20 20'}"
       />
     </div>
 

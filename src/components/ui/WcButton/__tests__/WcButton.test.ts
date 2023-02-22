@@ -105,12 +105,7 @@ describe('WcButton', () => {
 
     // text
     await wrapper.setProps({ variation: 'text' });
-    classes = [
-      'bg-transparent',
-      'shadow-none',
-      'text-gray-700',
-      'hover:bg-gray-100',
-    ];
+    classes = ['bg-transparent', 'shadow-none', 'text-gray-700', 'hover:bg-gray-100'];
     classes.forEach((val) => {
       expect(wrapper.classes()).toContain(val);
     });

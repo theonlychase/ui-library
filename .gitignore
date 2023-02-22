@@ -5,3 +5,6 @@ dist-ssr
 lib/dist
 lib/.npmrc
 *.local
+
+# Local Netlify folder
+.netlify

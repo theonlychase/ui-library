@@ -14,11 +14,11 @@
     <template v-if="$route.query.iconLeft" #icon-left>
       <wc-icon
         name="plus"
-        :color="
+        :class="
           $route.query.variation === 'white' ||
           $route.query.variation === 'text'
-            ? 'gray700'
-            : 'white'
+            ? 'text-gray-700'
+            : 'text-white'
         "
         size="xSmall"
       />
@@ -26,10 +26,10 @@
     <wc-icon
       v-if="$route.query.circle"
       name="plus"
-      :color="
+      :class="
         $route.query.variation === 'white' || $route.query.variation === 'text'
-          ? 'gray700'
-          : 'white'
+          ? 'text-gray-700'
+          : 'text-white'
       "
       size="xSmall"
     />
@@ -37,11 +37,11 @@
     <template v-if="$route.query.iconRight" #icon-right>
       <wc-icon
         name="chevronRight"
-        :color="
+        :class="
           $route.query.variation === 'white' ||
           $route.query.variation === 'text'
-            ? 'gray700'
-            : 'white'
+            ? 'text-gray-700'
+            : 'text-white'
         "
         size="xSmall"
       />

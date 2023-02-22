@@ -48,7 +48,7 @@
       class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
     >
       <slot name="icon-right">
-        <wc-icon name="selector" color="gray400" size="xSmall" />
+        <wc-icon name="selector" class="text-gray-400" size="xSmall" />
       </slot>
     </span>
   </button>

@@ -21,3 +21,4 @@ export { default as WcSwiper } from './ui/WcSwiper/WcSwiper.vue';
 export { default as WcSwiperSlide } from './ui/WcSwiper/WcSwiperSlide.vue';
 export { default as WcTabs } from './ui/WcTabs/WcTabs.vue';
 export { default as WcToggle } from './ui/WcToggle/WcToggle.vue';
+export { default as WcTypewriter } from './ui/WcTypewriter/WcTypewriter.vue';
