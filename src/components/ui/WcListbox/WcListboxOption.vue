@@ -27,8 +27,7 @@
       option
         ? {
             'hover:bg-gray-100': option !== selectedValue,
-            'bg-gray-100': index === highlightedIndex,
-            'bg-gray-100': option === selectedValue,
+            'bg-gray-100': index === highlightedIndex || option === selectedValue,
             'font-semibold': option === selectedValue,
             'font-normal': option !== selectedValue,
           }
